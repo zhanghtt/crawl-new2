@@ -1,0 +1,15 @@
+2020-08-10 16:15:24,179 - spider.py - MainProcess - [line:260] - ERROR: request() missing 1 required positional argument: 'method'
+Traceback (most recent call last):
+  File "D:\Users\admin\PycharmProjects\crawl-master\multiprocess\core\spider.py", line 257, in do_request
+    r = s.request(**request)
+TypeError: request() missing 1 required positional argument: 'method'
+2020-08-10 16:20:07,080 - spider.py - MainProcess - [line:260] - ERROR: request() missing 1 required positional argument: 'method'
+Traceback (most recent call last):
+  File "D:\Users\admin\PycharmProjects\crawl-master\multiprocess\core\spider.py", line 257, in do_request
+    r = s.request(**request)
+TypeError: request() missing 1 required positional argument: 'method'
+2020-08-10 16:20:30,954 - spider.py - MainProcess - [line:260] - ERROR: request() missing 1 required positional argument: 'method'
+Traceback (most recent call last):
+  File "D:\Users\admin\PycharmProjects\crawl-master\multiprocess\core\spider.py", line 257, in do_request
+    r = s.request(**request)
+TypeError: request() missing 1 required positional argument: 'method'
