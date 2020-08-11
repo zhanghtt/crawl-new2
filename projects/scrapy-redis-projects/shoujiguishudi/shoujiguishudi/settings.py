@@ -42,18 +42,13 @@ REDIS_START_URLS_AS_SET = True
 
 #是否启用扩展，启用扩展为 True， 不启用为 False
 MYEXT_ENABLED=True      # 开启扩展
-#关闭爬虫的持续空闲次数，持续空闲次数超过IDLE_NUMBER，爬虫会被关闭。默认为 360 ，也就是30分钟，一分钟12个时间单位
-IDLE_NUMBER=36         # 配置空闲持续时间单位为 360个 ，一个时间单位为5s
-
 # redis 空跑时间 秒
-IDLE_TIME=36
+IDLE_TIME = 20
 
 # 同时扩展里面加入这个
 EXTENSIONS = {
     #'shoujiguishudi.extensions.RedisSpiderClosedExensions': 500,
 }
-CLOSESPIDER_TIMEOUT=60
-#import scrapy.downloadermiddlewares.retry.RetryMiddleware
 MONGO_URL="mongodb://192.168.0.13:27017"
 
 LOG_FILE = 'log.txt'
@@ -79,8 +74,8 @@ ITEM_PIPELINES = {
 
 CONCURRENT_ITEMS = 10
 CONCURRENT_REQUESTS = 10
-CONCURRENT_REQUESTS_PER_DOMAIN = 10
-CONCURRENT_REQUESTS_PER_IP = 10
+CONCURRENT_REQUESTS_PER_DOMAIN = 100
+CONCURRENT_REQUESTS_PER_IP = 100
 
 DOWNLOAD_DELAY = 0.1
 DOWNLOAD_TIMEOUT = 8

@@ -31,7 +31,7 @@ class CustomHeadersDownLoadMiddleware(object):
         request.headers["Accept"]="text/html,application/xhtml+xml,application/xml;q=0.9,image/webp;q=0.8"
         request.headers["Accept-Charset"] = "gb2312,gbk;q=0.7,utf-8;q=0.7,*;q=0.7"
         request.meta['proxy'] = random.choice(self.get_http_proxy())
-        self.logger.debug((request.headers, request.meta))
+        self.logger.info((request.headers,request.meta))
 
     @property
     def logger(self):

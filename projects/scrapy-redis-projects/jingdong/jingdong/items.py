@@ -8,17 +8,13 @@ from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose, TakeFirst, Join
 
 
-class ExampleItem(Item):
-    name = Field()
-    description = Field()
-    link = Field()
-    crawled = Field()
-    spider = Field()
-    url = Field()
+class PhoneNumItem(Item):
+    _seed = Field()
+    phonenumber = Field()
+    province = Field()
+    city = Field()
+    company = Field()
 
 
-class ExampleLoader(ItemLoader):
-    default_item_class = ExampleItem
-    default_input_processor = MapCompose(lambda s: s.strip())
-    default_output_processor = TakeFirst()
-    description_out = Join()
+class FailedItem(Item):
+    _seed = Field()

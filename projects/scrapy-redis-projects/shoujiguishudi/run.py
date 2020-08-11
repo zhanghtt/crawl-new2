@@ -1,18 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor
+from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor,Master,Slaver,ThreadMongoWriter
 
 
-class shoujiguishudirunner(ClusterRunner):
+class ShouJiSlaver(Slaver):
+    def get_thread_monitor(self):
+        thread_monitor = ThreadMonitor(redis_key=self.start_urls_redis_key, bar_name=self.start_urls_redis_key)
+        thread_monitor.setDaemon(True)
+        return thread_monitor
+
+
+class ShouJiMaster(Master):
     def __init__(self, *args, **kwargs):
-        super(shoujiguishudirunner, self).__init__(*args, **kwargs)
+        super(ShouJiMaster, self).__init__(*args, **kwargs)
 
     def init_start_urls(self):
         self.redis.delete(self.start_urls_redis_key)
         self.redis.delete(self.items_redis_key)
         buffer = []
         buffer_size = 1024
-        for i, seed in enumerate(open("shoujiguishudi/resource/buyer_phone.3")):
+        for i, seed in enumerate(open("shoujiguishudi/resource/buyer_phone")):
             seed = seed.strip()
             url = "http://shouji.xpcha.com/{0}.html".format(seed)
             data = {"url": url, "meta": {"_seed": seed}}
@@ -24,9 +31,12 @@ class shoujiguishudirunner(ClusterRunner):
             self.redis.sadd(self.start_urls_redis_key, *buffer)
 
     def get_thread_writer(self):
-        thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, bar_name=self.items_redis_key,
-                                         out_file="shoujiguishudi/result/shoujiguishudi.txt",
-                                       table_header=["_seed","_status","phonenumber", "province", "city", "company"])
+        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*30,
+                                          out_mongo_url="mongodb://192.168.0.13:27017",
+                                          db_collection=("jicheng","shoujiguishudi"), bar_name=self.items_redis_key)
+        # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, bar_name=self.items_redis_key,
+        #                                  out_file="shoujiguishudi/result/shoujiguishudi.txt",
+        #                                table_header=["_seed","_status","phonenumber", "province", "city", "company"])
         thread_writer.setDaemon(False)
         return thread_writer
 
@@ -37,8 +47,11 @@ class shoujiguishudirunner(ClusterRunner):
 
 
 if __name__ == '__main__':
-    runner = shoujiguishudirunner(spider_name="shoujiguishudi", spider_num=16)
-    runner.run()
+    master = ShouJiMaster(spider_name="shoujiguishudi", spider_num=16, write_asyn=True)
+    master.run()
+
+    # slaver = ShouJiSlaver(spider_name="shoujiguishudi", spider_num=16)
+    # slaver.run()
     # r1 = set()
     # for i in open("shoujiguishudi/resource/buyer_phone.3"):
     #     r1.add(i.strip())

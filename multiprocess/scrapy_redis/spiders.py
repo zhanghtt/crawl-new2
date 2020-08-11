@@ -58,10 +58,11 @@ class ThreadMonitor(threading.Thread):
 
 
 class ThreadWriter(threading.Thread):
-    def __init__(self, redis_key, interval=1, bar_name=None, buffer_size=512):
+    def __init__(self, redis_key, bar_name=None, buffer_size=512, show_pbar=True, stop_epoch=12*30):
         threading.Thread.__init__(self)
+        self.show_pbar = show_pbar
         self.stop = False
-        self.interval = interval
+        self.stop_epoch = stop_epoch
         self.buffer_size = buffer_size
         self.counter = 0
         self.setting = get_project_settings()
@@ -85,18 +86,40 @@ class ThreadWriter(threading.Thread):
     def cleanup(self):
         pass
 
+    @property
+    def logger(self):
+        logger = logging.getLogger(__name__)
+        return logging.LoggerAdapter(logger, {'ThreadWriter': self})
+
     def run(self):
-        with tqdm(total=self.total, desc=self.bar_name) as pbar:
-            retries = 30
+        if self.show_pbar:
+            with tqdm(total=self.total, desc=self.bar_name) as pbar:
+                retries = self.stop_epoch
+                while not self.stop:
+                    current_element = self.redis.lpop(self.redis_key)
+                    if current_element:
+                        pbar.update(1)
+                        self.write(current_element)
+                        retries = self.stop_epoch
+                    else:
+                        self.flush()
+                        retries = retries - 1
+                        time.sleep(5)
+                    if retries <= 0:
+                        self.stop = True
+                self.flush()
+                self.cleanup()
+        else:
+            retries = self.stop_epoch
             while not self.stop:
                 current_element = self.redis.lpop(self.redis_key)
                 if current_element:
-                    pbar.update(1)
                     self.write(current_element)
-                    retries = 30
+                    retries = self.stop_epoch
                 else:
+                    self.flush()
                     retries = retries - 1
-                    time.sleep(1)
+                    time.sleep(5)
                 if retries <= 0:
                     self.stop = True
             self.flush()
@@ -104,8 +127,9 @@ class ThreadWriter(threading.Thread):
 
 
 class ThreadFileWriter(ThreadWriter):
-    def __init__(self, redis_key, out_file, table_header, interval=1, bar_name=None, buffer_size=32):
-        super(ThreadFileWriter, self).__init__(redis_key=redis_key, interval=interval, bar_name=bar_name, buffer_size=buffer_size)
+    def __init__(self, redis_key, out_file, table_header, stop_epoch=12*1, bar_name=None, buffer_size=32):
+        super(ThreadFileWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch,
+                                               bar_name=bar_name, buffer_size=buffer_size)
         self.out_file = out_file
         self.out = open(self.out_file, "w")
         self.table_header = table_header
@@ -161,10 +185,10 @@ class ThreadFileWriter(ThreadWriter):
 
 
 class ThreadMongoWriter(ThreadWriter):
-    def __init__(self, redis_key, out_mongo_url, collection, interval=1, bar_name=None, buffer_size=512):
-        super(ThreadMongoWriter, self).__init__(redis_key=redis_key, interval=interval, bar_name=bar_name, buffer_size=buffer_size)
+    def __init__(self, redis_key, out_mongo_url, db_collection, stop_epoch=12*1, bar_name=None, buffer_size=512):
+        super(ThreadMongoWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch, bar_name=bar_name, buffer_size=buffer_size)
         self.db = pymongo.MongoClient(out_mongo_url)
-        self.out = self.db[collection]
+        self.out = self.db[db_collection[0]][db_collection[1]]
         self.buffer = []
 
     def stop(self):
@@ -172,6 +196,7 @@ class ThreadMongoWriter(ThreadWriter):
 
     def write(self, item):
         self.counter = self.counter + 1
+        item = eval(item)
         self.buffer.append(item)
         if self.counter % self.buffer_size == 0:
             self.out.insert_many(self.buffer)
@@ -186,21 +211,14 @@ class ThreadMongoWriter(ThreadWriter):
         self.db.close()
 
 
-from scrapy.cmdline import execute
-from scrapy_redis.connection import (
-    from_settings,
-    get_redis,
-    get_redis_from_settings,
-)
 from scrapy.utils.project import get_project_settings
-
 from scrapy_redis.connection import get_redis_from_settings
-
 import logging
 
 
 class ClusterRunner(object):
-    def __init__(self, spider_name, thread_writer=None, spider_num=psutil.cpu_count(logical=True)):
+    def __init__(self, spider_name, spider_num=psutil.cpu_count(logical=True),  write_asyn=True):
+        self.write_asyn = write_asyn
         self.spider_name = spider_name
         self.spider_num = spider_num
         self.start_urls_redis_key = "%(name)s:start_urls" % {"name": self.spider_name}
@@ -245,27 +263,160 @@ class ClusterRunner(object):
             self.thread_monitor.start()
             self.logger.info("start monitor success !")
 
-        #开启爬虫
-        self.spider_list = []
-        if self.spider_num > 1:
+        if self.write_asyn:
+            #开启爬虫
+            if self.spider_num > 1:
+                process = CrawlerProcess(get_project_settings())
+                for spider in [self.spider_name]*self.spider_num:
+                    process.crawl(spider)  # 根据爬虫名列表爬取
+                process.start()
+            elif self.spider_num == 1:
+                self.logger.info("mode : run in standalone !")
+                self.run_spider(spider_name=self.spider_name)
+
+
+            self.thread_writer = self.get_thread_writer()
+            if self.thread_writer:
+                # 开启写线程
+                self.thread_writer.start()
+                self.logger.info("start writer success !")
+                # 开启爬虫
+                if self.spider_num > 1:
+                    process = CrawlerProcess(get_project_settings())
+                    for spider in [self.spider_name] * self.spider_num:
+                        process.crawl(spider)  # 根据爬虫名列表爬取
+                    process.start()
+                elif self.spider_num == 1:
+                    self.logger.info("mode : run in standalone !")
+                    self.run_spider(spider_name=self.spider_name)
+                self.thread_writer.join()
+        else:
+            # 开启爬虫
+            if self.spider_num > 1:
+                process = CrawlerProcess(get_project_settings())
+                for spider in [self.spider_name] * self.spider_num:
+                    process.crawl(spider)  # 根据爬虫名列表爬取
+                process.start()
+            elif self.spider_num == 1:
+                self.logger.info("mode : run in standalone !")
+                self.run_spider(spider_name=self.spider_name)
+
+            # 开启写线程
+            self.thread_writer = self.get_thread_writer()
+            if self.thread_writer:
+                self.thread_writer.start()
+                self.logger.info("start writer success !")
+                self.thread_writer.join()
+
+
+class Cluster(object):
+    def __init__(self, spider_name, spider_num=psutil.cpu_count(logical=True)):
+        self.spider_name = spider_name
+        self.spider_num = spider_num
+        self.start_urls_redis_key = "%(name)s:start_urls" % {"name": self.spider_name}
+        self.items_redis_key = "%(name)s:items" % {"name": self.spider_name}
+        self.setting = get_project_settings()
+        self.logger = self.get_loger()
+        self.redis = get_redis_from_settings(self.setting)
+        self.logger.info(self.redis)
+
+    def get_loger(self):
+        log_config = {}
+        parmer_map = {"LOG_LEVEL":"level","LOG_FILE":"filename","LOG_FORMAT":"format"}
+        for key in self.setting:
+            if key in parmer_map:
+                log_config[parmer_map[key]] = self.setting[key]
+        logging.basicConfig(**log_config)
+        return logging.getLogger(__name__)
+
+    def run(self):
+        if self.spider_num >=1 :
             process = CrawlerProcess(get_project_settings())
-            for spider in ["shoujiguishudi"]*self.spider_num:
+            for spider in [self.spider_name]*self.spider_num:
                 process.crawl(spider)  # 根据爬虫名列表爬取
             process.start()
-            # for i in range(self.spider_num):
-            #     self.spider_list.append(Process(target=self.run_spider, name=self.spider_name + "-" + str(i), kwargs={"spider_name": self.spider_name}))
-            # for p in self.spider_list:
-            #     p.daemon = True
-            #     p.start()
-            # for p in self.spider_list:
-            #     p.join()
-        elif self.spider_num == 1:
-            self.logger.info("mode : run in standalone !")
-            self.run_spider(spider_name=self.spider_name)
 
-        # 开启写线程
-        self.thread_writer = self.get_thread_writer()
-        if self.thread_writer:
-            self.thread_writer.start()
-            self.logger.info("start writer success !")
-            self.thread_writer.join()
+
+class Slaver(Cluster):
+    def __init__(self, *args, **kwargs):
+        super(Slaver, self).__init__(*args, **kwargs)
+
+    def get_thread_monitor(self):
+        pass
+
+    def run(self):
+        if self.spider_num <= 0:
+            return
+        #初始化种子URL
+        #开启监控线程
+        self.thread_monitor = self.get_thread_monitor()
+        if self.thread_monitor:
+            self.thread_monitor.start()
+            self.logger.info("start monitor success !")
+
+
+class Master(Cluster):
+    def __init__(self, write_asyn=True, *args, **kwargs):
+        super(Master, self).__init__(*args, **kwargs)
+        self.write_asyn = write_asyn
+
+    def get_thread_writer(self):
+        return NotImplementedError
+
+    def get_thread_monitor(self):
+        return NotImplementedError
+
+    @classmethod
+    def run_spider(cls, spider_name):
+        from scrapy.cmdline import execute
+        execute(['scrapy', 'crawl', spider_name])
+
+    def init_start_urls(self):
+        raise NotImplementedError
+
+    def run(self):
+        if self.spider_num == 0 and not self.write_asyn:
+            return
+        #初始化种子URL
+        self.init_start_urls()
+        #开启监控线程
+        self.thread_monitor = self.get_thread_monitor()
+        if self.thread_monitor:
+            self.thread_monitor.start()
+            self.logger.info("start monitor success !")
+        if self.write_asyn:
+            self.thread_writer = self.get_thread_writer()
+            if self.thread_writer:
+                self.thread_writer.show_pbar = False
+                if self.spider_num == 0:
+                    #如果master不开爬虫任务，只负责init_start_urls()，并且self.thread_writer一直等待 需要手动关闭
+                    self.thread_writer.stop_epoch = 10000000000
+                # 开启写线程
+                self.thread_writer.start()
+                self.logger.info("start writer success !")
+                # 开启爬虫
+                if self.spider_num > 1:
+                    process = CrawlerProcess(get_project_settings())
+                    for spider in [self.spider_name] * self.spider_num:
+                        process.crawl(spider)  # 根据爬虫名列表爬取
+                    process.start()
+                elif self.spider_num == 1:
+                    self.logger.info("mode : run in standalone !")
+                    self.run_spider(spider_name=self.spider_name)
+                self.thread_writer.join()
+        else:
+            # 开启爬虫
+            if self.spider_num > 1:
+                process = CrawlerProcess(get_project_settings())
+                for spider in [self.spider_name] * self.spider_num:
+                    process.crawl(spider)  # 根据爬虫名列表爬取
+                process.start()
+            elif self.spider_num == 1:
+                self.logger.info("mode : run in standalone !")
+                self.run_spider(spider_name=self.spider_name)
+            # 开启写线程
+            self.thread_writer = self.get_thread_writer()
+            if self.thread_writer:
+                self.thread_writer.start()
+                self.logger.info("start writer success !")
+                self.thread_writer.join()
