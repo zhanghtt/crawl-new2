@@ -3,13 +3,6 @@
 from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor,Master,Slaver,ThreadMongoWriter
 
 
-class ShouJiSlaver(Slaver):
-    def get_thread_monitor(self):
-        thread_monitor = ThreadMonitor(redis_key=self.start_urls_redis_key, bar_name=self.start_urls_redis_key)
-        thread_monitor.setDaemon(True)
-        return thread_monitor
-
-
 class ShouJiMaster(Master):
     def __init__(self, *args, **kwargs):
         super(ShouJiMaster, self).__init__(*args, **kwargs)
@@ -31,7 +24,7 @@ class ShouJiMaster(Master):
             self.redis.sadd(self.start_urls_redis_key, *buffer)
 
     def get_thread_writer(self):
-        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*30,
+        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*1,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
                                           db_collection=("jicheng","shoujiguishudi"), bar_name=self.items_redis_key)
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, bar_name=self.items_redis_key,
@@ -41,7 +34,9 @@ class ShouJiMaster(Master):
         return thread_writer
 
     def get_thread_monitor(self):
-        thread_monitor = ThreadMonitor(redis_key=self.start_urls_redis_key, bar_name=self.start_urls_redis_key)
+        thread_monitor = ThreadMonitor(redis_key=self.start_urls_redis_key,
+                                       start_urls_num_redis_key=self.start_urls_num_redis_key,
+                                       bar_name=self.start_urls_redis_key)
         thread_monitor.setDaemon(True)
         return thread_monitor
 
@@ -49,14 +44,3 @@ class ShouJiMaster(Master):
 if __name__ == '__main__':
     master = ShouJiMaster(spider_name="shoujiguishudi", spider_num=16, write_asyn=True)
     master.run()
-
-    # slaver = ShouJiSlaver(spider_name="shoujiguishudi", spider_num=16)
-    # slaver.run()
-    # r1 = set()
-    # for i in open("shoujiguishudi/resource/buyer_phone.3"):
-    #     r1.add(i.strip())
-    # r2 = set()
-    # for i in open("shoujiguishudi/result/shoujiguishudi.txt"):
-    #     r2.add(i.split("\t")[0])
-    #
-    # print(r1-r2)

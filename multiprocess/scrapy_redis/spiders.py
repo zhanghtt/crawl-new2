@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import threading
 import time
-from multiprocessing import Process
 
 import psutil
 import pymongo
@@ -29,13 +28,14 @@ class JiChengSpider(RedisSpider):
 
 
 class ThreadMonitor(threading.Thread):
-    def __init__(self, redis_key, interval=1, bar_name=None):
+    def __init__(self, redis_key, start_urls_num_redis_key, interval=1, bar_name=None):
         threading.Thread.__init__(self)
+        self.start_urls_num_redis_key = start_urls_num_redis_key
         self.setDaemon(True)
         self.setting = get_project_settings()
         self.redis = get_redis_from_settings(self.setting)
         self.redis_key = redis_key
-        self.total = self.redis.scard(self.redis_key)
+        self.total = int(self.redis.get(self.start_urls_num_redis_key))
         self.interval = interval
         if bar_name:
             self.bar_name = bar_name
@@ -144,23 +144,7 @@ class ThreadFileWriter(ThreadWriter):
         item = eval(item)
         self.buffer.append(item)
         if self.counter % self.buffer_size == 0:
-            self.counter = 0
-            values = []
-            for item in self.buffer:
-                value = ""
-                for key in self.table_header:
-                    if key in item:
-                        if value:
-                            value = value + "\t" + str(item[key])
-                        else:
-                            value = str(item[key])
-                    else:
-                        value = value + "\t" + "NA"
-                if value:
-                    values.append(value)
-            #values = ["\t".join([str(item[key]) for key in self.table_header]) for item in self.buffer]
-            self.out.write("\n".join(values) + "\n")
-            self.buffer = []
+            self.flush()
 
     def flush(self):
         if self.buffer:
@@ -179,6 +163,7 @@ class ThreadFileWriter(ThreadWriter):
                 if value:
                     values.append(value)
             self.out.write("\n".join(values) + "\n")
+            self.counter = 0
 
     def cleanup(self):
         self.out.close()
@@ -199,13 +184,13 @@ class ThreadMongoWriter(ThreadWriter):
         item = eval(item)
         self.buffer.append(item)
         if self.counter % self.buffer_size == 0:
-            self.out.insert_many(self.buffer)
-            self.buffer = []
-            self.counter = 0
+            self.flush()
 
     def flush(self):
         if self.buffer:
             self.out.insert_many(self.buffer)
+            self.buffer = []
+            self.counter = 0
 
     def cleanup(self):
         self.db.close()
@@ -315,6 +300,7 @@ class Cluster(object):
         self.spider_num = spider_num
         self.start_urls_redis_key = "%(name)s:start_urls" % {"name": self.spider_name}
         self.items_redis_key = "%(name)s:items" % {"name": self.spider_name}
+        self.start_urls_num_redis_key = "%(name)s:start_urls_num" % {"name": self.spider_name}
         self.setting = get_project_settings()
         self.logger = self.get_loger()
         self.redis = get_redis_from_settings(self.setting)
@@ -330,7 +316,7 @@ class Cluster(object):
         return logging.getLogger(__name__)
 
     def run(self):
-        if self.spider_num >=1 :
+        if self.spider_num >= 1:
             process = CrawlerProcess(get_project_settings())
             for spider in [self.spider_name]*self.spider_num:
                 process.crawl(spider)  # 根据爬虫名列表爬取
@@ -353,6 +339,11 @@ class Slaver(Cluster):
         if self.thread_monitor:
             self.thread_monitor.start()
             self.logger.info("start monitor success !")
+        if self.spider_num >= 1:
+            process = CrawlerProcess(get_project_settings())
+            for spider in [self.spider_name]*self.spider_num:
+                process.crawl(spider)  # 根据爬虫名列表爬取
+            process.start()
 
 
 class Master(Cluster):
@@ -379,6 +370,7 @@ class Master(Cluster):
             return
         #初始化种子URL
         self.init_start_urls()
+        self.redis.set(self.start_urls_num_redis_key, self.redis.scard(self.start_urls_redis_key))
         #开启监控线程
         self.thread_monitor = self.get_thread_monitor()
         if self.thread_monitor:
