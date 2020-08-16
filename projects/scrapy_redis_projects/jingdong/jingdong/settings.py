@@ -58,7 +58,7 @@ EXTENSIONS = {
 MONGO_URL="mongodb://192.168.0.13:27017"
 
 #LOG_FILE = 'log.txt'
-LOG_LEVEL = 'INFO'
+LOG_LEVEL = 'DEBUG'
 LOG_ENABLED = True #是否启动日志记录，默认True
 LOG_ENCODING = 'UTF-8'
 LOG_FORMAT='%(asctime)s - %(filename)s -[process:%(processName)s,threadid:%(thread)d]- [line:%(lineno)d] - %(levelname)s: %(message)s'

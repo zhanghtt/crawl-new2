@@ -24,7 +24,7 @@ class JiChengSpider(RedisSpider):
     def make_request_from_data(self, data):
         data = bytes_to_str(data, self.redis_encoding)
         data = eval(data)
-        return Request(url=data["url"], meta=data["meta"], dont_filter=True)
+        return Request(url=data["url"], meta=data["meta"], dont_filter=True, priority=0)
 
 
 class ThreadMonitor(threading.Thread):
