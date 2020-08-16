@@ -50,7 +50,7 @@ class Seed(object):
         self.counter = Counter()
 
     def __str__(self):
-        return str(self.value) + "," + str(self.type) + "," + str(self.is_ok)
+        return str(self.value) + "\t" + str(self.type) + "\t" + str(self.is_ok)
 
     def sleep(self, rest_time):
         self.last_time = time.time()

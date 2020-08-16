@@ -44,9 +44,10 @@ class CustomHeadersDownLoadMiddleware(object):
 
     def process_request(self, request, spider):
         request.headers['user-agent'] = self.user_agent.chrome
-        request.headers["Connection"] = "close"
-        request.headers["Host"] = "club.jd.com"
-        request.headers["Referer"] = "https://item.jd.com/{0}.html".format(request.meta["_seed"])
+        request.headers['Connection'] = "keep-alive"
+        if request.meta.get("headers"):
+            for k in request.meta.get("headers"):
+                request.headers[k] = request.meta.get("headers")[k]
         if request.meta.get("need_switch_proxy"):
             old = self.current_proxy
             self.current_proxy = self.get_new_proxy()
@@ -130,9 +131,6 @@ class RetryMiddleware(object):
             reason = response_status_message(response.status)
             ret = self._retry(request, reason, spider)
             if ret:
-                if response.status in [503]:
-                    if self.need_switch_proxy:
-                        ret.meta["need_switch_proxy"] = True
                 return ret
             else:
                 #重试次数达到状态
@@ -154,7 +152,9 @@ class RetryMiddleware(object):
             isinstance(exception, self.EXCEPTIONS_TO_RETRY)
             and not request.meta.get('dont_retry', False)
         ):
-            #if isinstance(exception, (TunnelError, defer.TimeoutError, TimeoutError)):
+            if isinstance(exception, (TunnelError, defer.TimeoutError, TimeoutError)):
+                if self.need_switch_proxy:
+                    request.meta["need_switch_proxy"] = True
             return self._retry(request, exception, spider)
 
     def _retry(self, request, reason, spider):

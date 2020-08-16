@@ -359,7 +359,7 @@ class Master(Cluster):
     def get_thread_monitor(self):
         return NotImplementedError
 
-    def init_proxies_set(self, proxies=getHttpProxy()):
+    def init_proxies_queue(self, proxies=getHttpProxy()):
         self.redis.delete(self.http_proxies_queue_redis_key)
         buffer = [str(None)]
         for proxy in proxies:
@@ -373,7 +373,7 @@ class Master(Cluster):
         if self.spider_num == 0 and not self.write_asyn:
             return
         #初始化代理池
-        self.init_proxies_set()
+        self.init_proxies_queue()
         #初始化种子URL
         self.init_start_urls()
         self.redis.set(self.start_urls_num_redis_key, self.redis.scard(self.start_urls_redis_key))

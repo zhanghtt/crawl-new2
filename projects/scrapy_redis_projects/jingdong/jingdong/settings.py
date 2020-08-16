@@ -72,12 +72,11 @@ DOWNLOADER_MIDDLEWARES = {
         #"jingdong.downloader_middlewares.RetryMiddleware": 550,
         "jingdong.downloader_middlewares.RetryMiddleware": 550,
         'jingdong.downloader_middlewares.ProcessAllExceptionMiddleware': 549,
-        'jingdong.downloader_middlewares.RandomDelayMiddleware': 551,
+        #'jingdong.downloader_middlewares.RandomDelayMiddleware': 551,
         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
         'scrapy.downloadermiddlewares.stats.DownloaderStats': None,
         "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware": 350,
     }
-import scrapy.downloadermiddlewares.d
 ITEM_PIPELINES = {
     'scrapy_redis.pipelines.RedisPipeline': 400,
 }

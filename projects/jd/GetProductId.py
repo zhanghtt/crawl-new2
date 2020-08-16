@@ -31,8 +31,6 @@ class GetProductId(SpiderManger):
             ]
             data_set = collections.DataSet(m.read_from(db_collect=("jingdong", last_brand_collect), out_field=("cate_id", "brand_id","name"), pipeline=pipeline))
             for i, seed in enumerate(data_set.distinct()):
-                if i > 2:
-                    break
                 self.seeds_queue.put(Seed(value=seed, retries=self.retries, type=0))
         self.first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
         self.skuids_pettern = re.compile(r'{.*?"skuId":(\d+).*?}')

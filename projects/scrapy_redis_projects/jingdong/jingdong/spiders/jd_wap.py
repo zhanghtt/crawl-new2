@@ -1,14 +1,34 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import re
+
+from multiprocess.scrapy_redis.spiders import JiChengSpider
+
+
+class Spider(JiChengSpider):
+    """Spider that reads urls from redis queue (myspider:start_urls)."""
+    name = 'jd_comment'
+    allcnt_pattern = re.compile(r'"commentCount":(\d+),')
+
+    def parse(self, response):
+        count = self.allcnt_pattern.findall(response.text)
+        if not count:
+            yield {"skuid": response.meta["_seed"], "comment": "0", }
+        else:
+            yield {"skuid": response.meta["_seed"], "comment": str(count[0])}
+
 from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor,Master,Slaver,ThreadMongoWriter
 from multiprocess.tools import collections, timeUtil
-
+from multiprocess.core.HttpProxy import getHttpProxy,getHttpsProxy
 current_date = timeUtil.current_time()
 
 
-class JDCommentMaster(Master):
+class Master(Master):
     def __init__(self, *args, **kwargs):
-        super(JDCommentMaster, self).__init__(*args, **kwargs)
+        super(Master, self).__init__(*args, **kwargs)
+
+    def init_proxies_queue(self, proxies=getHttpsProxy()):
+        super(Master, self).init_proxies_queue(proxies=proxies)
 
     def init_start_urls(self):
         self.redis.delete(self.start_urls_redis_key)
@@ -22,7 +42,8 @@ class JDCommentMaster(Master):
                 seed = seed.strip()
                 url = "https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98" \
                       "&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(seed)
-                data = {"url": url, "meta": {"_seed": seed}}
+                data = {"url": url, "meta": {"_seed": seed,
+                                             "headers": {"Referer": "https://item.jd.com/{0}.html".format(seed)}}}
                 buffer.append(str(data))
                 if len(buffer) % buffer_size == 0:
                     self.redis.sadd(self.start_urls_redis_key, *buffer)
@@ -48,6 +69,6 @@ class JDCommentMaster(Master):
         return thread_monitor
 
 
-if __name__ == '__main__':
-     master = JDCommentMaster(spider_name="jd_comment", spider_num=2, write_asyn=True, start_id=0)
-     master.run()
+def run():
+    master = Master(spider_name=Spider.name, spider_num=2, write_asyn=True, start_id=0)
+    master.run()
