@@ -26,7 +26,7 @@ COOKIES_ENABLED = False
 # crawl.
 
 
-
+REDIRECT_ENABLED = False
 
 
 # Obey robots.txt rules
@@ -51,12 +51,13 @@ IDLE_TIME=36
 # 同时扩展里面加入这个
 EXTENSIONS = {
     #'jingdong.extensions.RedisSpiderClosedExensions': 500,
+    'scrapy.telnet.TelnetConsole': None
 }
-CLOSESPIDER_TIMEOUT=60
+#CLOSESPIDER_TIMEOUT=60
 #import scrapy.downloadermiddlewares.retry.RetryMiddleware
 MONGO_URL="mongodb://192.168.0.13:27017"
 
-LOG_FILE = 'log.txt'
+#LOG_FILE = 'log.txt'
 LOG_LEVEL = 'INFO'
 LOG_ENABLED = True #是否启动日志记录，默认True
 LOG_ENCODING = 'UTF-8'
@@ -68,27 +69,33 @@ SPIDER_MIDDLEWARES={
 DOWNLOADER_MIDDLEWARES = {
         "jingdong.downloader_middlewares.CustomHeadersDownLoadMiddleware": 400,
         #"jingdong.downloader_middlewares.ExceptionMiddleware": 999,
-        "jingdong.downloader_middlewares.NewRetryMiddleware": 550,
+        #"jingdong.downloader_middlewares.RetryMiddleware": 550,
+        "jingdong.downloader_middlewares.RetryMiddleware": 550,
         'jingdong.downloader_middlewares.ProcessAllExceptionMiddleware': 549,
-        #'scrapy.downloadermiddlewares.retry.RetryMiddleware': 550,
+        'jingdong.downloader_middlewares.RandomDelayMiddleware': 551,
+        'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+        'scrapy.downloadermiddlewares.stats.DownloaderStats': None,
         "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware": 350,
     }
+import scrapy.downloadermiddlewares.d
 ITEM_PIPELINES = {
     'scrapy_redis.pipelines.RedisPipeline': 400,
 }
 
-CONCURRENT_ITEMS = 10
-CONCURRENT_REQUESTS = 10
-CONCURRENT_REQUESTS_PER_DOMAIN = 10
-CONCURRENT_REQUESTS_PER_IP = 10
+#CONCURRENT_ITEMS = 10
+#CONCURRENT_REQUESTS = 10
+#CONCURRENT_REQUESTS_PER_DOMAIN = 10
+#CONCURRENT_REQUESTS_PER_IP = 10
 
+RANDOM_DELAY = 0.1
 DOWNLOAD_DELAY = 0.1
-DOWNLOAD_TIMEOUT = 8
+DOWNLOAD_TIMEOUT = 30
 
 RETRY_ENABLED=True
-RETRY_TIMES = 3
+RETRY_TIMES = 10
 RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408]
-RETRY_PRIORITY_ADJUST=-1
+RETRY_PRIORITY_ADJUST = -1
+NEED_SWICH_PROXY=False
 
 DEFAULT_REQUEST_HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36",
                          "Connection":"keep-alive"}
@@ -103,12 +110,20 @@ SCHEDULER_QUEUE_CLASS = 'scrapy_redis.queue.PriorityQueue'
 SCHEDULER_DUPEFILTER_KEY = '%(spider)s:dupefilter'
 SCHEDULER_DUPEFILTER_CLASS = 'scrapy_redis.dupefilter.RFPDupeFilter'
 
-START_URLS_KEY = '%(name)s:start_urls'
-
-
 DUPEFILTER_KEY = 'dupefilter:%(timestamp)s'
 
 PIPELINE_KEY = '%(spider)s:items'
+
+START_URLS_KEY = '%(name)s:start_urls'
+#自定义
+START_URLS_NUM_KEY = "%(name)s:start_urls_num"
+RESULT_ITEMS_REDIS_KEY = '%(name)s:items'
+HTTP_PROXIES_QUEUE_REDIS_KEY="%(name)s:http_proxies_queue"
+
+
+
+
+
 
 REDIS_CLS = redis.StrictRedis
 REDIS_ENCODING = 'utf-8'

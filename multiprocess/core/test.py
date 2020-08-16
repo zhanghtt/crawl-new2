@@ -54,18 +54,16 @@ def convert_proxy_format(proxy="http://u0:crawl@192.168.0.71:3128"):
     password = proxy[proxy.find("//") + 2: proxy.find("@")]
     proxy = proxy.replace(password + "@", "")
     return proxy, password
+import requests
+from multiprocess.core.HttpProxy import getHttpProxy
+for proxy in getHttpProxy():
+    request = {"url": "https://www.baidu.com/s?wd=ip",
+                       "proxies": {"http":proxy},
+                       "headers":{
+             'Connection': 'close',
+             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
+            }}
 
-request = {"url": "https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98&productId=100000002844&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1",
-                   "proxies": "http://u0:crawl@192.168.0.71:3128",
-                   "headers":{
-         'Connection': 'close',
-         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
-        }}
 
-print(download(request))
-
-first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
-first_pettern.findall(download(request))
-
-import time
-print(time.time())
+    first_pettern = re.compile(r'<span class="c-gap-right">本机IP:&nbsp;(.*?)</span>',re.MULTILINE)
+    print((proxy,first_pettern.findall(requests.get(**request))))

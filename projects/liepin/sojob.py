@@ -274,4 +274,4 @@ if __name__ == '__main__':
     ]
 
     with op.DBManger() as m:
-        m.aggregate(db_collect=("lieping", jobCol), pipeline=pipeline)
+        m.aggregate(db_collect=("liepin", jobCol), pipeline=pipeline)

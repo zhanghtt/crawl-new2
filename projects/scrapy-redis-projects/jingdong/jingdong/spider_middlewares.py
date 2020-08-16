@@ -17,7 +17,7 @@ class ExceptionCheckSpider(object):
 
     #捕捉parse代码异常
     def process_spider_exception(self, response, exception, spider):
-        self.logger.info(exception)
+        self.logger.debug(exception)
         yield {"_seed": response.meta["_seed"], "_status": 3}
 
     def process_spider_input(self, response, spider):

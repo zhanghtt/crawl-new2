@@ -29,7 +29,7 @@ class GetBrands(SpiderManger):
         format_value = (seed.value, 2, "pub") if cats[0] == '1713' else (seed.value, 1, "brand")
         url = 'http://list.jd.com/list.html?cat={0}&trans=1&md={1}&my=list_{2}'.format(*format_value)
         request = {"url": url,
-                   "method":"get",
+                   "method": "get",
                    "timeout": self.kwargs.get("request_timeout", 10),
                    "proxies": {"http": random.choice(self.proxies)},
                    "headers": {"Connection": "close", "User-Agent": self.ua.chrome}}

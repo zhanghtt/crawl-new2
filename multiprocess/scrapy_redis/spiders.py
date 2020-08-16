@@ -16,14 +16,14 @@ from tqdm import tqdm
 class JiChengSpider(RedisSpider):
 
     @classmethod
-    def from_crawler(self, crawler, *args, **kwargs):
-        obj = super(JiChengSpider, self).from_crawler(crawler, *args, **kwargs)
+    def from_crawler(cls, crawler, *args, **kwargs):
+        obj = super(JiChengSpider, cls).from_crawler(crawler, *args, **kwargs)
+        obj.params = kwargs
         return obj
 
     def make_request_from_data(self, data):
         data = bytes_to_str(data, self.redis_encoding)
         data = eval(data)
-        self.logger.debug(data)
         return Request(url=data["url"], meta=data["meta"], dont_filter=True)
 
 
@@ -295,16 +295,23 @@ class ClusterRunner(object):
 
 
 class Cluster(object):
-    def __init__(self, spider_name, spider_num=psutil.cpu_count(logical=True)):
+    def __init__(self, spider_name, spider_num=psutil.cpu_count(logical=True), start_id=0):
         self.spider_name = spider_name
         self.spider_num = spider_num
-        self.start_urls_redis_key = "%(name)s:start_urls" % {"name": self.spider_name}
-        self.items_redis_key = "%(name)s:items" % {"name": self.spider_name}
-        self.start_urls_num_redis_key = "%(name)s:start_urls_num" % {"name": self.spider_name}
         self.setting = get_project_settings()
+        self.start_urls_redis_key = self.setting.get("START_URLS_KEY",
+                                                     "%(name)s:start_urls") % {"name": self.spider_name}
+        self.items_redis_key = self.setting.get("RESULT_ITEMS_REDIS_KEY", "%(name)s:items") % {"name": self.spider_name}
+        self.start_urls_num_redis_key = self.setting.get("START_URLS_NUM_KEY",
+                                                         "%(name)s:start_urls_num") % {"name": self.spider_name}
+        self.http_proxies_queue_redis_key = self.setting.get("HTTP_PROXIES_QUEUE_REDIS_KEY",
+                                                              "%(name)s:http_proxies_queue") % {"name": self.spider_name}
         self.logger = self.get_loger()
         self.redis = get_redis_from_settings(self.setting)
         self.logger.info(self.redis)
+        self.start_id = start_id #范围start_id>=0 and start_id+self.spider_num<=237
+        if not (self.start_id >= 0 and start_id + self.spider_num <= 237):
+            raise InterruptedError("not valid start_id, spider_num")
 
     def get_loger(self):
         log_config = {}
@@ -316,11 +323,7 @@ class Cluster(object):
         return logging.getLogger(__name__)
 
     def run(self):
-        if self.spider_num >= 1:
-            process = CrawlerProcess(get_project_settings())
-            for spider in [self.spider_name]*self.spider_num:
-                process.crawl(spider)  # 根据爬虫名列表爬取
-            process.start()
+        raise NotImplementedError
 
 
 class Slaver(Cluster):
@@ -331,19 +334,18 @@ class Slaver(Cluster):
         pass
 
     def run(self):
-        if self.spider_num <= 0:
-            return
-        #初始化种子URL
         #开启监控线程
         self.thread_monitor = self.get_thread_monitor()
         if self.thread_monitor:
             self.thread_monitor.start()
             self.logger.info("start monitor success !")
-        if self.spider_num >= 1:
-            process = CrawlerProcess(get_project_settings())
-            for spider in [self.spider_name]*self.spider_num:
-                process.crawl(spider)  # 根据爬虫名列表爬取
-            process.start()
+        process = CrawlerProcess(get_project_settings())
+        for i, spider in enumerate([self.spider_name] * self.spider_num, start=self.start_id):
+            process.crawl(spider, **{"id": i})  # 根据爬虫名列表爬取
+        process.start()
+
+
+from multiprocess.core.HttpProxy import getHttpProxy, getHttpsProxy
 
 
 class Master(Cluster):
@@ -357,10 +359,12 @@ class Master(Cluster):
     def get_thread_monitor(self):
         return NotImplementedError
 
-    @classmethod
-    def run_spider(cls, spider_name):
-        from scrapy.cmdline import execute
-        execute(['scrapy', 'crawl', spider_name])
+    def init_proxies_set(self, proxies=getHttpProxy()):
+        self.redis.delete(self.http_proxies_queue_redis_key)
+        buffer = [str(None)]
+        for proxy in proxies:
+            buffer.append(str(proxy))
+        self.redis.rpush(self.http_proxies_queue_redis_key, *buffer)
 
     def init_start_urls(self):
         raise NotImplementedError
@@ -368,6 +372,8 @@ class Master(Cluster):
     def run(self):
         if self.spider_num == 0 and not self.write_asyn:
             return
+        #初始化代理池
+        self.init_proxies_set()
         #初始化种子URL
         self.init_start_urls()
         self.redis.set(self.start_urls_num_redis_key, self.redis.scard(self.start_urls_redis_key))
@@ -387,28 +393,21 @@ class Master(Cluster):
                 self.thread_writer.start()
                 self.logger.info("start writer success !")
                 # 开启爬虫
-                if self.spider_num > 1:
-                    process = CrawlerProcess(get_project_settings())
-                    for spider in [self.spider_name] * self.spider_num:
-                        process.crawl(spider)  # 根据爬虫名列表爬取
-                    process.start()
-                elif self.spider_num == 1:
-                    self.logger.info("mode : run in standalone !")
-                    self.run_spider(spider_name=self.spider_name)
-                self.thread_writer.join()
+                process = CrawlerProcess(get_project_settings())
+                for i, spider in enumerate([self.spider_name] * self.spider_num, start=self.start_id):
+                    process.crawl(spider, **{"id": i})  # 根据爬虫名列表爬取
+                process.start()
+                #self.thread_writer.join()
         else:
             # 开启爬虫
-            if self.spider_num > 1:
-                process = CrawlerProcess(get_project_settings())
-                for spider in [self.spider_name] * self.spider_num:
-                    process.crawl(spider)  # 根据爬虫名列表爬取
-                process.start()
-            elif self.spider_num == 1:
-                self.logger.info("mode : run in standalone !")
-                self.run_spider(spider_name=self.spider_name)
+            process = CrawlerProcess(get_project_settings())
+            for i, spider in enumerate([self.spider_name] * self.spider_num, start=self.start_id):
+                process.crawl(spider, **{"id": i})  # 根据爬虫名列表爬取
+            process.start()
             # 开启写线程
             self.thread_writer = self.get_thread_writer()
             if self.thread_writer:
                 self.thread_writer.start()
                 self.logger.info("start writer success !")
-                self.thread_writer.join()
+                #self.thread_writer.join()
+

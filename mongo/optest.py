@@ -115,5 +115,16 @@ pipeline = [
 ]
 
 with op.DBManger() as m:
-    print(m.get_lasted_collection("51job",filter={"name": {"$regex": r"company_20\d\d\d\d\d\d"}}))
+    #print(m.get_lasted_collection("51job",filter={"name": {"$regex": r"company_20\d\d\d\d\d\d"}}))
     #print(m.aggregate(("jingdong","job_20200602"), pipeline=pipeline))
+    dic = {}
+    for i in m.read_from(db_collect=("jicheng","jdcomment20200815"), out_field=("skuid","comment","_status","nihao")):
+       # print(i)
+        pass
+
+    import random
+    print(random.uniform(0,1))
+
+    # for k in dic:
+    #         print(k,dic[k])
+
