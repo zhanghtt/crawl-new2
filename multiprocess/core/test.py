@@ -73,6 +73,13 @@ request = {"url": "https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exb
                "Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
+request = {"url": "https://chat1.jd.com/api/checkChat?pidList=4609652,2,100013116298,1999899692,72276507174,19999997645,1999899692,100000002015,100000002686,200134637813&callback=jQuery8117083",
+           "headers": {
+               'Connection': 'close',
+               #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
+               "Referer":"https://www.jd.com",
+               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
+           }}
 
 src=requests.get(**request).text
 first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
@@ -91,4 +98,50 @@ print(shop_name_pettern.findall(src))
 print(ziying_pettern.findall(src))
 print(cat_pettern.findall(src))
 print(first_pettern.findall(src))
-print(src)
+
+import json
+jsonr = json.loads(re.compile(r"(\[.*?\])").findall(src)[0])
+for item in jsonr:
+    print(item)
+import time
+# toc = time.time()
+# for i in range(0, 10000, 100):
+#     request = {
+#         "url": "https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083&_=1597758342897".format(",".join(map(lambda x: str(x), range(i, i+100)))),
+#         "headers": {
+#             'Connection': 'close',
+#             # "Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
+#             "Referer": "https://www.jd.com",
+#             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
+#         }}
+#     src = requests.get(**request).text
+#     jsonr = json.loads(re.compile(r"(\[.*?\])").findall(src)[0])
+#     print(i, len(jsonr))
+# print(time.time() - toc)
+def run():
+    toc = time.time()
+    for i in range(0, 10000, 100):
+        request = {
+            "url": "https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083&_=1597758342897".format(
+                ",".join(map(lambda x: str(x), range(i, i + 100)))),
+            "headers": {
+                'Connection': 'keep-alive',
+                # "Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
+                "Referer": "https://www.jd.com",
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
+            }}
+        src = requests.get(**request).text
+        jsonr = json.loads(re.compile(r"(\[.*?\])").findall(src)[0])
+        #print(i, len(jsonr))
+    print(time.time() - toc, len(jsonr))
+import threading
+class Manger:
+    def __init__(self,num=10):
+        self.runners = [threading.Thread(target=run) for i in range(num)]
+
+    def run(self):
+        [r.start() for r in self.runners]
+        [r.join() for r in self.runners]
+
+# m = Manger(8)
+# m.run()

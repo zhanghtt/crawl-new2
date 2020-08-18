@@ -8,7 +8,7 @@ import urllib
 from mongo import op
 from multiprocess.core.spider import Seed
 from scrapy_redis.utils import bytes_to_str
-
+import json
 
 class Request(Request):
 
@@ -43,6 +43,7 @@ class Spider(JiChengSpider):
     shop_name_pettern = re.compile(r'target="_blank" title="(\S*?)" clstag="shangpin')
     ziying_pettern = re.compile(r'<div class="contact fr clearfix">[\s]*?<div class="name goodshop EDropdown">[\s]*?<em class="u-jd">[\s]*?(\S*?)[\s]*?</em>[\s]*?</div>')
     cat_pettern = re.compile(r'cat: \[([,\d]*)\],')
+    json_pettern = re.compile(r"(\[.*?\])")
 
     singleton = None
     @classmethod
@@ -76,45 +77,29 @@ class Spider(JiChengSpider):
         elif seed.type == 3:
             str_seed = seed.value
             request = Request.parse(str_seed)
-            print(request)
             return request
 
     def parse3(self, response):
         seed = Seed.parse_seed(response.meta["_seed"])
         cate_id, brand_id, page, s = seed.value
-        shopid = self.shopid_pettern.findall(response.text)
-        if shopid:
-            shopid = shopid[0]
-        else:
-            shopid = None
-        venderid = self.venderid_pettern.findall(response.text)
-        if venderid:
-            venderid = venderid[0]
-        else:
-            venderid = None
-        shop_name = self.shop_name_pettern.findall(response.text)
-        if shop_name:
-            shop_name = set(shop_name).pop()
-        else:
-            shop_name = None
-        ziying = self.ziying_pettern.findall(response.text)
-        if ziying:
-            ziying = 1
-        else:
-            ziying = 0
-        r2 = self.skuids_pettern.findall(response.text)
-        for skuid in r2:
-            yield {"skuid": skuid, "cate_id": cate_id, "brand_id": brand_id, "shopid": shopid, "venderid":venderid, "shop_name":shop_name,"ziying":ziying}
+        for item in json.loads(self.json_pettern.findall(response.text)[0]):
+            if item:
+                yield {"skuid": item.get("pid"), "cate_id": cate_id, "brand_id": brand_id, "shopid": item.get("shopId"),
+                       "venderid": item.get("venderId", None), "shop_name": item.get("seller"),
+                       "ziying": 1 if item.get("seller") and item.get("seller").find("京东自营") != -1 else 0 }
+            else:
+                print(item)
 
     def parse2(self, response):
-        seed = Seed.parse_seed(response.meta["_seed"])
-        cate_id, brand_id, page, s = seed.value
+        last_page_pids = response.meta["last_page_pids"]
         r1 = self.first_pettern.findall(response.text)
         if r1:
             r1 = r1[0]
             if r1:
-                for pid in r1.split(","):
-                    yield {"skuid": pid}
+                yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids + "," + r1), callback=self.parse3, meta={"_seed": response.meta["_seed"]})
+        else:
+            #说明没有下半页"https://chat1.jd.com/api/checkChat?pidList=10020242230938,1999899692,72276507174,19999997645,1999899692,100000002015,100000002686,200134637813&callback=jQuery8117083"
+            yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids), callback=self.parse3, meta={"_seed": response.meta["_seed"]})
 
     def parse1(self, response):
         seed = Seed.parse_seed(response.meta["_seed"])
@@ -123,9 +108,6 @@ class Spider(JiChengSpider):
         if r1:
             r1 = r1[0]
             if r1:
-                for pid in r1.split(","):
-                    yield {"skuid": pid}
-
                 cate_id, brand_id, page, s, items = cate_id, brand_id, page + 1, s + 30, r1
                 if brand_id:
                     en_cate_id, en_brand_id = urllib.parse.urlencode(
@@ -137,12 +119,13 @@ class Spider(JiChengSpider):
                         en_cate_id, en_brand_id, page-1, s-30)
                 else:
                     en_cate_id = urllib.parse.urlencode({"cat": cate_id})
-                    url = 'https://list.jd.com/list.html?{0}&psort=4&page={1}&s={2}&scrolling=y&log_id=1596108547754.6591&tpl=1_M&isList=1&show_items={4}'.format(
+                    url = 'https://list.jd.com/list.html?{0}&psort=4&page={1}&s={2}&log_id=1596108547754.6591&tpl=1_M&isList=1&show_items={4}'.format(
                         en_cate_id, page, s, items)
                     request = Request(url=url, callback=self.parse2, priority=2)
                     request.headers["Referer"] = "https://list.jd.com/list.html?{0}&page={1}&s={2}&psort=4&click=1".format(
                         en_cate_id, page - 1, s - 30)
                 request.meta["_seed"] = str(Seed((cate_id, brand_id, page, s), type=2))
+                request.meta["last_page_pids"] = r1
                 yield request
 
     def parse(self, response):
@@ -197,7 +180,7 @@ class FirstMaster(Master):
             #     if not (cate_id == "737,794,798" and brand_id == "8557"):
             #         continue
 
-            for i, seed in enumerate([("737,794,798", "8557")]):
+            for i, seed in enumerate([("14065,14141,14142", "387314")]):#18374,8557
                 seed = Seed(value=seed, type=0)
                 buffer.append(str(seed))
                 if len(buffer) % buffer_size == 0:
@@ -209,7 +192,7 @@ class FirstMaster(Master):
     def get_thread_writer(self):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*3000,buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
-                                          db_collection=("jicheng","jdskuid{0}".format(current_date)), bar_name=self.items_redis_key,distinct_field="skuid")
+                                          db_collection=("jingdong","jdskuid{0}".format(current_date)), bar_name=self.items_redis_key, distinct_field=None)
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*30, bar_name=self.items_redis_key,
         #                                  out_file="jingdong/result/jdskuid.txt",
         #                                table_header=["_seed","_status","phonenumber", "province", "city", "company"])

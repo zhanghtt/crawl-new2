@@ -205,7 +205,15 @@ class ThreadFileWriter(ThreadWriter):
         self.stop = True
 
     def write(self, item):
-        item = eval(item)
+        item = item.decode("utf-8")
+        try:
+            item = eval(item)
+        except NameError as e:
+            self.logger.exception(e)
+            old = item
+            item = eval(item.replace("null","None"))
+            item = {key: item[key] for key in item if item[key] is not None}
+            self.logger.warning("replace item: {} to {}".format(str(old),str(item)))
         if self.is_already_write(item):
             return
         self.counter = self.counter + 1
@@ -222,9 +230,9 @@ class ThreadFileWriter(ThreadWriter):
                 for key in self.table_header:
                     if key in item:
                         if value:
-                            value = value + "\t" + str(item[key])
+                            value = value + "\t" + str(item.get(key))
                         else:
-                            value = str(item[key])
+                            value = str(item.get(key))
                     else:
                         value = value + "\t" + "NA"
                 if value:
@@ -257,7 +265,16 @@ class ThreadMongoWriter(ThreadWriter):
             return False
 
     def write(self, item):
-        item = eval(item)
+        item = item.decode("utf-8")
+        try:
+            item = eval(item)
+        except NameError as e:
+            self.logger.exception(e)
+            old = item
+            item = eval(item.replace("null","None"))
+            item = {key: item[key] for key in item if item[key] is not None}
+            self.logger.warning("replace item: {} to {}".format(str(old),str(item)))
+
         if self.is_already_write(item):
             return
         self.counter = self.counter + 1
