@@ -35,11 +35,13 @@ class Counter(object):
     def get_count(self):
         return self.counter
 
+from ast import literal_eval
+
 
 class Seed(object):
 
     def __init__(self, value, retries=3, type = None, last_time=time.time(), rest_time=0,
-                 is_faid_task_write=True, is_ok=False):
+                 is_faid_task_write=True, is_ok=False, url=None, headers=None, status=0):
         self.retries = retries
         self.value = value
         self.type = type
@@ -48,9 +50,12 @@ class Seed(object):
         self.is_faid_task_write = is_faid_task_write
         self.is_ok = is_ok
         self.counter = Counter()
+        self.url = url
+        self.headers = headers
+        self.status = status
 
     def __str__(self):
-        return str(self.value) + "\t" + str(self.type) + "\t" + str(self.is_ok)
+        return str((self.value, self.type, self.url, self.headers))
 
     def sleep(self, rest_time):
         self.last_time = time.time()
@@ -64,6 +69,14 @@ class Seed(object):
 
     def retry(self):
         self.retries = self.retries - 1
+
+    @classmethod
+    def parse_seed(cls, str_seed):
+        tmp = literal_eval(str_seed)
+        return cls(value=tmp[0], type=tmp[1], url=tmp[2], headers=tmp[3])
+
+
+
 
 
 class ThreadMonitor(threading.Thread):
@@ -393,3 +406,8 @@ class SpiderManger(object):
 
 
 
+s=Seed(123)
+s.url="https://baidu"
+s.headers = {"Referer":"https://jd.com"}
+from ast import literal_eval
+print(literal_eval(str(s))[3]["Referer"])

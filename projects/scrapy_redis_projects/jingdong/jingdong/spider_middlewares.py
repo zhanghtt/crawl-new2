@@ -6,9 +6,12 @@
 import logging
 # -*- coding: utf-8 -*-
 import random
-
+import pickle
 from fake_useragent import UserAgent
 from scrapy.item import Item
+from multiprocess.core.spider import Seed
+from scrapy.http import Response
+from multiprocess.scrapy_redis.spiders import Request
 
 class ExceptionCheckSpider(object):
 
@@ -18,7 +21,7 @@ class ExceptionCheckSpider(object):
     #捕捉parse代码异常
     def process_spider_exception(self, response, exception, spider):
         self.logger.debug(exception)
-        yield {"_seed": response.meta["_seed"], "_status": 3}
+        yield {"_seed": response.request.serialize(), "_status": 3}
 
     def process_spider_input(self, response, spider):
         if response._status == 0 and response.text:
@@ -29,7 +32,7 @@ class ExceptionCheckSpider(object):
     def process_spider_output(self, response, result, spider):
         for r in result:
             if isinstance(r, (dict, Item)):
-                r.update({"_seed": response.meta["_seed"], "_status": response._status})
+                r.update({"_status": response._status})
             yield r
 
     @property

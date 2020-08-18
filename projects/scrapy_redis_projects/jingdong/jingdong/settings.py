@@ -21,7 +21,6 @@ SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
 COOKIES_ENABLED = False
 
 
-
 # Introduce an artifical delay to make use of parallelism. to speed up the
 # crawl.
 
@@ -46,7 +45,7 @@ MYEXT_ENABLED=True      # 开启扩展
 IDLE_NUMBER=36         # 配置空闲持续时间单位为 360个 ，一个时间单位为5s
 
 # redis 空跑时间 秒
-IDLE_TIME=36
+IDLE_TIME=30
 
 # 同时扩展里面加入这个
 EXTENSIONS = {
@@ -87,7 +86,7 @@ ITEM_PIPELINES = {
 #CONCURRENT_REQUESTS_PER_IP = 10
 
 RANDOM_DELAY = 0.1
-DOWNLOAD_DELAY = 0.1
+DOWNLOAD_DELAY = 0.5
 DOWNLOAD_TIMEOUT = 30
 
 RETRY_ENABLED=True

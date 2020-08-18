@@ -6,16 +6,16 @@ product_pettern = re.compile(r'(product: \{[\s\S]*?\};)')
 src = """<!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
-    <!--yushou-->
+    <!-- shouji -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>【海信60E3F】海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源【行情 报价 价格 评测】-京东</title>
-    <meta name="keywords" content="Hisense60E3F,海信60E3F,海信60E3F报价,Hisense60E3F报价"/>
-    <meta name="description" content="【海信60E3F】京东JD.COM提供海信60E3F正品行货，并包括Hisense60E3F网购指南，以及海信60E3F图片、60E3F参数、60E3F评论、60E3F心得、60E3F技巧等信息，网购海信60E3F上京东,放心又轻松" />
+    <title>【华为LOK-350】荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏【行情 报价 价格 评测】-京东</title>
+    <meta name="keywords" content="HUAWEILOK-350,华为LOK-350,华为LOK-350报价,HUAWEILOK-350报价"/>
+    <meta name="description" content="【华为LOK-350】京东JD.COM提供华为LOK-350正品行货，并包括HUAWEILOK-350网购指南，以及华为LOK-350图片、LOK-350参数、LOK-350评论、LOK-350心得、LOK-350技巧等信息，网购华为LOK-350上京东,放心又轻松" />
     <meta name="format-detection" content="telephone=no">
-    <meta http-equiv="mobile-agent" content="format=xhtml; url=//item.m.jd.com/product/100007300763.html">
-    <meta http-equiv="mobile-agent" content="format=html5; url=//item.m.jd.com/product/100007300763.html">
+    <meta http-equiv="mobile-agent" content="format=xhtml; url=//item.m.jd.com/product/100013116298.html">
+    <meta http-equiv="mobile-agent" content="format=html5; url=//item.m.jd.com/product/100013116298.html">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <link rel="canonical" href="//item.jd.com/100007300763.html"/>
+    <link rel="canonical" href="//item.jd.com/100013116298.html"/>
         <link rel="dns-prefetch" href="//misc.360buyimg.com"/>
     <link rel="dns-prefetch" href="//static.360buyimg.com"/>
     <link rel="dns-prefetch" href="//img10.360buyimg.com"/>
@@ -31,9 +31,8 @@ src = """<!DOCTYPE HTML>
     <link rel="dns-prefetch" href="//d.jd.com"/>
     <link rel="dns-prefetch" href="//x.jd.com"/>
     <link rel="dns-prefetch" href="//wl.jd.com"/>
-        <link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/??jdf/1.0.0/unit/ui-base/5.0.0/ui-base.css,jdf/1.0.0/unit/shortcut/5.0.0/shortcut.css,jdf/1.0.0/unit/myjd/2.0.0/myjd.css,jdf/1.0.0/unit/nav/5.0.0/nav.css,jdf/1.0.0/unit/global-footer/5.0.0/global-footer.css,jdf/1.0.0/unit/service/5.0.0/service.css">
-
-                    <style>
+                        <link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/??jdf/1.0.0/unit/ui-base/5.0.0/ui-base.css,jdf/1.0.0/unit/shortcut/5.0.0/shortcut.css,jdf/1.0.0/unit/myjd/2.0.0/myjd.css,jdf/1.0.0/unit/nav/5.0.0/nav.css,jdf/1.0.0/unit/global-footer/5.0.0/global-footer.css,jdf/1.0.0/unit/service/5.0.0/service.css">
+                        <style>
 #shop-head [style*="2147483647"] div[hui-mod] {display: none !important;}
 #shop-head .j-attent-dialog-wrap{display: none;}
 #shop-head .sh-brand-wrap-630128 {
@@ -363,64 +362,65 @@ border-top-right-radius: 11px;
 border-bottom-right-radius: 11px;
 background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e1ad98/583543d4Nc7e0c1a4.png") no-repeat center;
 }</style>
-                                <link rel="stylesheet" type="text/css" href="//static.360buyimg.com/item/unite/1.0.102/components/??default/common/common.css,default/main/main.css,default/address/address.css,default/prom/prom.css,default/colorsize/colorsize.css,default/buytype/buytype.css,default/pingou/pingou.css,default/track/track.css,default/suits/suits.css,default/baitiao/baitiao.css,default/buybtn/buybtn.css,default/crumb/crumb.css,default/fittings/fittings.css,default/detail/detail.css,default/contact/contact.css" />
-        <link rel="stylesheet" type="text/css" href="//static.360buyimg.com/item/unite/1.0.102/components/??default/popbox/popbox.css,default/preview/preview.css,default/info/info.css,default/imcenter/imcenter.css,default/jdservice/jdservice.css,default/vehicle/vehicle.css,default/poprent/poprent.css,default/jdservicePlus/jdservicePlus.css,default/jdserviceF/jdserviceF.css" />
+                            <link rel="stylesheet" type="text/css" href="//static.360buyimg.com/item/unite/1.0.102/components/??default/common/common.css,default/main/main.css,default/address/address.css,default/prom/prom.css,default/colorsize/colorsize.css,default/buytype/buytype.css,default/track/track.css,default/suits/suits.css,default/baitiao/baitiao.css,default/o2o/o2o.css,default/summary/summary.css,default/buybtn/buybtn.css,default/crumb/crumb.css,default/fittings/fittings.css,default/detail/detail.css" />
+    <link rel="stylesheet" type="text/css" href="//static.360buyimg.com/item/unite/1.0.102/components/??default/contact/contact.css,default/popbox/popbox.css,default/preview/preview.css,default/info/info.css,default/imcenter/imcenter.css,default/jdservice/jdservice.css,default/vehicle/vehicle.css,default/poprent/poprent.css,default/jdservicePlus/jdservicePlus.css,default/jdserviceF/jdserviceF.css" />
         <script charset="gbk">
         var pageConfig = {
             compatible: true,
-                product: {
-                        modules: [
-                            'address',
-                            'prom',
-                            'colorsize',
-                            'buytype',
-                            'baitiao',
-                            'buybtn',
-                            'pingou',
-                            'track',
-                            'suits',
-                            'crumb',
-                            'fittings',
-                            'detail',
-                            'contact',
-                            'popbox',
-                            'preview',
-                            'info',
-                            'imcenter',
-                            'jdservice',
-                            'jdservicePlus',
-                            'jdserviceF',
-                            'commitments',
-                            'gift',
-                            'vehicle'                        ],
-                            imageAndVideoJson: {"mainVideoId":"208690205"},
-                skuid: 100007300763,
+            product: {
+                modules: [
+                    'address',
+                    'prom',
+                    'colorsize',
+                    'buytype',
+                    'baitiao',
+                    'summary',
+                    'o2o',
+                    'buybtn',
+                    'track',
+                    'suits',
+                    'crumb',
+                    'fittings',
+                    'detail',
+                    'contact',
+                    'popbox',
+                    'preview',
+                    'info',
+                    'imcenter',
+                    'jdservice',
+                    'jdservicePlus',
+                    'jdserviceF',
+                    'commitments',
+                    'gift',
+                    'vehicle'                ],
+                            imageAndVideoJson: {"mainVideoId":"500127490"},
+                        ostime: 1597632529.902,
+            skuid: 100013116298,
         skuMarkJson: {"isxg":false,"isJDexpress":false,"isrecyclebag":false,"isSds":false,"isSopJSOLTag":false,"isyy":false,"isPOPDistribution":false,"isSopUseSelfStock":false,"isGlobalPurchase":false,"NosendWMS":false,"isOripack":false,"ispt":false,"unused":false,"pg":false,"isSopWareService":false,"isTimeMark":false,"presale":false},
-        name: '海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源',
-        skuidkey:'D783039EDF72F11EC2C5B187B569C542',
-        href: '//item.jd.com/100007300763.html',
-        src: 'jfs/t1/128105/3/9469/200006/5f368247E7cfca402/9d8a94fd1d2b55ce.jpg',
-                     imageList: ["jfs/t1/128105/3/9469/200006/5f368247E7cfca402/9d8a94fd1d2b55ce.jpg","jfs/t1/115458/20/7603/248989/5ec4ac5dE44355ef8/8ee8971fc65581aa.jpg","jfs/t1/116103/7/7465/279371/5ec340b5E4e6ce00c/15467aed1a5d3efe.jpg","jfs/t1/127531/22/2139/146329/5ec340b5Ecb3029ea/1402a215f850faea.jpg","jfs/t1/122819/32/2119/29369/5ec340b7E0083c727/d3f92961cecea9d6.jpg","jfs/t1/120000/9/2129/126830/5ec340bdE6f67ee5b/7ddc12a5c7b98f4c.jpg","jfs/t1/114640/28/7324/90205/5ec340bdEa755a676/5da479f20da8fcd7.jpg","jfs/t1/137579/30/4682/104953/5f2cbdb7E8a140af5/f68b5e5b5cd23240.jpg","jfs/t1/139687/7/4723/60700/5f2cbdb7E4bafed01/0844754e749f2c27.jpg","jfs/t1/143700/25/4772/112584/5f2cbdbeEff43d1a0/8b7a2cff6e9f8854.jpg"],
-                cat: [737,794,798],
-        forceAdUpdate: '8271',
-        brand: 7888,
+            name: '荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏',
+            skuidkey:'1D0E1F519F13C574A9C1890B7F09BA4F',
+            href: '//item.jd.com/100013116298.html',
+                        src: 'jfs/t1/146019/39/5431/118947/5f380328E953a47ba/04471d81482d3a31.jpg',
+                            imageList: ["jfs/t1/146019/39/5431/118947/5f380328E953a47ba/04471d81482d3a31.jpg","jfs/t1/121777/6/2122/484886/5ec27a37Eb1ce27c7/cfe6e3e6482b572c.jpg","jfs/t1/120414/33/2130/177459/5ec27a36E369ebf5c/42c7e0972b18c878.jpg","jfs/t1/113819/16/7319/71328/5ec27a37Eb37a95e9/4b53e325d49ef1dd.jpg","jfs/t1/123399/27/2081/126919/5ec27a37E208530a6/febac8a84c2692a1.jpg","jfs/t1/121153/9/2143/465712/5ec27a37E9cb1c5dd/f030a7f8272abd01.jpg","jfs/t1/119305/30/7358/90692/5ec29d36Ed04efcf3/0c152bde1ecb5b26.jpg","jfs/t1/117399/1/7576/96607/5ec39e98Ef99c103d/00262b4fec44ca7b.jpg"],
+                        cat: [737,794,798],
+            forceAdUpdate: '8271',
+        brand: 8557,
         pType: 1,
         isClosePCShow: false,
-                venderId:1000324421,
-        shopId:'1000324421',
+         pTag:424538,                                                 isPop:false,
+        venderId:1000000904,
+        shopId:'1000000904',
         shopSwitch:true,
-                        specialAttrs:["YuShou","Customize-0","thwa-1","isFlashPurchase-0","sfkc-0","isFzxp-0","isOverseaPurchase-0","is7ToReturn-1","isCanUseDQ-1","fxg-0","isCanUseJQ-1"],
+                                specialAttrs:["Customize-0","thwa-1","zglx-0","isFzxp-2","SoldOversea-0","sfkc-0","isOverseaPurchase-0","is7ToReturn-1","fxg-1","isCanUseDQ-1","isCanUseJQ-1"],
         recommend : [0,1,2,3,4,5,6,7,8,9],
         easyBuyUrl:"//easybuy.jd.com/skuDetail/newSubmitEasybuyOrder.action",
-        qualityLife: "//c.3.cn/qualification/info?skuId=100007300763&pid=100007300763&catId=798",
-        addToCartUrl: "//cart.jd.com/gate.action?pid=100007300763&pcount=1&ptype=1",
-                colorSize: [{"skuId":100007637459,"尺寸":"ULED超画质社交新品-65E9F"},{"skuId":100006060267,"尺寸":"ULED量子点社交新品-65E8D"},{"skuId":100007167317,"尺寸":"高配游戏电视新品-65E75F"},{"skuId":100003525291,"尺寸":"3+32G超音画全面屏-65E7D"},{"skuId":100007338003,"尺寸":"3+32G社交电视新品-65E5F"},{"skuId":100003525293,"尺寸":"MEMC防抖超薄全面屏-65E5D"},{"skuId":100006254938,"尺寸":"MEMC全面屏爆品-65E3D-PRO"},{"skuId":100007826441,"尺寸":"4K超薄悬浮全面屏新品-65E3F"},{"skuId":8748165,"尺寸":"4K智慧AI纤薄爆品-65E3A"},{"skuId":100007300763,"尺寸":"4K超薄全面屏爆品-60E3F"}],        warestatus: 1,         tips: [{"order":2,"tip":"请完成预约后及时抢购！"}],                desc: '//cd.jd.com/description/channel?skuId=100007300763&mainSkuId=100007300763&charset=utf-8&cdn=2',
+        qualityLife: "//c.3.cn/qualification/info?skuId=100013116298&pid=100013116298&catId=798",
+                colorSize: [{"版本":"X1 50“ 新品惠购","skuId":100007791251,"尺寸":"荣耀智慧屏X1系列"},{"版本":"X1 55“ 央视推荐","skuId":100013116298,"尺寸":"荣耀智慧屏X1系列"},{"版本":"X1 65“ 超值之选","skuId":100013150076,"尺寸":"荣耀智慧屏X1系列"},{"版本":"55“ 超薄金属机身818旗舰芯片","skuId":100007006134,"尺寸":"荣耀智慧屏 系列"},{"版本":"55“  4G超大内存818旗舰芯片","skuId":100005171625,"尺寸":"荣耀智慧屏 系列"},{"版本":"55“ 视频通话震撼音效炫彩灯效","skuId":100004099019,"尺寸":"荣耀智慧屏PRO系列"},{"版本":"55“ 视频通话远场语音超大内存","skuId":100005172199,"尺寸":"荣耀智慧屏PRO系列"}],        warestatus: 1,                         desc: '//cd.jd.com/description/channel?skuId=100013116298&mainSkuId=100013116298&charset=utf-8&cdn=2',
                 /**/
                  /**/
-                                                isYuYue: true,                        isBookMvd4Baby: false,        twoColumn: false,                mainSkuId:'100007300763',        isPop:false,
-        addComments:true,
-        foot: '//dx.3.cn/footer?type=common_config2',
-                         shangjiazizhi: false        }
+                twoColumn: false,                        isCloseLoop:true,                                isBookMvd4Baby: false,        addComments:true,
+        mainSkuId:'100013116298',        foot: '//dx.3.cn/footer?type=common_config2',
+                                  shangjiazizhi: false        }
         };
                                 try {
                         function is_sort_black_list() {
@@ -452,7 +452,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
 
                             if (/MOBILE/.test(userAgent) && /(MICROMESSENGER|QQ\/)/.test(userAgent)) {
                   var paramIndex = location.href.indexOf("?");
-                  window.location.href = "//item.m.jd.com/product/100007300763.html"+(paramIndex>0?location.href.substring(paramIndex,location.href.length):'');
+                  window.location.href = "//item.m.jd.com/product/100013116298.html"+(paramIndex>0?location.href.substring(paramIndex,location.href.length):'');
                   return;
               }
 
@@ -466,7 +466,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                 if(userAgent.indexOf(mobilePhoneList[i]) > -1) {
                   if(jump) {
                     var paramIndex = location.href.indexOf("?");
-                    window.location.href = "//item.m.jd.com/product/100007300763.html"+(paramIndex>0?location.href.substring(paramIndex,location.href.length):'');
+                    window.location.href = "//item.m.jd.com/product/100013116298.html"+(paramIndex>0?location.href.substring(paramIndex,location.href.length):'');
                   } else {
                                         window.showtouchurl = true;
                   }
@@ -477,9 +477,9 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
             jump_mobile();
         } catch(e) {}
     </script>
-    <script src="//misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,jdf/1.0.0/unit/base/1.0.0/base.js,jdf/1.0.0/ui/ui/1.0.0/ui.js"></script>
-    <script type="text/JSConfig" id="J_JSConfig">
-        {
+    <script src="//misc.360buyimg.com/??jdf/lib/jquery-1.6.4.js,jdf/1.0.0/unit/base/1.0.0/base.js,jdf/1.0.0/unit/trimPath/1.0.0/trimPath.js,jdf/1.0.0/ui/ui/1.0.0/ui.js,jdf/1.0.0/ui/dialog/1.0.0/dialog.js"></script>
+
+            <script type="text/JSConfig" id="J_JSConfig">{
 "ART":{},
 "BASE":{
 "PRICE":{"5G":true},
@@ -529,8 +529,8 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
 "IOU":{"newCheckoutSignal":true}
 },
 "WORLDBUY":{}
-}    </script>
-    <script>
+}</script>
+        <script>
         seajs.config({
             paths: {
                 'MISC' : '//misc.360buyimg.com',
@@ -547,7 +547,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
     </script>
 
 </head>
-<body version="140120" class="clothing yuyue  yyp cat-1-737 cat-2-794 cat-3-798 cat-4- item-100007300763 JD JD-1">
+<body version="140120" class="clothing cat-1-737 cat-2-794 cat-3-798 cat-4- item-100013116298 JD JD-1">
         <!--shortcut start-->
 <div id="shortcut-2014">
 	<div class="w">
@@ -614,8 +614,8 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
     </div>
 </div>
 <div id="o-header-2013"><div id="header-2013" style="display:none;"></div></div>
-<!--shortcut end-->            <link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/??jdf/1.0.0/unit/global-header/1.0.0/global-header.css,jdf/1.0.0/unit/shoppingcart/2.0.0/shoppingcart.css">
-        <style type="text/css">
+<!--shortcut end-->    <link rel="stylesheet" type="text/css" href="//misc.360buyimg.com/??jdf/1.0.0/unit/global-header/1.0.0/global-header.css,jdf/1.0.0/unit/shoppingcart/2.0.0/shoppingcart.css">
+    <style type="text/css">
     #search-2014 .button {
         width: auto;
         padding: 0 8px;
@@ -682,7 +682,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                 (function() {
             //搜本店
             $('.button01').click(function() {
-                url = '//mall.jd.com/advance_search-' + 1627957 + '-' + pageConfig.product.venderId + '-' + pageConfig.product.shopId + '-0-0-0-1-1-24.html';
+                url = '//mall.jd.com/advance_search-' + 394032 + '-' + pageConfig.product.venderId + '-' + pageConfig.product.shopId + '-0-0-0-1-1-24.html';
                 location.href = url + '?keyword=' + encodeURIComponent(encodeURIComponent(jQuery.trim($('#key').val())));
             });
             $(function() {
@@ -730,8 +730,9 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
             })
         })(pageConfig.product);
     </script>
-</div>        <div id="shop-head"><div class="layout-area J-layout-area" >
-		<div class="layout layout-auto J-layout" name="通栏布局（100%）" id="226656519" prototypeId="20" area="" layout_name="insertLayout" >
+</div>    <div id="shop-head" clstag="shangpin|keycount|product|dianputou"></div><!--#shop-head-->
+    <textarea id="J_ShopHead" style="display:none;"><div class="layout-area J-layout-area" >
+		<div class="layout layout-auto J-layout" name="通栏布局（100%）" id="225425554" prototypeId="20" area="" layout_name="insertLayout" >
 			<div class="layout-one" name="main">
 				<style type="text/css" >
 #shop-head [style*="2147483647"] div[hui-mod] {display: none !important;}
@@ -874,20 +875,27 @@ color: #fff;
 
 
 
-<div onclick="log('shop_03','mall_03','1000324421','19268','630128')" class="fn-clear  sh-brand-wrap-630128" modeId="19268" instanceId="226656521" module-name="new_shop_signs" style="margin-bottom:0px;;margin-bottom: 0px" origin="0" moduleTemplateId="630128"
+<div onclick="log('shop_03','mall_03','1000000904','19268','630128')" class="fn-clear  sh-brand-wrap-630128" modeId="19268" instanceId="225425557" module-name="new_shop_signs" style="margin-bottom:0px;;margin-bottom: 0px" origin="0" moduleTemplateId="630128"
           >
     <div class="mc" style=";">
 		
         
         
 		
-<div class="sh-brand-wrap">
-    <div class="sh-hot-container">
-        <div class="sh-hot-content">
-            <div class="J_ShopSignImg d-img-wrap"><img src="//img10.360buyimg.com/cms/jfs/t1/127595/18/8813/89181/5f28ba80E74fec47a/24b259ede937282a.jpg" data-size="1920,110"></div><a hot-box-name="热区1" hot-box-index="1" class="hot-link" px="358.8,0.0,196.0,101.3" href="//mall.jd.com/index-1000324421.html" style="top:0.00%;left:18.69%;width:10.21%;height:92.09%" target="_blank"></a><a hot-box-name="热区2" hot-box-index="2" class="hot-link" px="676.0,1.7,235.8,106.3" href="//item.jd.com/100013129894.html" style="top:1.55%;left:35.21%;width:12.28%;height:96.64%" target="_blank"></a><a hot-box-name="热区3" hot-box-index="3" class="hot-link" px="935.1,1.7,214.3,106.3" href="//item.jd.com/100011790176.html" style="top:1.55%;left:48.70%;width:11.16%;height:96.64%" target="_blank"></a><a hot-box-name="热区4" hot-box-index="4" class="hot-link" px="1177.6,1.7,169.4,106.3" href="//item.jd.com/100011951812.html" style="top:1.55%;left:61.33%;width:8.82%;height:96.64%" target="_blank"></a><a hot-box-name="热区5" hot-box-index="5" class="hot-link" px="1381.9,10.0,181.0,98.0" href="//item.jd.com/100007497487.html" style="top:9.09%;left:71.97%;width:9.43%;height:89.09%" target="_blank"></a>
+<div class="j-module" module-function="autoCenter" module-param="{}">
+        <div class="userDefinedArea" style="width:1920px" data-title="">
+            <div style="height:110px;background:url(//img14.360buyimg.com/cms/jfs/t1/148733/29/3196/108190/5f119116E318f67cd/7d4a453c8f9b4abd.jpg) no-repeat top center;">
+	<div style="width:1920px;height:110px;margin:0 auto;position:relative;">
+		<div class="j-module" module-function="saleAttent" module-param="{attentType:'vender'}">
+			<a href="javascript:;" class="e-attention current" data-id="1000000904" data-state="2" data-type="0" style="width:308px;height:97px;display:block;position:absolute;top:5px;left:311px;font-size:0;">关注店铺</a> <a href="//item.jd.com/100012545868.html" data-state="0" data-type="0" style="width:86px;height:104px;display:block;position:absolute;top:2px;left:627px;"></a> <a href="//item.jd.com/100012545852.html" data-state="0" data-type="0" style="width:89px;height:107px;display:block;position:absolute;top:2px;left:725px;"></a> <a href="//item.jd.com/100014002656.html" data-state="0" data-type="0" style="width:90px;height:105px;display:block;position:absolute;top:3px;left:826px;"></a> <a href="//item.jd.com/100010260254.html" data-state="0" data-type="0" style="width:84px;height:107px;display:block;position:absolute;top:2px;left:927px;"></a> <a href="//item.jd.com/100013309402.html" data-state="0" data-type="0" style="width:83px;height:106px;display:block;position:absolute;top:1px;left:1024px;"></a> <a href="//item.jd.com/100007815187.html" data-state="0" data-type="0" style="width:98px;height:105px;display:block;position:absolute;top:3px;left:1268px;"></a><a href="//item.jd.com/100007851351.html" data-state="0" data-type="0" style="width:115px;height:105px;display:block;position:absolute;top:3px;left:1124px;"></a> <a href="//item.jd.com/100013116298.html" data-state="0" data-type="0" style="width:141px;height:104px;display:block;position:absolute;top:7px;left:1394px;"></a> 
+		</div>
+	</div>
+</div>
+<div class="j-module" module-function="saleAttent" module-param="{attentType:'vender'}" style="display:none;">
+	<a id="nan-yyyyy" href="javascript:;" class="e-attention" data-id="1000000904" data-state="0" data-type="2">关注店铺dataType2</a> 
+</div>
         </div>
     </div>
-</div>
 
 <script type="text/javascript">
     function importHotZoneData() {
@@ -927,7 +935,7 @@ color: #fff;
     }
     addAttentHtml();
     function _seacrh_hot_keyword(obj){
-        var base_url = "//mall.jd.com/view_search" +  "-1627957" + "-1000324421" + "-1000324421"   + "-0-1-0-0-1-1-24.html";
+        var base_url = "//mall.jd.com/view_search" +  "-394032" + "-1000000904" + "-1000000904"   + "-0-1-0-0-1-1-24.html";
         var keyword = $(obj).html();
         if(keyword){
             keyword = encodeURIComponent(keyword);
@@ -940,7 +948,7 @@ color: #fff;
     }
 
     function shop_signs_search(obj){
-        var base_url = "//mall.jd.com/view_search" +  "-1627957" + "-1000324421" + "-1000324421"   + "-0-1-0-0-1-1-24.html";
+        var base_url = "//mall.jd.com/view_search" +  "-394032" + "-1000000904" + "-1000000904"   + "-0-1-0-0-1-1-24.html";
         var keyword = $(obj).prev().val();
         if(keyword){
             keyword = encodeURIComponent(keyword);
@@ -954,7 +962,7 @@ color: #fff;
 
     $('.m-kw').keydown(function(e){
         if(e.keyCode==13){
-            var base_url = "//mall.jd.com/view_search" +  "-1627957" + "-1000324421" + "-1000324421"   + "-0-1-0-0-1-1-24.html";
+            var base_url = "//mall.jd.com/view_search" +  "-394032" + "-1000000904" + "-1000000904"   + "-0-1-0-0-1-1-24.html";
             var keyword = $(this).val();
             if(keyword){
                 keyword = encodeURIComponent(keyword);
@@ -973,7 +981,7 @@ color: #fff;
         jQuery('#shop-signs-attention').click(function() {
             S_ifollow.follow(this);
             var url = "//f-mall.jd.com/rpc/vender/follow";
-            url+="?sysName=mall.jd.com&venderId=" +"1000324421";
+            url+="?sysName=mall.jd.com&venderId=" +"1000000904";
             jQuery.ajax({
                 url:url,
                 type : 'GET',
@@ -1199,7 +1207,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
 
 
 
-<div onclick="log('shop_03','mall_03','1000324421','18169','922476')" class="fn-clear  sh-head-menu-922476" modeId="18169" instanceId="226656524" module-name="shop_link" style="margin-bottom:0px;;margin-bottom: 0px" origin="0" moduleTemplateId="922476"
+<div onclick="log('shop_03','mall_03','1000000904','18169','922476')" class="fn-clear  sh-head-menu-922476" modeId="18169" instanceId="225425558" module-name="shop_link" style="margin-bottom:0px;;margin-bottom: 0px" origin="0" moduleTemplateId="922476"
           >
     <div class="mc" style=";">
 		
@@ -1207,351 +1215,309 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
         
 		<div style="height: 40px;overflow: hidden;">
     <div class="j-module" module-function="autoCenter" module-param="{}">
-        <div class="userDefinedArea" style="width:1912px" data-title="">
-            <div style="height:40px;overflow:hidden;">
-	<div class="j-module" module-function="autoCenter" module-param="{}">
-		<div class="userDefinedArea" style="width:1920px;margin-left:-8.5px;" data-title="">
+        <div class="userDefinedArea" style="width:1882px" data-title="">
+            <div onclick="log('shop_03','mall_03','1000004259','18169','922476')" class="fn-clear sh-head-menu-922476" modeid="18169" instanceid="202428619" module-name="shop_link" style="margin-bottom:0px;" origin="0" moduletemplateid="922476" data-has-point="true">
+	<div class="mc">
+		<div style="height:40px;overflow:hidden;">
+			<div class="j-module" module-function="autoCenter" module-param="{}">
+				<div class="userDefinedArea" style="width:1920px;margin:0px auto 0px -38px;" data-title="">
 <style type="text/css" >
-#shop-head .user-nav{ height: 40px; width: 1200px; z-index:7;cursor:pointer; position: absolute; left: 50%;margin-left:-600px; background-color: #009ea1;}
-#shop-head .user-menuB-placeholder{ height:40px; width:1200px; overflow:hidden;z-index:1; top: 0; }
-#shop-head .user-menuB-list{ width: 1200px; height: 40px; float: left; position: absolute; top: 0px; z-index: 6;}
-#shop-head .user-menuB-list li{ height:40px; width: auto; margin-right: 30px; top: 0; z-index: 7; float:left; text-align: left; font-size: 14px; color: #fff; line-height: 40px;}
-#shop-head .user-menuB-list .user-menuB-link{ text-decoration: none; color: #fff!important; font-size: 14px; font-family: 微软雅黑; display: block; position: relative; z-index: 1; transition: all 0.5s;}
-#shop-head .user-menuB-list .user-line{width:28px;height:4px;background:aqua; opacity: 0.9; border-radius:28px;top:31px; transform: translate(15px,0); position: absolute; transition:all 0.5s ease-in-out;}
-#shop-head .user-menuB-list li:hover .user-menuB-link{color: aqua!important;}
-#shop-head .user-menuB-list li.show .user-menuB-link{color: aqua!important;}
-#shop-head .user-menuB-list li:nth-child(1).show ~ .user-line{transform: translate(15px,0);}
-#shop-head .user-menuB-list li:nth-child(2).show ~ .user-line{ width: 56px; transform: translate(73px,0);}
-#shop-head .user-menuB-list li:nth-child(3).show ~ .user-line{ width: 56px; transform: translate(159px,0);}
-#shop-head .user-menuB-list li:nth-child(4).show ~ .user-line{ width: 56px; transform: translate(245px,0);}
-#shop-head .user-menuB-list li:nth-child(5).show ~ .user-line{ width: 70px; transform: translate(331px,0);}
-#shop-head .user-menuB-list li:nth-child(6).show ~ .user-line{ width: 56px; transform: translate(431px,0);}
-#shop-head .user-menuB-list li:nth-child(7).show ~ .user-line{ width: 56px; transform: translate(517px,0);}
-#shop-head .user-menuB-list li:nth-child(8).show ~ .user-line{ width: 56px; transform: translate(603px,0);}
-#shop-head .user-menuB-list li:nth-child(9).show ~ .user-line{ width: 56px; transform: translate(689px,0);}
-#shop-head .user-menuB-list li:nth-child(10).show ~ .user-line{ width: 56px; transform: translate(775px,0);}
-#shop-head .user-menuB-list li:nth-child(11).show ~ .user-line{ width: 56px; transform: translate(861px,0);}
-#shop-head .user-menuB-list li:nth-child(12).show ~ .user-line{ width: 56px; transform: translate(947px,0);}
-#shop-head .user-list{display: none;position: absolute;left: 0;top: 40px;right: 0;z-index: 7;padding: 20px 40px;border: 1px solid #bebab0;background-color: rgba(247, 242, 234, 0.9);}
-#shop-head .user-mover:hover .user-list{ display:block; }
-#shop-head .user-list .user-pannel{ float:left; padding: 0; display: inline;}
-#shop-head .user-list .user-sub-tittle{margin-bottom: 13px;height: 54px;line-height: 54px;border-bottom: dashed 1px #c9c9c9;padding: 0 20px;}
-#shop-head .user-list .user-sub-tit-link{font-size: 14px;font-weight: bold;color: #333;line-height: 24px;display: inline-block;height: 24px;padding: 0 10px;border-radius: 12px;min-width: 74px; transition:0.5s;}
-#shop-head .user-list .user-sub-tit-link:hover{ color:#F3171A;}
-#shop-head .user-list .user-sub-list{ padding:0 20px;}
-#shop-head .user-list ul{ list-style:none; margin: 0; padding: 0;}
-#shop-head .user-list .user-leaf{font-size: 12px;height: 26px;line-height: 26px;}
-#shop-head .user-list .user-leaf-link{ transition:0.5s;}
-#shop-head .user-list .user-leaf-link:hover{ color:#F3171A;}
-#shop-head .user-all-goods{clear: both;padding-left: 20px;}
-#shop-head .user-all-goods-link{font-weight: bold;padding-left: 20px;border: solid 1px #666;border-radius: 12px;height: 24px;line-height: 24px;padding: 0 10px;}
-#shop-head .user-nav-search{ height: 22px; width: 125px; border: none; position: absolute; right: 10px; top:9px; border-radius: 10px; background: #4e4545;}
-#shop-head .user-nav-txt{ height: 22px; line-height: 22px; outline: none; border: none; background: #fff; padding: 0; color: #000; text-indent: 10px; border-radius: 10px 0 0 10px; font-size: 12px; position: absolute; width: 100px;}
-#shop-head .user-nav-bt{ height: 22px; width: 25px;outline: none; border: none; background:url(//img13.360buyimg.com/cms/jfs/t1/7484/14/10472/284/5c22ee7bE7e3448ea/bbe1a3192dfb9446.png) no-repeat 3px 3px; padding: 0; position: absolute; cursor: pointer;left: 100px;border-radius: 0 10px 10px 0;}
-   </style>
-			<div style="width:1920px;height:40px;background:#009ea1;">
-				<div class="j-module user-nav" module-function="slideHtml" module-param="{'imgArea':'.user-menuB-placeholder','imgNode':'.user-menuB-placeholder li','tabArea':'.user-menuB-list','tabNode':'.user-menuB-list li','subFunction':'moveEffect','eventType':'mouseenter','timer':'100'}">
-					<div class="user-menuB-placeholder-box" style="margin:0px auto;">
-						<ul class="user-menuB-placeholder" style="margin:0px auto;">
-							<li style="float:left;" class="">
-							</li>
-						</ul>
-					</div>
-					<ul class="user-menuB-list">
-						<li class="">
-							<a class="user-menuB-link" style="font-weight:bold;color:#FFFFFF;margin-left:15px;" href="//mall.jd.com/index-1000324421.html" target="_self" clstag="jshopmall|keycount|1000324421|xdpdh">首页</a> 
-						</li>
-						<li class="user-mover show">
-							<a class="user-menuB-link" style="color:#FFFFFF;" href="#" target="_self" clstag="jshopmall|keycount|1000324421|xdpdhqbfl">全部分类<span class="arrow"></span></a> 
-							<div class="user-list">
-								<dl class="user-pannel" style="height:276px;">
-									<dt class="user-sub-tittle" clstag="jshopmall|keycount|1000324421|xdpdhqbfl1">
-										<a href="//mall.jd.com/view_search-1627957-14230988-99-1-24-1.html" target="_blank" class="user-sub-tit-link">海信电视</a> 
-									</dt>
-									<dd class="user-sub-list">
-										<div class="user-leaf-list">
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14445532-99-1-24-1.html" target="_blank" class="user-leaf-link">游戏电视新品</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230989-99-1-24-1.html" target="_blank" class="user-leaf-link">AI声控</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230991-99-1-24-1.html" target="_blank" class="user-leaf-link">全面屏电视</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230990-99-1-24-1.html" target="_blank" class="user-leaf-link">超薄电视</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230992-99-1-24-1.html" target="_blank" class="user-leaf-link">社交电视</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230993-99-1-24-1.html" target="_blank" class="user-leaf-link">4K HDR</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230994-99-1-24-1.html" target="_blank" class="user-leaf-link">ULED超画质</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230995-99-1-24-1.html" target="_blank" class="user-leaf-link">OLED电视</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230996-99-1-24-1.html" target="_blank" class="user-leaf-link">70-75英寸</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230997-99-1-24-1.html" target="_blank" class="user-leaf-link">58-65英寸</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230998-99-1-24-1.html" target="_blank" class="user-leaf-link">55英寸</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14230999-99-1-24-1.html" target="_blank" class="user-leaf-link">50英寸</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14231000-99-1-24-1.html" target="_blank" class="user-leaf-link">43英寸</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14231001-99-1-24-1.html" target="_blank" class="user-leaf-link">32-40英寸</a> 
-											</div>
-										</div>
-									</dd>
-								</dl>
-								<dl class="user-pannel">
-									<dt class="user-sub-tittle" clstag="jshopmall|keycount|1000324421|xdpdhqbfl2">
-										<a href="//mall.jd.com/view_search-1627957-14243826-99-1-24-1.html" target="_blank" class="user-sub-tit-link">海信空调</a> 
-									</dt>
-									<dd class="user-sub-list">
-										<div class="user-leaf-list">
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243827-99-1-24-1.html" target="_blank" class="user-leaf-link">新风空调</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243828-99-1-24-1.html" target="_blank" class="user-leaf-link">新一级能效</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14244147-99-1-24-1.html" target="_blank" class="user-leaf-link">爆款推荐</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243829-99-1-24-1.html" target="_blank" class="user-leaf-link">线下同款</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243831-99-1-24-1.html" target="_blank" class="user-leaf-link">小卧室（约10-16㎡）</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243830-99-1-24-1.html" target="_blank" class="user-leaf-link">大卧室（约15~22㎡）</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243832-99-1-24-1.html" target="_blank" class="user-leaf-link">小客厅（约20~32㎡）</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243833-99-1-24-1.html" target="_blank" class="user-leaf-link">大客厅（约28~45㎡）</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243836-99-1-24-1.html" target="_blank" class="user-leaf-link">挂机空调</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243837-99-1-24-1.html" target="_blank" class="user-leaf-link">柜机空调</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243834-99-1-24-1.html" target="_blank" class="user-leaf-link">变频空调</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14243835-99-1-24-1.html" target="_blank" class="user-leaf-link">定频空调</a> 
+#shop-head .user_jy47_daohang {width:1920px;height:40px;font-family:microsoft yahei;font-size:16px;color:white;margin:0 auto;}
+#shop-head .user_jy47_daohang .mt {display:none;}
+#shop-head .user_jy47_daohang .no_display {display:none;}
+#shop-head .user_jy47_daohang .l {width:180px;height:40px;float:left;}
+#shop-head .user_jy47_daohang .l .s_all {display:block;width:150px;height:40px;overflow:hidden;background:url(//img11.360buyimg.com/cms/g13/M05/12/00/rBEhVFLXagYIAAAAAAAAUfY5SdkAAH-wQP__PgAAABp340.gif) 150px center no-repeat #131313;padding-left:30px;color:white!important;line-height:40px;text-align:left;}
+#shop-head .user_jy47_daohang .l .s_box {display:none;width:990px;height:auto;overflow:hidden;background-color:#f8f6f6;}
+#shop-head .user_jy47_daohang .l .s_box .fenlei {display:inline;width:990px;height:490px;overflow:hidden;margin:10px 0 0 10px;float:left;}
+#shop-head .user_jy47_daohang .l .s_box .fenlei .fl {width:990px;height:35px;overflow:hidden;margin-bottom:10px;}
+#shop-head .user_jy47_daohang .l .s_box .fenlei .fl .yiji {display:block;width:100px;height:35px;overflow:hidden;padding:0 10px 0;text-align:left;line-height:35px;font-size:14px;font-weight:blob;color:black;float:left;}
+#shop-head .user_jy47_daohang .l .s_box .fenlei .fl .erji {width:800px;height:35px;overflow:hidden;}
+#shop-head .user_jy47_daohang .l .s_box .fenlei .fl .erji a {display:block;width:auto;height:35px;overflow:hidden;padding:0 10px;line-height:35px;float:left;font-size:12px;font-family:arial;}
+#shop-head .user_jy47_daohang .l .s_box .fenlei .fl .erji a:hover {text-decoration:underline;color:black!important;}
+#shop-head .user_jy47_daohang .l .s_box .fenlei .fl:hover {background-color:#eee;}
+#shop-head .user_jy47_daohang .l .s_box .s_banner {display:inline;width:320px;height:200px;overflow:hidden;margin:10px 10px 0 0;float:right;}
+#shop-head .user_jy47_daohang .l .s_box .s_banner .s_title {width:320px;height:35px;overflow:hidden;border-bottom:1px solid black;line-hieght:25px;font-size:14px;color:black;line-height:30px;font-weight:bold;}
+#shop-head .user_jy47_daohang .l .s_box .s_banner .banner_box {width:320px;height:165px;overflow:hidden;margin-top:8px;position:relative;}
+#shop-head .user_jy47_daohang .l .s_box .s_banner .banner_box .s_content {width:320px;height:165px;overflow:hidden;}
+#shop-head .user_jy47_daohang .l .s_box .s_banner .banner_box .s_content .banner {display:block;width:320px;height:165px;overflow:hidden;float:left;}
+#shop-head .user_jy47_daohang .l .s_box .s_banner .banner_box .s_content .banner img {display:block;width:320px;height:165px;overflow:hidden;background:url(//img11.360buyimg.com/cms/g12/M00/06/0F/rBEQYFNFAXcIAAAAAAAk03BOOKwAAEF5wLbSlkAACTr902.gif) no-repeat center center #eee;}
+#shop-head .user_jy47_daohang .l .s_box .s_banner .banner_box .s_tabs {width:auto;height:auto;overflow:hidden;position:absolute;bottom:10px;right:10px;}
+#shop-head .user_jy47_daohang .l .s_box .s_banner .banner_box .s_tabs span {display:block;width:9px;height:9px;overflow:hidden;background-color:#eee;float:left;margin-left:5px;}
+#shop-head .user_jy47_daohang .l .s_box .s_banner .banner_box .s_tabs span.show {background-color:red;}
+#shop-head .user_jy47_daohang .l:hover .s_box {display:block;}
+#shop-head .user_jy47_daohang .r {width:1100px;height:40px;background-color:black;margin: 0 auto;}
+#shop-head .user_jy47_daohang .r .s_nav {height:40px;float:left;}
+#shop-head .user_jy47_daohang .r .no_s_nav {display:none;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_title {display:block;width:auto;_width:50px;height:40px;padding:0 8px 0;line-height:40px;color:white;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box {display:none;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .menu {width:120px;height:auto;overflow:hidden;padding:5px 15px 10px 15px;float:left;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .menu .s_title {width:100%;height:40px;overflow:hidden;border-bottom:1px solid black;margin-bottom:5px;line-height:40px;font-weight:bold;color:black;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .menu a {display:block;width:auto;height:38px;overflow:hidden;line-height:38px;font-size:12px;color:black;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .menu a:hover {text-decoration:underline;}
+#shop-head .user_jy47_daohang .r .s_nav:hover .nav_title {background-color:red;color:white;}
+#shop-head .user_jy47_daohang .r .s_nav:hover .nav_box {display:block;width:auto;height:auto;background-color:#fafafa;position:absolute;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items {max-width:425px;height:auto;overflow:hidden;padding:5px 15px 15px 15px;float:left;position:relative;border-left:1px solid #eeeeee;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .s_title {width:100%;height:40px;overflow:hidden;border-bottom:1px solid black;font-weight:bold;color:black;margin-bottom:10px;line-height:40px;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item {display:inline;width:100px;height:auto;overflow:hidden;float:left;margin-left:6px;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item1 {margin-left:0px;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item .pic {display:block;width:98px;height:98px;overflow:hidden;border:1px solid #e3e3e3;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item .pic img {display:block;width:98px;height:98px;overflow:hidden;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item .pic:hover {border-color:red;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item .biaoti {width:100px;height:30px;overflow:hidden;line-height:33px;font-size:12px;color:black;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item .price {width:100px;height:30px;overflow:hidden;line-height:28px;font-size:11px;font-family:arial;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item .price .cu {font-weight:bold;color:red;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item .price .yuan {font-size:10px;color:gray;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item .price .yuan .jsNum {text-decoration:line-through;}
+#shop-head .user_jy47_daohang .r .s_nav .nav_box .s_items .item .buy {display:block;width:62px;height:28px;overflow:hidden;background-color:red;text-align:center;line-height:28px;color:white;font-size:12px;font-family:arial;}
+</style>
+					<div class="user_header" style="width:1920px;background-color:#000000;">
+						<div class="user_jy47_daohang">
+							<div class="mc">
+								<div class="user_nav_color" style="width:1920px;height:40px;position:absolute;z-index:6;">
+<style type="text/css" >
+#shop-head .user_nav_erji{display:none;width:1920px;height:240px;z-index:7;background:#red;position:absolute;top:40px;left:0px}
+#shop-head .user_hover:hover .user_nav_erji{display:block;}
+</style>
+									<div class="r" style="background-color:#000000;">
+<style type="text/css" >
+#shop-head .user_nav_color .l .s_box .s_banner .banner_box .s_tabs span {background-color:#eeeeee;}
+#shop-head .user_nav_color .l .s_box .s_banner .banner_box .s_tabs span.show {background-color:#d11e35;}
+#shop-head .user_nav_color .r .s_nav:hover .nav_title { background-color:#d11e35;}
+#shop-head .user_nav_color .r .s_nav .nav_box .s_items .item .pic:hover { border-color:#65b1ff }
+#shop-head .user_nav_color .r .s_nav .nav_box .s_items .item .price .cu { color:#65b1ff;}
+</style>
+										<div class="l">
+											<a class="s_all" href="#" target="_blank" style="background-color:#d11e35;">查看所有商品</a> 
+											<div class="s_box">
+												<div class="fenlei">
+													<div class="fl">
+														<a class="yiji" href="#!">荣耀V系列</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100010260254.html" clstag="pageclick|keycount|shop_link_202294379_1|1000000904">荣耀V30PRO</a><a target="_blank" href="//item.jd.com/100010260230.html" clstag="pageclick|keycount|shop_link_202294379_2|1000000904">荣耀V30</a><a target="_blank" href="//item.jd.com/100001864325.html" clstag="pageclick|keycount|shop_link_202294379_3|1000000904">荣耀V20</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">HONOR系列</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100012545868.html" clstag="pageclick|keycount|shop_link_202294379_8|1000000904">荣耀30 Pro</a> <a target="_blank" href="//item.jd.com/100012545852.html" clstag="pageclick|keycount|shop_link_202294379_8|1000000904">荣耀30</a> <a target="_blank" href="//item.jd.com/100014002656.html" clstag="pageclick|keycount|shop_link_202294379_8|1000000904">荣耀30 青春版</a> <a target="_blank" href="//item.jd.com/100006604003.html" clstag="pageclick|keycount|shop_link_202294379_8|1000000904">荣耀30S</a> <a target="_blank" href="//item.jd.com/100004036237.html" clstag="pageclick|keycount|shop_link_202294379_8|1000000904">荣耀20PRO</a> <a target="_blank" href="//item.jd.com/100005603522.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_9|1000000904">荣耀20</a> <a target="_blank" href="//item.jd.com/100004559325.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_10|1000000904">荣耀20S</a> <a target="_blank" href="//item.jd.com/100005207373.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_11|1000000904">荣耀20青春版</a><a target="_blank" href="//item.jd.com/100003060627.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_11|1000000904">荣耀20i</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">荣耀X系列</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100014002946.html" clstag="pageclick|keycount|shop_link_202294379_15|1000000904"> 荣耀X10 Max</a> <a target="_blank" href="//item.jd.com/100013309402.html" clstag="pageclick|keycount|shop_link_202294379_12|1000000904"> 荣耀X10</a> <a target="_blank" href="//item.jd.com/100006947212.html" clstag="pageclick|keycount|shop_link_202294379_12|1000000904"> 荣耀9X</a><a target="_blank" href="//item.jd.com/100006828852.html" clstag="pageclick|keycount|shop_link_202294379_13|1000000904"> 荣耀9XPRO</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">荣耀Play系列</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100013369088.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_24|1000000904"> 荣耀Play4 Pro</a><a target="_blank" href="//item.jd.com/100013525204.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_25|1000000904"> 荣耀Play4</a> <a target="_blank" href="//item.jd.com/100006728101.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_23|1000000904"> 荣耀Play4T Pro</a> <a target="_blank" href="//item.jd.com/100012253152.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_23|1000000904"> 荣耀Play4T</a> <a target="_blank" href="//item.jd.com/100012134984.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_23|1000000904"> 荣耀畅玩9A</a> <a target="_blank" href="//item.jd.com/100008031678.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_23|1000000904"> 荣耀Play3</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">智慧屏</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100007006134.html" clstag="pageclick|keycount|shop_link_202294379_31|1000000904"> 荣耀智慧屏</a> <a target="_blank" href="//item.jd.com/100004099019.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_32|1000000904"> 荣耀智慧屏Pro</a><a target="_blank" href="//item.jd.com/100005171625.html" clstag="pageclick|keycount|shop_link_202294379_31|1000000904"> 荣耀智慧屏4G版</a> <a target="_blank" href="//item.jd.com/100005172199.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_32|1000000904"> 荣耀智慧屏Pro4G版</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">笔记本</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100007818806.html" clstag="pageclick|keycount|shop_link_202294379_33|1000000904">MagicBook pro intel版</a> <a target="_blank" href="//item.jd.com/100004563443.html" clstag="pageclick|keycount|shop_link_202294379_34|1000000904">MagicBook Pro 锐龙版</a> <a target="_blank" href="//item.jd.com/100010816812.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_35|1000000904">MagicBook 14 锐龙版</a> <a target="_blank" href="//item.jd.com/100006229449.html" clstag="pageclick|keycount|shop_link_202294379_36|1000000904">MagicBook 14 intel版</a> <a target="_blank" href="//item.jd.com/100006008837.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_37|1000000904">MagicBook 15 锐龙版</a> <a target="_blank" href="//item.jd.com/100010816646.html" clstag="pageclick|keycount|shop_link_202294379_38|1000000904">MagicBook 15 intel版</a> <a target="_blank" href="//item.jd.com/100004870923.html" clstag="pageclick|keycount|shop_link_202294379_39|1000000904">MagicBook 2019</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">穿戴</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100010206902.html" clstag="pageclick|keycount|shop_link_202294379_40|1000000904">荣耀手表 2</a> <a target="_blank" href="//item.jd.com/100010206886.html" clstag="pageclick|keycount|shop_link_202294379_41|1000000904">荣耀手表</a><a target="_blank" href="//item.jd.com/100006756282.html" clstag="pageclick|keycount|shop_link_202294379_42|1000000904">荣耀手环5 NFC</a><a target="_blank" href="//item.jd.com/100009212514.html" clstag="pageclick|keycount|shop_link_202294379_43|1000000904">荣耀手环5i</a> <a target="_blank" href="//item.jd.com/100002546206.html" clstag="pageclick|keycount|shop_link_202294379_44|1000000904">儿童手表小K2</a> <a target="_blank" href="//item.jd.com/100010109128.html" clstag="pageclick|keycount|shop_link_202294379_45|1000000904">荣耀体脂称 2</a> <a target="_blank" href="//item.jd.com/100000101418.html" clstag="pageclick|keycount|shop_link_202294379_45|1000000904">荣耀手环Running版</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">平板</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100000654489.html" clstag="pageclick|keycount|shop_link_202294379_46|1000000904">平板5 10.1英寸</a> <a target="_blank" href="//item.jd.com/100002244263.html" clstag="pageclick|keycount|shop_link_202294379_47|1000000904">平板5 8英寸</a> <a target="_blank" href="//item.jd.com/4215115.html" clstag="pageclick|keycount|shop_link_202294379_48|1000000904">畅玩平板2 9.6英寸</a> <a target="_blank" href="//item.jd.com/5127282.html" clstag="pageclick|keycount|shop_link_202294379_49|1000000904">畅玩平板2 8英寸</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">路由</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100010173422.html" clstag="pageclick|keycount|shop_link_202294379_53|1000000904">荣耀猎人路由器</a> <a target="_blank" href="//item.jd.com/100002413882.html" clstag="pageclick|keycount|shop_link_202294379_54|1000000904">荣耀路由Pro2</a> <a target="_blank" href="//item.jd.com/100004742552.html" clstag="pageclick|keycount|shop_link_202294379_55|1000000904">荣耀路由X2增强版</a> <a target="_blank" href="//item.jd.com/100000996930.html" clstag="pageclick|keycount|shop_link_202294379_56|1000000904">荣耀路由X2</a> <a target="_blank" href="//item.jd.com/5123258.html" clstag="pageclick|keycount|shop_link_202294379_57|1000000904">荣耀路由X1 增强版</a> <a target="_blank" href="//item.jd.com/5360861.html#crumb-wrap" clstag="pageclick|keycount|shop_link_202294379_58|1000000904">荣耀分布式路由</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">智能家居</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100010297528.html" clstag="pageclick|keycount|shop_link_202294379_61|1000000904">智能摄像头</a> <a target="_blank" href="//item.jd.com/100005944301.html" clstag="pageclick|keycount|shop_link_202294379_62|1000000904">电动牙刷Pro</a> <a target="_blank" href="//item.jd.com/100004885505.html" clstag="pageclick|keycount|shop_link_202294379_63|1000000904">即热饮水吧</a> <a target="_blank" href="//item.jd.com/100004885513.html" clstag="pageclick|keycount|shop_link_202294379_64|1000000904">护眼台灯Pro</a> <a target="_blank" href="//item.jd.com/100010656762.html" clstag="pageclick|keycount|shop_link_202294379_65|1000000904">LED小夜灯</a> <a target="_blank" href="//item.jd.com/100010656742.html" clstag="pageclick|keycount|shop_link_202294379_66|1000000904">手机U盘</a> <a target="_blank" href="//item.jd.com/100005939825.html" clstag="pageclick|keycount|shop_link_202294379_67|1000000904">手机壳</a> 
+														</div>
+													</div>
+													<div class="fl">
+														<a class="yiji" href="#!">配件</a> 
+														<div class="erji">
+															<a target="_blank" href="//item.jd.com/100009211026.html" clstag="pageclick|keycount|shop_link_202294379_71|1000000904">xSport PRO运动耳机</a> <a target="_blank" href="//item.jd.com/100001854373.html " clstag="pageclick|keycount|shop_link_202294379_72|1000000904">FlyPods青春版真无线耳机</a> <a target="_blank" href="//item.jd.com/4635252.html" clstag="pageclick|keycount|shop_link_202294379_73|1000000904">xSport AM61耳机</a> <a target="_blank" href="//item.jd.com/100002582455.html" clstag="pageclick|keycount|shop_link_202294379_74|1000000904">移动电源2</a> <a target="_blank" href="//item.jd.com/100010111510.html" clstag="pageclick|keycount|shop_link_202294379_75|1000000904">AP61无线充电器</a><a target="_blank" href="//item.jd.com/2988013.html" clstag="pageclick|keycount|shop_link_202294379_76|1000000904">AM116耳机</a> <a target="_blank" href="//item.jd.com/100003539713.html" clstag="pageclick|keycount|shop_link_202294379_76|1000000904">魔方蓝牙音箱</a> 
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
-									</dd>
-								</dl>
-								<dl class="user-pannel">
-									<dt class="user-sub-tittle" clstag="jshopmall|keycount|1000324421|xdpdhqbfl3">
-										<a href="//mall.jd.com/view_search-1627957-14232470-99-1-24-1.html" target="_blank" class="user-sub-tit-link">海信冰箱</a> 
-									</dt>
-									<dd class="user-sub-list">
-										<div class="user-leaf-list">
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234989-99-1-24-1.html" target="_blank" class="user-leaf-link">新品推荐</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234990-99-1-24-1.html" target="_blank" class="user-leaf-link">店长热荐</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234991-99-1-24-1.html" target="_blank" class="user-leaf-link">镜面玻璃系列</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234992-99-1-24-1.html" target="_blank" class="user-leaf-link">对开门</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234993-99-1-24-1.html" target="_blank" class="user-leaf-link">十字对开</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234994-99-1-24-1.html" target="_blank" class="user-leaf-link">法式多门</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234995-99-1-24-1.html" target="_blank" class="user-leaf-link">三门</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234996-99-1-24-1.html" target="_blank" class="user-leaf-link">两门</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234997-99-1-24-1.html" target="_blank" class="user-leaf-link">单门/迷你</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234998-99-1-24-1.html" target="_blank" class="user-leaf-link">风冷无霜</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14234999-99-1-24-1.html" target="_blank" class="user-leaf-link">变频节能</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14235000-99-1-24-1.html" target="_blank" class="user-leaf-link">智能WiFi控</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14235001-99-1-24-1.html" target="_blank" class="user-leaf-link">食神系列</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14235002-99-1-24-1.html" target="_blank" class="user-leaf-link">厨房冰箱</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14235003-99-1-24-1.html" target="_blank" class="user-leaf-link">客厅冰箱</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14235004-99-1-24-1.html" target="_blank" class="user-leaf-link">办公室冰箱</a> 
+										<div class="s_nav">
+											<a class="nav_title" href="//honor.jd.com/" target="_blank" clstag="pageclick|keycount|shop_link_202294379_77|1000000904">首页</a> 
+										</div>
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/2PimE38Vam99eMLJWXiLTx1VgLJs/index.html" clstag="pageclick|keycount|shop_link_202294379_78|1000000904">V系列</a> 
+											<div class="user_nav_erji">
+												<img title="V系列.jpg" src="//img14.360buyimg.com/cms/jfs/t1/98686/32/12607/118963/5e4a58cdEb767b0a0/bd20faa04e59758b.png" usemap="#V系列" border="0" /> 
+												<map name="V系列" id="V系列">
+													<area shape="rect" coords="530,17,742,225" href="//item.jd.com/100010260254.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_79|1000000904" /> 
+<area shape="rect" coords="845,18,1096,228" href="//item.jd.com/100010260230.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_80|1000000904" /> 
+<area shape="rect" coords="1200,17,1402,228" href="//item.jd.com/100001864325.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_81|1000000904" />
+												</map>
 											</div>
 										</div>
-									</dd>
-								</dl>
-								<dl class="user-pannel">
-									<dt class="user-sub-tittle" clstag="jshopmall|keycount|1000324421|xdpdhqbfl4">
-										<a href="//mall.jd.com/view_search-1627957-14235577-99-1-24-1.html" target="_blank" class="user-sub-tit-link">海信洗衣机</a> 
-									</dt>
-									<dd class="user-sub-list">
-										<div class="user-leaf-list">
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14235578-99-1-24-1.html" target="_blank" class="user-leaf-link">纤薄系列</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14236054-99-1-24-1.html" target="_blank" class="user-leaf-link">迷你/宝宝专用</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14236055-99-1-24-1.html" target="_blank" class="user-leaf-link">洗烘一体专区</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14236056-99-1-24-1.html" target="_blank" class="user-leaf-link">滚筒专区</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14236057-99-1-24-1.html" target="_blank" class="user-leaf-link">波轮专区</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14236058-99-1-24-1.html" target="_blank" class="user-leaf-link">电机包修12年</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14236059-99-1-24-1.html" target="_blank" class="user-leaf-link">宿舍/租房神器</a> 
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/2PimE38Vam99eMLJWXiLTx1VgLJs/index.html" target="blank" clstag="pageclick|keycount|shop_link_202294379_83|1000000904">HONOR系列</a> 
+											<div class="user_nav_erji">
+												<img title="honor系列.jpg" src="//img13.360buyimg.com/cms/jfs/t1/129229/31/6613/126651/5f067b17E76a868fe/063ee6166b768128.jpg" usemap="#honorxi" border="0" /> 
+												<map name="honorxi" id="honorxi">
+													<area shape="rect" coords="347,20,518,220" href="//item.jd.com/100012545868.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_85|1000000904" />
+<area shape="rect" coords="542,21,716,219" href="//item.jd.com/100012545852.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_86|1000000904" />
+								<area shape="rect" coords="758,21,906,216" href="//item.jd.com/100014002656.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_87|1000000904" />
+<area shape="rect" coords="961,19,1126,219" href="//item.jd.com/100006604003.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_88|1000000904" />
+<area shape="rect" coords="1193,19,1355,226" href="//item.jd.com/100003395441.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_88|1000000904" />
+<area shape="rect" coords="1405,22,1563,227" href="//item.jd.com/100005207373.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_88|1000000904" />
+												</map>
 											</div>
 										</div>
-									</dd>
-								</dl>
-								<dl class="user-pannel">
-									<dt class="user-sub-tittle" clstag="jshopmall|keycount|1000324421|xdpdhqbfl5">
-										<a href="//mall.jd.com/view_search-1627957-14096407-99-1-24-1.html" target="_blank" class="user-sub-tit-link">海信冷柜</a> 
-									</dt>
-									<dd class="user-sub-list">
-										<div class="user-leaf-list">
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14096658-99-1-24-1.html" target="_blank" class="user-leaf-link">店长热荐</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14096659-99-1-24-1.html" target="_blank" class="user-leaf-link">新品推荐</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14096660-99-1-24-1.html" target="_blank" class="user-leaf-link">家用冰柜</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14261545-99-1-24-1.html" target="_blank" class="user-leaf-link">客厅冰柜</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14096661-99-1-24-1.html" target="_blank" class="user-leaf-link">变温柜-一机多用</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14096662-99-1-24-1.html" target="_blank" class="user-leaf-link">双温柜-冷藏/冷冻</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14096663-99-1-24-1.html" target="_blank" class="user-leaf-link">立式冷冻柜</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14096664-99-1-24-1.html" target="_blank" class="user-leaf-link">商用冰柜</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14096665-99-1-24-1.html" target="_blank" class="user-leaf-link">商用冷藏展示柜</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14096726-99-1-24-1.html" target="_blank" class="user-leaf-link">冰吧/酒柜</a> 
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/2PimE38Vam99eMLJWXiLTx1VgLJs/index.html" clstag="pageclick|keycount|shop_link_202294379_92|1000000904">X系列</a> 
+											<div class="user_nav_erji">
+												<img src="//img12.360buyimg.com/cms/jfs/t1/150245/36/2381/96862/5f067c95E6565ec42/7d85aee70a55739a.jpg" usemap="#X系列" border="0" /> 
+												<map name="X系列" id="X系列">
+													<area shape="rect" coords="734,5,950,298" href="//item.jd.com/100014002946.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_93|1000000904" />
+													<area shape="rect" coords="521,4,702,235" href="//item.jd.com/100013309402.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_94|1000000904" />
+								<area shape="rect" coords="965,8,1176,233" href="//item.jd.com/100006947212.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_94|1000000904" />
+<area shape="rect" coords="1196,6,1417,235" href="//item.jd.com/100006828852.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_95|1000000904" />
+												</map>
 											</div>
 										</div>
-									</dd>
-								</dl>
-								<dl class="user-pannel">
-									<dt class="user-sub-tittle" clstag="jshopmall|keycount|1000324421|xdpdhqbfl6">
-										<a href="//mall.jd.com/view_search-1627957-14470784-99-1-24-1.html" target="_blank" class="user-sub-tit-link">海信净化除湿</a> 
-									</dt>
-									<dd class="user-sub-list">
-										<div class="user-leaf-list">
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14470785-99-1-24-1.html" target="_blank" class="user-leaf-link">爆款净化除湿</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14470846-99-1-24-1.html" target="_blank" class="user-leaf-link">家用除湿机</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14470847-99-1-24-1.html" target="_blank" class="user-leaf-link">商用除湿机</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14470848-99-1-24-1.html" target="_blank" class="user-leaf-link">空气净化器</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14470849-99-1-24-1.html" target="_blank" class="user-leaf-link">家用新风系统</a> 
-											</div>
-											<div class="user-leaf">
-												<a href="//mall.jd.com/view_search-1627957-14470850-99-1-24-1.html" target="_blank" class="user-leaf-link">商用新风系统</a> 
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/2PimE38Vam99eMLJWXiLTx1VgLJs/index.html" clstag="pageclick|keycount|shop_link_202294379_102|1000000904">Play系列</a> 
+											<div class="user_nav_erji">
+												<img src="//img10.360buyimg.com/cms/jfs/t1/121929/12/4234/74206/5ed9f460E6e4b530b/1f7245308badf3e8.jpg" usemap="#Play系列" border="0" /> 
+												<map name="Play系列" id="Play系列">
+													<area shape="rect" coords="762,14,938,234" href="//item.jd.com/100006728101.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_105|1000000904" /> 
+													<area shape="rect" coords="364,23,521,223" href="//item.jd.com/100013369088.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_107|1000000904" /> 
+													<area shape="rect" coords="565,21,737,231" href="//item.jd.com/100013525204.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_105|1000000904" />
+								<area shape="rect" coords="968,21,1134,234" href="//item.jd.com/100012253152.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_107|1000000904" />
+								<area shape="rect" coords="1170,26,1329,237" href="//item.jd.com/100008031678.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_109|1000000904" />
+								<area shape="rect" coords="1363,23,1538,238" href="//item.jd.com/100012134984.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_109|1000000904" />
+												</map>
 											</div>
 										</div>
-									</dd>
-								</dl>
-								<div class="user-all-goods">
-									<a target="_blank" href="//mall.jd.com/view_search-1627957-0-99-1-24-1.html" class="all-goods-link">查看所有商品</a> 
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/3WQtnQtAMfQuEhLft7BkLJcnD21i/index.html" clstag="pageclick|keycount|shop_link_202294379_112|1000000904">智慧屏</a> 
+											<div class="user_nav_erji">
+												<img src="//img14.360buyimg.com/cms/jfs/t1/130655/27/4985/350606/5f165783Ee63608cd/27c6f6109700c493.png" usemap="#智慧屏" border="0" /> 
+												<map name="智慧屏" id="智慧屏">
+													<area shape="rect" coords="968,8,1156,235" href="//item.jd.com/100007006134.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_113|1000000904" />
+													<area shape="rect" coords="356,7,550,238" href="//item.jd.com/100007791251.html" target="_blank" />
+													<area shape="rect" coords="555,8,749,239" href="//item.jd.com/100013150076.html" target="_blank" />
+												  <area shape="rect" coords="1170,13,1358,235" href="//item.jd.com/100004099019.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_114|1000000904" />
+<area shape="rect" coords="1374,12,1565,234" href="//item.jd.com/100005171625.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_114|1000000904" /><area shape="rect" coords="1608,18,1805,236" href="//item.jd.com/100005172199.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_114|1000000904" />                                         
+												<area shape="rect" coords="753,8,954,236" href="//item.jd.com/100013116298.html" target="_blank" />
+												</map>
+											</div>
+										</div>
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/SiW9ix69AMqDQ9tVFcYZQntcSvP/index.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_115|1000000904">笔记本</a> 
+											<div class="user_nav_erji">
+												<img src="//img10.360buyimg.com/cms/jfs/t1/141597/32/3779/131467/5f1bf219E0de508e4/4263e54fa95d5d3b.jpg" alt="" border="0" usemap="#Mapbijiben" /> 
+												<map name="Mapbijiben">
+													<area shape="rect" coords="334,31,520,226" href="//item.jd.com/100007851351.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_116|1000000904" />
+													<area shape="rect" coords="522,31,708,226" href="//item.jd.com/100014190484.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_116|1000000904" />
+<area shape="rect" coords="713,29,879,225" href="//item.jd.com/100007852387.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_117|1000000904" />
+<area shape="rect" coords="884,31,1055,226" href="//item.jd.com/100014191898.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_118|1000000904" />
+<area shape="rect" coords="1062,29,1224,225" href="//item.jd.com/100014190474.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_119|1000000904" />
+<area shape="rect" coords="1229,32,1395,224" href="//item.jd.com/100013171828.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" /><area shape="rect" coords="1403,27,1565,225" href="//item.jd.com/100007187885.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" />
+												</map>
+											</div>
+										</div>
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/2kNJSZotAF8vsKFqWDtcGvYSL7tK/index.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_121|1000000904"> 穿戴</a> 
+											<div class="user_nav_erji">
+												<img src="//img13.360buyimg.com/cms/jfs/t1/103893/7/16443/65923/5e7d7323E094b1ed4/ce6bb68eff328366.jpg" alt="" border="0" usemap="#Mapchuandai" /> 
+												<map name="Mapchuandai">
+													<area shape="rect" coords="338,27,524,222" href="//item.jd.com/100010206902.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_116|1000000904" />
+<area shape="rect" coords="530,25,696,221" href="//item.jd.com/100010206886.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_117|1000000904" />
+<area shape="rect" coords="702,26,873,221" href="//item.jd.com/100006756282.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_118|1000000904" />
+<area shape="rect" coords="879,25,1041,221" href="//item.jd.com/100000970765.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_119|1000000904" />
+<area shape="rect" coords="1049,26,1215,218" href="//item.jd.com/100009212514.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" />
+<area shape="rect" coords="1220,24,1370,220" href="//item.jd.com/100002546206.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" />
+<area shape="rect" coords="1374,23,1562,220" href="//item.jd.com/100010109128.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" />
+												</map>
+											</div>
+										</div>
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/gFg5uUZmCCVEV52KQ8LzsDtBCc1/index.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_129|1000000904">平板</a> 
+											<div class="user_nav_erji">
+												<img src="//img11.360buyimg.com/cms/jfs/t1/147562/19/3166/108200/5f1110a8E80d7125c/de2a93e0c0f34af4.jpg" alt="" border="0" usemap="#Mappingban" /> 
+												<map name="Mappingban">
+													<area shape="rect" coords="564,35,782,225" href="//item.jd.com/100014226800.html" target="_blank" />
+												  <area shape="rect" coords="972,32,1193,219" href="//item.jd.com/100013843488.html" />
+<area shape="rect" coords="794,30,965,225" href="//item.jd.com/100002244263.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_118|1000000904" />
+<area shape="rect" coords="335,31,550,227" href="//item.jd.com/100013315044.html" />
+												<area shape="rect" coords="1199,29,1399,222" href="//item.jd.com/100013843506.html" />
+												<area shape="rect" coords="1407,31,1574,224" href="//item.jd.com/100007592959.html" />
+												</map>
+											</div>
+										</div>
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/3yiXHf9ZzEQ2ojYSi4tK9kq8fqr2/index.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_137|1000000904">路由</a> 
+											<div class="user_nav_erji">
+												<img src="//img13.360buyimg.com/cms/jfs/t1/141713/11/493/52885/5ee32091E3e631e59/9bc543724098dccc.jpg" alt="" border="0" usemap="#Mapluyou" /> 
+												<map name="Mapluyou">
+													<area shape="rect" coords="1017,15,1189,235" href="//item.jd.com/100010173422.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_116|1000000904" />
+<area shape="rect" coords="1197,16,1379,239" href="//item.jd.com/100002413882.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_117|1000000904" />
+<area shape="rect" coords="1386,10,1565,237" href="//item.jd.com/100004742552.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_118|1000000904" />
+<area shape="rect" coords="351,3,585,241" href="//item.jd.com/100007155439.html" />
+											  <area shape="rect" coords="591,3,810,236" href="//item.jd.com/100013213792.html" />
+											  <area shape="rect" coords="822,7,1012,238" href="//item.jd.com/100007208701.html" target="_blank" />
+												</map>
+											</div>
+										</div>
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/eqZF46ybnWkryXE68wrCwufKQEZ/index.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_145|1000000904">智能家居</a> 
+											<div class="user_nav_erji">
+												<img src="//img10.360buyimg.com/cms/jfs/t1/136648/4/394/44390/5eccd664E9b65758b/0c254805af308010.jpg" alt="" border="0" usemap="#Mapqinxuan" /> 
+												<map name="Mapqinxuan">
+													<area shape="rect" coords="339,25,525,220" href="//item.jd.com/100013292050.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_116|1000000904" />
+<area shape="rect" coords="530,25,696,221" href="//item.jd.com/100007180075.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_117|1000000904" />
+<area shape="rect" coords="704,24,875,219" href="//item.jd.com/100007293461.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_118|1000000904" />
+<area shape="rect" coords="879,25,1041,221" href="//item.jd.com/100005944301.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_119|1000000904" />
+<area shape="rect" coords="1049,26,1215,218" href="//item.jd.com/100010297528.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" /><area shape="rect" coords="1220,24,1370,220" href="//item.jd.com/100011793872.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" />
+<area shape="rect" coords="1374,23,1562,220" href="//item.jd.com/100012889532.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" />
+												</map>
+											</div>
+										</div>
+										<div class="s_nav user_hover">
+											<a class="nav_title" href="//pro.jd.com/mall/active/3xknWQgQF6LAFXh6EX3xxEDype4H/index.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_153|1000000904">音频配件</a> 
+											<div class="user_nav_erji">
+												<img src="//img13.360buyimg.com/cms/jfs/t1/110002/11/8518/74741/5e69e2c0E89e058d8/310494b489c3df40.jpg" alt="" border="0" usemap="#Mappeijian" /> 
+												<map name="Mappeijian">
+													<area shape="rect" coords="338,27,524,222" href="//item.jd.com/100011463172.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_116|1000000904" />
+<area shape="rect" coords="533,28,682,223" href="//item.jd.com/100009211026.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_117|1000000904" />
+<area shape="rect" coords="694,25,855,224" href="//item.jd.com/100001854373.html#crumb-wrap" target="_blank" clstag="pageclick|keycount|shop_link_202294379_118|1000000904" />
+<area shape="rect" coords="869,26,1021,222" href="//item.jd.com/4635252.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_119|1000000904" />
+<area shape="rect" coords="1030,25,1211,222" href="//item.jd.com/100002582453.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" />
+<area shape="rect" coords="1216,28,1382,223" href="//item.jd.com/100010111510.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" />
+<area shape="rect" coords="1386,28,1552,225" href="//item.jd.com/100003539713.html" target="_blank" clstag="pageclick|keycount|shop_link_202294379_120|1000000904" />
+												</map>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh1">
-							<a class="user-menuB-link" target="_blank" href="//mall.jd.com/view_search-1627957-1000324421-1000324421-0-1-0-0-1-1-24.html?keyword=%25E6%25B5%25B7%25E4%25BF%25A1%25E7%2594%25B5%25E8%25A7%2586&amp;isGlobalSearch=1">海信电视</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh2">
-							<a class="user-menuB-link" target="_blank" href="//mall.jd.com/view_search-1627957-1000324421-1000324421-0-1-0-0-1-1-24.html?keyword=%25E6%25B5%25B7%25E4%25BF%25A1%25E7%25A9%25BA%25E8%25B0%2583&amp;isGlobalSearch=1">海信空调</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh3">
-							<a class="user-menuB-link" target="_blank" href="//pro.jd.com/mall/active/4Cq6rWivtPgy1ExNQBGXzbhBy2tq/index.html">海信冰箱</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh4">
-							<a class="user-menuB-link" target="_blank" href="//pro.jd.com/mall/active/4T5p8BaDoT8AypXjRvyQfDJDRKtv/index.html">海信洗衣机</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh5">
-							<a class="user-menuB-link" target="_blank" href="//pro.jd.com/mall/active/4M5PVocXfMQ6CsQVkFfkjPeZ3hMF/index.html">海信冷柜</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh10">
-							<a class="user-menuB-link" target="_blank" href="//pro.jd.com/mall/active/3kDzunJ4rhPnnh5KNtAHAXZmaZGa/index.html">净化除湿</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh6">
-							<a class="user-menuB-link" target="_blank" href="//mall.jd.com/index-1000164921.html">VIDAA电视</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh7">
-							<a class="user-menuB-link" target="_blank" href="//mall.jd.com/index-1000000900.html">科龙空调</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh8">
-							<a class="user-menuB-link" target="_blank" href="//mall.jd.com/index-1000002241.html">容声冰箱</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh9">
-							<a class="user-menuB-link" target="_blank" href="//mall.jd.com/index-1000001978.html">海信手机</a> 
-						</li>
-						<li class="" clstag="jshopmall|keycount|1000324421|xdpdh11">
-							<a class="user-menuB-link" target="_blank" href="//pro.jd.com/mall/active/3RmivHoTx4gKTRmWsB7moAKgBfy/index.html">中奖公示</a> 
-						</li>
-					</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -1569,29 +1535,57 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
 
 			</div>
 		</div>
-	</div></div>
-    
+	</div></textarea>
+<script>
+    (function(cfg) {
+        var $nav1 = $('#navitems-group1');
+        var $nav2 = $('#navitems-group2');
+        var html = '<li class="fore1" id="nav-home"> <a href="//www.jd.com/">首页</a> </li>';
+
+        if (cfg.cmsNavigation && cfg.cmsNavigation.length && $nav1.length) {
+            $nav2.html('');
+            var corner_class = "";
+            var corner_i="";
+            for (var i = 0; i < cfg.cmsNavigation.length; i++) {
+                var nav = cfg.cmsNavigation[i];
+                if(nav.corner&&nav.corner!=""){
+                    corner_class = "new-tab";
+                    corner_i="<i class='icon-new'>"+nav.corner+"<span></span></i>";
+                }else{
+                    corner_class="";
+                    corner_i="";
+                }
+                var j = i + 3;
+                if(j.toString().length == 1) {
+                    j = "0" + j;
+                }
+                html += '<li class="fore'+ i +' '+corner_class+'" clstag="shangpin|keycount|topitemnormal|c' + j + '">'+corner_i+'<a href="'+ nav.address +'" target="_blank">'+ nav.name +'</a> </li>';
+            }
+
+            $nav1.html(html);
+        }
+    })(pageConfig.product);
+</script>
+
 <div class="crumb-wrap" id="crumb-wrap">
     <div class="w">
-        <div class="crumb fl clearfix">
-                            <div class="item first"><a href='//jiadian.jd.com' clstag="shangpin|keycount|product|mbNav-1">家用电器</a></div>
-                <div class="item sep">&gt;</div>
-                                <div class="item"><a href='//list.jd.com/list.html?cat=737,794' clstag="shangpin|keycount|product|mbNav-2">大 家 电</a></div>
-                <div class="item sep">&gt;</div>
-                                <div class="item"><a href='//list.jd.com/list.html?cat=737,794,798' clstag="shangpin|keycount|product|mbNav-3">平板电视</a></div>
-                <div class="item sep">&gt;</div>
-                                                    <div class="item">
-                <div class="J-crumb-br crumb-br EDropdown">
+                <div class="crumb fl clearfix">
+                        <div class="item first"><a href='//jiadian.jd.com' clstag="shangpin|keycount|product|mbNav-1">家用电器</a></div>
+            <div class="item sep">&gt;</div>
+                        <div class="item"><a href='//list.jd.com/list.html?cat=737,794' clstag="shangpin|keycount|product|mbNav-2">大 家 电</a></div>
+            <div class="item sep">&gt;</div>
+                        <div class="item"><a href='//list.jd.com/list.html?cat=737,794,798' clstag="shangpin|keycount|product|mbNav-3">平板电视</a></div>
+            <div class="item sep">&gt;</div>
+                                                <div class="item">
+                                <div class="J-crumb-br crumb-br EDropdown">
                     <div class="inner border">
                         <div class="head" data-drop="head">
-                            <a href='//list.jd.com/list.html?cat=737,794,798&ev=exbrand_7888' clstag="shangpin|keycount|product|mbNav-4">海信（Hisense）</a>
+                            <a href='//list.jd.com/list.html?cat=737,794,798&ev=exbrand_8557' clstag="shangpin|keycount|product|mbNav-5">华为（HUAWEI）</a>
                             <span class="arrow arr-close"></span>
                         </div>
-
                         <div class="content hide" data-drop="content">
-                            <ul class="br-reco plist-1 lh clearfix" clstag="shangpin|keycount|product|mbTJ-1"></ul>
-
-                            <ul class="br-list" clstag="shangpin|keycount|product|mbTJ-2">
+                                                        <ul class="br-reco plist-1 lh clearfix" clstag="shangpin|keycount|product|mbTJ-1"></ul>
+                                                        <ul class="br-list" clstag="shangpin|keycount|product|mbTJ-2">
                                                                                                 <li><a href="//list.jd.com/list.html?cat=737,794,798&ev=exbrand_18374" target='_blank' title="小米（MI）">小米（MI）</a></li>
                                                                 <li><a href="//list.jd.com/list.html?cat=737,794,798&ev=exbrand_7888" target='_blank' title="海信（Hisense）">海信（Hisense）</a></li>
                                                                 <li><a href="//list.jd.com/list.html?cat=737,794,798&ev=exbrand_2505" target='_blank' title="TCL">TCL</a></li>
@@ -1606,11 +1600,11 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                         </div>
                     </div>
                 </div>
-            </div>
+                            </div>
             <div class="item sep">&gt;</div>
-                        <div class="item ellipsis" title="海信60E3F">海信60E3F</div>
+                        <div class="item ellipsis" title="华为LOK-350">华为LOK-350</div>
         </div><!-- .crumb -->
-                <div class="contact fr clearfix">
+                        <div class="contact fr clearfix">
                             <div class="name goodshop EDropdown">
                     <em class="u-jd">
                         自营
@@ -1619,7 +1613,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                         <div class="J-hove-wrap EDropdown fr">
                 <div class="item">
                     <div class="name">
-                                                <a href="//mall.jd.com/index-1000324421.html?from=pc" target="_blank" title="海信京东自营旗舰店" clstag="shangpin|keycount|product|dianpuname1">海信京东自营旗舰店</a>
+                                                <a href="//honor.jd.com" target="_blank" title="荣耀京东自营旗舰店" clstag="shangpin|keycount|product|dianpuname1">荣耀京东自营旗舰店</a>
                                             </div>
                 </div>
                                 <div class="item hide J-im-item">
@@ -1629,7 +1623,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                     <div class="J-jimi-btn" clstag="shangpin|keycount|product|jimi_1"></div>
                 </div>
                                 <div class="item">
-                    <div class="follow J-follow-shop" data-vid="1000324421" clstag="shangpin|keycount|product|guanzhu">
+                    <div class="follow J-follow-shop" data-vid="1000000904" clstag="shangpin|keycount|product|guanzhu">
                         <i class="sprite-follow"></i><span>关注店铺</span>
                     </div>
                 </div>
@@ -1651,17 +1645,17 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                                     <img src="//misc.360buyimg.com/lib/img/e/blank.gif" width="78" height="78" alt="关注微店"/>
                                     <p>关注微店</p>
                                 </div>
-                                <div class="qr-code J-m-qrcode" data-url="https://cd.jd.com/qrcode?skuId=100007300763&location=3&isWeChatStock=2">
+                                <div class="qr-code J-m-qrcode" data-url="https://cd.jd.com/qrcode?skuId=100013116298&location=3&isWeChatStock=2">
                                     <div class="J-m-wrap"></div>
                                     <p>手机下单</p>
                                 </div>
                             </div>
                                                         <div class="btns">
-                                                                <a href="//mall.jd.com/index-1000324421.html?from=pc" target="_blank" class="btn-def enter-shop J-enter-shop" clstag="shangpin|keycount|product|jindian1">
+                                                                <a href="//honor.jd.com" target="_blank" class="btn-def enter-shop J-enter-shop" clstag="shangpin|keycount|product|jindian1">
                                     <i class="sprite-enter"></i><span>进店逛逛</span>
                                 </a>
                                 <span class="separator">|</span>
-                                <a href="#none" class="btn-def follow-shop J-follow-shop" data-vid="1000324421" clstag="shangpin|keycount|product|guanzhu1">
+                                <a href="#none" class="btn-def follow-shop J-follow-shop" data-vid="1000000904" clstag="shangpin|keycount|product|guanzhu1">
                                     <i class="sprite-follow"></i><span>关注店铺</span>
                                 </a>
                                                             </div>
@@ -1678,20 +1672,19 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
     <div class="product-intro clearfix">
         <div class="preview-wrap">
             <div class="preview" id="preview">
-                                <div id="spec-n1" class="jqzoom main-img" data-big="1" clstag="shangpin|keycount|product|mainpic_fz">
-                    <ul class="preview-btn J-preview-btn">
-                                                                                                <li>
-                            <span class="video-icon J-video-icon" clstag="shangpin|keycount|product|picvideo" style="display:none"></span>
-                        </li>
-                                            </ul>
-                    <img id="spec-img" width="350" data-origin="//img13.360buyimg.com/n1/jfs/t1/128105/3/9469/200006/5f368247E7cfca402/9d8a94fd1d2b55ce.jpg" alt="海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源"/>
-                                                                                                                        <div id="belt"></div>
+                                    <div id="spec-n1" class="jqzoom main-img" data-big="1" clstag="shangpin|keycount|product|mainpic_fz">
+                        <ul class="preview-btn J-preview-btn">
+                                                                                                                <li>
+                                <span class="video-icon J-video-icon" clstag="shangpin|keycount|product|picvideo" style="display:none"></span>
+                            </li>
+                                                    </ul>
+                        <img id="spec-img" width="350" data-origin="//img13.360buyimg.com/n1/jfs/t1/146019/39/5431/118947/5f380328E953a47ba/04471d81482d3a31.jpg" alt="荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏"/>
+                                                                                                                           <div id="belt"></div>
+                    </div>
+                                                <div class="video" id="v-video" data-vu="500127490">
+                    <div class="J-v-player"></div>
+                    <a href="#none" class="close-video J-close hide" clstag="shangpin|keycount|product|closepicvideo"></a>
                 </div>
-                                        <div class="video" id="v-video" data-vu="208690205">
-                            <div class="J-v-player"></div>
-                            <span class="video-icon J-video-icon" clstag="shangpin|keycount|product|picvideo"></span>
-                            <a href="#none" class="close-video J-close hide" clstag="shangpin|keycount|product|closepicvideo"></a>
-                        </div>
                                     <script>
                         (function(doc, cfg) {
                             var img = doc.getElementById('spec-img');
@@ -1700,7 +1693,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
 
                             if ((!cfg.wideVersion || !cfg.compatible) && !cfg.product.ctCloth) {
                                 img.setAttribute('width', nsz);
-                                img.setAttribute('height', nsz);
+                                /*img.setAttribute('height', nsz);*/
                                 img.setAttribute('src', src.replace('s450x450', 's'+ nsz +'x' + nsz));
                             } else {
                                 img.setAttribute('src', src);
@@ -1718,617 +1711,699 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                         <a id="spec-backward" href="javascript:;" class="arrow-next"><i class="sprite-arrow-next"></i></a>
                         <div id="spec-list" class="spec-items">
                             <ul class="lh">
-                                                                                                                                                                        <li  class='img-hover'><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/128105/3/9469/200006/5f368247E7cfca402/9d8a94fd1d2b55ce.jpg' data-url='jfs/t1/128105/3/9469/200006/5f368247E7cfca402/9d8a94fd1d2b55ce.jpg' data-img='1' width='54' height='54'></li>
-                                                                        <li ><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/115458/20/7603/248989/5ec4ac5dE44355ef8/8ee8971fc65581aa.jpg' data-url='jfs/t1/115458/20/7603/248989/5ec4ac5dE44355ef8/8ee8971fc65581aa.jpg' data-img='1' width='54' height='54'></li>
-                                                                        <li ><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/116103/7/7465/279371/5ec340b5E4e6ce00c/15467aed1a5d3efe.jpg' data-url='jfs/t1/116103/7/7465/279371/5ec340b5E4e6ce00c/15467aed1a5d3efe.jpg' data-img='1' width='54' height='54'></li>
-                                                                        <li ><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/127531/22/2139/146329/5ec340b5Ecb3029ea/1402a215f850faea.jpg' data-url='jfs/t1/127531/22/2139/146329/5ec340b5Ecb3029ea/1402a215f850faea.jpg' data-img='1' width='54' height='54'></li>
-                                                                        <li ><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/122819/32/2119/29369/5ec340b7E0083c727/d3f92961cecea9d6.jpg' data-url='jfs/t1/122819/32/2119/29369/5ec340b7E0083c727/d3f92961cecea9d6.jpg' data-img='1' width='54' height='54'></li>
-                                                                        <li ><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/120000/9/2129/126830/5ec340bdE6f67ee5b/7ddc12a5c7b98f4c.jpg' data-url='jfs/t1/120000/9/2129/126830/5ec340bdE6f67ee5b/7ddc12a5c7b98f4c.jpg' data-img='1' width='54' height='54'></li>
-                                                                        <li ><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/114640/28/7324/90205/5ec340bdEa755a676/5da479f20da8fcd7.jpg' data-url='jfs/t1/114640/28/7324/90205/5ec340bdEa755a676/5da479f20da8fcd7.jpg' data-img='1' width='54' height='54'></li>
-                                                                        <li ><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/137579/30/4682/104953/5f2cbdb7E8a140af5/f68b5e5b5cd23240.jpg' data-url='jfs/t1/137579/30/4682/104953/5f2cbdb7E8a140af5/f68b5e5b5cd23240.jpg' data-img='1' width='54' height='54'></li>
-                                                                        <li ><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/139687/7/4723/60700/5f2cbdb7E4bafed01/0844754e749f2c27.jpg' data-url='jfs/t1/139687/7/4723/60700/5f2cbdb7E4bafed01/0844754e749f2c27.jpg' data-img='1' width='54' height='54'></li>
-                                                                        <li ><img alt='海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源' src='//img13.360buyimg.com/n5/jfs/t1/143700/25/4772/112584/5f2cbdbeEff43d1a0/8b7a2cff6e9f8854.jpg' data-url='jfs/t1/143700/25/4772/112584/5f2cbdbeEff43d1a0/8b7a2cff6e9f8854.jpg' data-img='1' width='54' height='54'></li>
-                                                                                                </ul>
+                                                                                                                                                                                                <li  class='img-hover'><img alt='荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏' src='//img13.360buyimg.com/n5/jfs/t1/146019/39/5431/118947/5f380328E953a47ba/04471d81482d3a31.jpg' data-url='jfs/t1/146019/39/5431/118947/5f380328E953a47ba/04471d81482d3a31.jpg' data-img='1' width='50' height='50'></li>
+                                                                <li ><img alt='荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏' src='//img13.360buyimg.com/n5/jfs/t1/121777/6/2122/484886/5ec27a37Eb1ce27c7/cfe6e3e6482b572c.jpg' data-url='jfs/t1/121777/6/2122/484886/5ec27a37Eb1ce27c7/cfe6e3e6482b572c.jpg' data-img='1' width='50' height='50'></li>
+                                                                <li ><img alt='荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏' src='//img13.360buyimg.com/n5/jfs/t1/120414/33/2130/177459/5ec27a36E369ebf5c/42c7e0972b18c878.jpg' data-url='jfs/t1/120414/33/2130/177459/5ec27a36E369ebf5c/42c7e0972b18c878.jpg' data-img='1' width='50' height='50'></li>
+                                                                <li ><img alt='荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏' src='//img13.360buyimg.com/n5/jfs/t1/113819/16/7319/71328/5ec27a37Eb37a95e9/4b53e325d49ef1dd.jpg' data-url='jfs/t1/113819/16/7319/71328/5ec27a37Eb37a95e9/4b53e325d49ef1dd.jpg' data-img='1' width='50' height='50'></li>
+                                                                <li ><img alt='荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏' src='//img13.360buyimg.com/n5/jfs/t1/123399/27/2081/126919/5ec27a37E208530a6/febac8a84c2692a1.jpg' data-url='jfs/t1/123399/27/2081/126919/5ec27a37E208530a6/febac8a84c2692a1.jpg' data-img='1' width='50' height='50'></li>
+                                                                <li ><img alt='荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏' src='//img13.360buyimg.com/n5/jfs/t1/121153/9/2143/465712/5ec27a37E9cb1c5dd/f030a7f8272abd01.jpg' data-url='jfs/t1/121153/9/2143/465712/5ec27a37E9cb1c5dd/f030a7f8272abd01.jpg' data-img='1' width='50' height='50'></li>
+                                                                <li ><img alt='荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏' src='//img13.360buyimg.com/n5/jfs/t1/119305/30/7358/90692/5ec29d36Ed04efcf3/0c152bde1ecb5b26.jpg' data-url='jfs/t1/119305/30/7358/90692/5ec29d36Ed04efcf3/0c152bde1ecb5b26.jpg' data-img='1' width='50' height='50'></li>
+                                                                <li ><img alt='荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏' src='//img13.360buyimg.com/n5/jfs/t1/117399/1/7576/96607/5ec39e98Ef99c103d/00262b4fec44ca7b.jpg' data-url='jfs/t1/117399/1/7576/96607/5ec39e98Ef99c103d/00262b4fec44ca7b.jpg' data-img='1' width='50' height='50'></li>
+                                                                                            </ul>
                         </div>
                     </div>
                     <div class="preview-info">
                         <div class="left-btns">
-                            <a class="follow J-follow" data-id="100007300763" href="#none" clstag="shangpin|keycount|product|guanzhushangpin_1">
+                            <a class="follow J-follow" data-id="100013116298" href="#none" clstag="shangpin|keycount|product|guanzhushangpin_1">
                                 <i class="sprite-follow-sku"></i><em>关注</em>
                             </a>
-                                                                                                                <a class="compare J-compare J_contrast" id="comp_100007300763" data-sku="100007300763" href="#none" clstag="shangpin|keycount|product|jiaruduibi">
+                            <a class="share J-share" href="#none" clstag="shangpin|keycount|product|share_1">
+                                <i class="sprite-share"></i><em>分享</em>
+                            </a>
+                                                                                    <a class="compare J-compare J_contrast" id="comp_100013116298" data-sku="100013116298" href="#none" clstag="shangpin|keycount|product|jiaruduibi">
                                 <i class="sprite-compare"></i><em>对比</em>
                             </a>
                                                     </div>
                         <div class="right-btns">
-                            <a class="report-btn" href="//jubao.jd.com/index.html?skuId=100007300763" target="_blank" clstag="shangpin|keycount|product|jubao">举报</a>
+                            <a class="report-btn" href="//jubao.jd.com/index.html?skuId=100013116298" target="_blank" clstag="shangpin|keycount|product|jubao">举报</a>
                         </div>
                     </div>
-                </div>
+
+                                    </div>
             </div>
             <div class="itemInfo-wrap">
                 <div class="sku-name">
-                                                            海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源                </div>
-                                <div class="news">
-                    <div class="item hide" id="p-ad"></div>
-                    <div class="item hide" id="p-ad-phone"></div>
-                </div>
-
-                <div id="yuyue-banner" class="activity-banner">
-    <div class="activity-type">
-        <i class="sprite-yy"></i><strong>预约抢购</strong>
-    </div>
-    <div class="activity-message">
-        <span class="item J-item-1"><i class="sprite-person"></i><em class="J-count">0</em>人预约</span>
-        <span class="item J-item-2 hide"><i class="sprite-time"></i><span class="J-text">剩余</span><em class="J-time"></em></span>
-    </div>
-</div>
+                                        <img src="//img13.360buyimg.com/devfe/jfs/t4636/72/1687629000/219/64a7daf7/58e44c0fN9f20107c.png" alt="当季新品" />
+                                                            荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏                </div>
+                        <div class="news">
+            <div class="item hide" id="p-ad" clstag="shangpin|keycount|product|slogana" data-hook="hide"></div>
+            <div class="item hide" id="p-ad-phone" clstag="shangpin|keycount|product|sloganb" data-hook="hide"></div>
+        </div>
 
                                 <div class="summary summary-first">
-    <div class="summary-price-wrap">
-        <div class="summary-price J-summary-price">
-                            <div class="dt">京 东 价</div>
-                <div class="dd">
-                    <span class="p-price"><span>￥</span><span class="price J-p-100007300763"></span></span>
-                    <em class="yy-category J-yy-category hide"></em>
-                </div>
-
-                    </div>
-
-        <div class="summary-info">
-                        <span class="J-yuyue-tips pingou-tips"><a class="count J-tips" href="#none">预约说明</a></span>
-                    </div>
-                <div id="summary-quan" class="li p-choose hide" clstag="shangpin|keycount|product|lingquan" style="display: none"></div>
-        <div id="J-summary-top" class="summary-top" clstag="shangpin|keycount|product|cuxiao">
-            <div id="summary-promotion" class="hide summary-promotion">
-                <div class="dt">促&#x3000;&#x3000;销</div>
-                <div class="dd J-prom-wrap p-promotions-wrap">
-                    <div class="p-promotions">
-                        <ins id="prom-mbuy" data-url="https://cd.jd.com/qrcode?skuId=100007300763&location=3&isWeChatStock=2"></ins>
-                        <ins id="prom-gift" clstag="shangpin|keycount|product|zengpin_1"></ins>
-                        <ins id="prom-fujian" clstag="shangpin|keycount|product|fujian_1"></ins>
-                        <ins id="prom"></ins>
-                        <ins id="prom-one"></ins>
-                        <ins id="prom-phone"></ins>
-                        <ins id="prom-phone-jjg"></ins>
-                        <ins id="prom-tips"></ins>
-                        <ins id="prom-quan"></ins>
-                        <div class="J-prom-more view-all-promotions">
-                            <span class="prom-sum">展开促销</span>
-                            <a href="#none" class="view-link"><i class="sprite-arr-close"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-    </div>
-</div>                                <div class="summary p-choose-wrap">
-                                        <div id="summary-support" class="li hide">
-                        <div class="dt">增值业务</div>
+            <div class="summary-price-wrap">
+                                    <div class="summary-price J-summary-price">
+                                                <div class="dt">京 东 价</div>
                         <div class="dd">
-                            <ul class="choose-support lh">
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="summary-stock" clstag="shangpin|keycount|product|quyuxuanze_1" >
-                        <div class="dt">配 送 至</div>
-                        <div class="dd">
-                            <div class="store clearfix">
-                                <div class="stock-address">
-                                    <div id="area1" class="ui-area-wrap">
-                                        <div class="ui-area-text-wrap"><!--展示内容主体-->
-                                            <div class="ui-area-text">--请选择--</div><!--显示被选中的地区-->
-                                            <b></b><!--小箭头-->
-                                        </div>
-                                        <div class="ui-area-content-wrap"><!--弹出内容主体-->
-                                            <div class="ui-area-tab"></div><!--省市区选择标签-->
-                                            <div class="ui-area-content"></div><!--地区内容-->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="store-prompt" class="store-prompt"></div>
-                                <div class="J-promise-icon promise-icon fl promise-icon-more" clstag="shangpin|keycount|product|promisefw_1">
-                                    <div class="title fl">支持</div>
-                                    <div class="icon-list fl">
-                                        <ul></ul>
-                                        <span class="clr"></span>
-                                    </div>
-                                </div>
-                                <div class="J-dcashDesc dcashDesc fl"></div>
+                            <span class="p-price"><span>￥</span><span class="price J-p-100013116298"></span></span>
+                                                                                                                                                                                                                                                                                    <a class="notice J-notify-sale" data-type="1" data-sku="100013116298" href="#none" clstag="shangpin|keycount|product|jiangjia_1">降价通知</a>
+                                                                                    <div class="fans-price J-fans-price hide">
+                                <span class="p-price-fans">
+                                    <span class="price J-p-f-100013116298"></span>
+                                </span>
+                                <img src="//img30.360buyimg.com/devfe/jfs/t17683/96/2616723497/1348/5d49daba/5afe6d90Nc2d9965a.png" alt="fans" class="fans-icon">
+                                <span class="text"></span>
                             </div>
-                        </div>
+                            
+                                                        <!-- 高端品 限时特惠start，这段代码中的样式，是需要改的，请前端同学定义样式。还有用js代码，完成对应的需求 -->
+                            <span class="J-xsth-sale" style="display: none;">
+                                    <a href="#none" class="J-xsth-panel" clstag="shangpin|keycount|product|xianshitehui">限时特惠<s class="s-arrow">></s></a>
+                                    <i class="sprite-question"></i>
+                                </span>
+                            <!-- 高端品 限时特惠end -->
+
+                                                                                    
+                                                                                                                                            <div class="plus-price J-plus-price hide" style="display: none;">
+                                    <span class="p-price-plus">
+                                        <span class="price J-p-p-100013116298"></span>
+                                    </span>
+                                <img src="//img10.360buyimg.com/da/jfs/t5731/317/890792506/848/391b9a15/59224a28N48552ed2.png" alt="plus" class="plus-icon">
+                                <span class="text"><strong>PLUS会员</strong>专享价</span>
+                                <a clstag="shangpin|keycount|product|whatisplus" href="//plus.jd.com/index" target="_blank">现在开通PLUS会员享限时特惠 >></a>
+                            </div>
+                                                                                    <div class="firm-price J-firm-price hide" style="display: none;">
+                                <span class="p-price-firm">
+                                    <span class="price J-p-f-100013116298"></span>
+                                </span>
+                                <img src="//img13.360buyimg.com/imagetools/jfs/t1/110281/5/12499/1441/5e97ccb1Ec6a0e0da/eb5c07ae3cb8647d.png" alt="企业价" class="firm-icon">
+                            </div>
+                                                                                    <div class="user-price J-user-price hide" style="display: none;">
+                                    <span class="p-price-user">
+                                        <span class="price J-p-s-100013116298"></span>
+                                    </span>
+                                <img src="//img14.360buyimg.com/devfe/jfs/t5728/113/4603623007/244/a159e46d/59535259N6eed475d.png" alt="sam's" class="sam-icon">
+
+                                <span class="text">您购买此商品可享受专属价</span>
+
+                                <i class="sprite-question"></i>
+                            </div>
+                                                    </div>
                     </div>
 
-                                                            <div id="summary-supply" class="li" style="display:none">
-                        <div class="dt">&#x3000;&#x3000;</div>
-                        <div class="dd">
-                            <div id="summary-service" class="summary-service"  clstag="shangpin|keycount|product|fuwu_1"></div>
-                        </div>
-                    </div>
-                                                            <div id="summary-yushou-ship" class="summary-yushou-ship li" style="display:none">
-                        <div class="dt">发货时间</div>
-                        <div class="dd"></div>
-                    </div>
-                                                            <div id="summary-weight" class="li" style="display: none;">
-                        <div class="dt">重&#x3000;&#x3000;量</div>
-                        <div class="dd"></div>
-                    </div>
-                                                                                <div class="SelfAssuredPurchase li" id="J_SelfAssuredPurchase" style="display:none;"></div>
-                                        <div class="summary-line"></div>
+                    <!-- 分期用分区价格展示需求 start -->
+                                        <!-- 分期用分区价格展示需求 end -->
 
-                                        <div id="choose-attrs">
-                                                                                                <div id="choose-attr-1" class="li p-choose" data-type="尺寸" data-idx="0">
-                            <div class="dt ">选择尺寸                                                        </div>
-                            <div class="dd">
-                                                                <div class="item  " data-sku="100007637459" data-value="ULED超画质社交新品-65E9F">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-ULED超画质社交新品-65E9F">
-                                                                                                                                    <img data-img="1" src="//img14.360buyimg.com/n9/s40x40_jfs/t1/120291/2/9797/189621/5f367eeaEa5d41cd4/2120936b14db4e88.jpg" width="40" height="40" alt="ULED超画质社交新品-65E9F"><i>ULED超画质社交新品-65E9F</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                <div class="item  " data-sku="100006060267" data-value="ULED量子点社交新品-65E8D">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-ULED量子点社交新品-65E8D">
-                                                                                                                                    <img data-img="1" src="//img12.360buyimg.com/n9/s40x40_jfs/t1/140891/12/5610/241868/5f37f42dE207b48c1/0fda89019efea6a4.jpg" width="40" height="40" alt="ULED量子点社交新品-65E8D"><i>ULED量子点社交新品-65E8D</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                <div class="item  " data-sku="100007167317" data-value="高配游戏电视新品-65E75F">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-高配游戏电视新品-65E75F">
-                                                                                                                                    <img data-img="1" src="//img12.360buyimg.com/n9/s40x40_jfs/t1/121518/9/9705/189727/5f37f4c5E3fa8b02a/75409abe87849591.jpg" width="40" height="40" alt="高配游戏电视新品-65E75F"><i>高配游戏电视新品-65E75F</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                <div class="item  " data-sku="100003525291" data-value="3+32G超音画全面屏-65E7D">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-3+32G超音画全面屏-65E7D">
-                                                                                                                                    <img data-img="1" src="//img11.360buyimg.com/n9/s40x40_jfs/t1/142358/22/5510/291661/5f37f556E6b7b9906/61c51ad9001a5f1d.jpg" width="40" height="40" alt="3+32G超音画全面屏-65E7D"><i>3+32G超音画全面屏-65E7D</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                <div class="item  " data-sku="100007338003" data-value="3+32G社交电视新品-65E5F">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-3+32G社交电视新品-65E5F">
-                                                                                                                                    <img data-img="1" src="//img13.360buyimg.com/n9/s40x40_jfs/t1/121129/1/9834/215020/5f37f51fEa0ce9d77/c1e397fd123026d6.jpg" width="40" height="40" alt="3+32G社交电视新品-65E5F"><i>3+32G社交电视新品-65E5F</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                <div class="item  " data-sku="100003525293" data-value="MEMC防抖超薄全面屏-65E5D">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-MEMC防抖超薄全面屏-65E5D">
-                                                                                                                                    <img data-img="1" src="//img13.360buyimg.com/n9/s40x40_jfs/t1/148811/29/5594/252933/5f37f5b7E240e397a/1fa16a8c0ca763d6.jpg" width="40" height="40" alt="MEMC防抖超薄全面屏-65E5D"><i>MEMC防抖超薄全面屏-65E5D</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                <div class="item  " data-sku="100006254938" data-value="MEMC全面屏爆品-65E3D-PRO">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-MEMC全面屏爆品-65E3D-PRO">
-                                                                                                                                    <img data-img="1" src="//img13.360buyimg.com/n9/s40x40_jfs/t1/148884/28/5540/146586/5f3682efE05b715ba/0946b0a29da627ca.jpg" width="40" height="40" alt="MEMC全面屏爆品-65E3D-PRO"><i>MEMC全面屏爆品-65E3D-PRO</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                <div class="item  " data-sku="100007826441" data-value="4K超薄悬浮全面屏新品-65E3F">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-4K超薄悬浮全面屏新品-65E3F">
-                                                                                                                                    <img data-img="1" src="//img11.360buyimg.com/n9/s40x40_jfs/t1/150298/7/5145/197142/5f3398c2Ecaa2fed0/a0a302a8521b892b.jpg" width="40" height="40" alt="4K超薄悬浮全面屏新品-65E3F"><i>4K超薄悬浮全面屏新品-65E3F</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                <div class="item  " data-sku="8748165" data-value="4K智慧AI纤薄爆品-65E3A">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-4K智慧AI纤薄爆品-65E3A">
-                                                                                                                                    <img data-img="1" src="//img10.360buyimg.com/n9/s40x40_jfs/t1/111190/28/14985/155439/5f3682a6E1792f29d/6d0a15cf4069ce0c.jpg" width="40" height="40" alt="4K智慧AI纤薄爆品-65E3A"><i>4K智慧AI纤薄爆品-65E3A</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                <div class="item  selected  " data-sku="100007300763" data-value="4K超薄全面屏爆品-60E3F">
-                                    <b></b>
-                                                                        <a href="#none" clstag="shangpin|keycount|product|yanse-4K超薄全面屏爆品-60E3F">
-                                                                                                                                    <img data-img="1" src="//img13.360buyimg.com/n9/s40x40_jfs/t1/128105/3/9469/200006/5f368247E7cfca402/9d8a94fd1d2b55ce.jpg" width="40" height="40" alt="4K超薄全面屏爆品-60E3F"><i>4K超薄全面屏爆品-60E3F</i>
-                                                                                                                        </a>
-                                                                    </div>
-                                                                                            </div>
+                                        <div class="summary-info J-summary-info clearfix">
+                        <div id="comment-count" class="comment-count item fl" clstag="shangpin|keycount|product|pingjiabtn_1">
+                            <p class="comment">累计评价</p>
+                            <a class="count J-comm-100013116298" href="#comment">0</a>
                         </div>
-                                                                        <div id="choose-results" class="li" style="display:none"><div class="dt">已选择</div><div class="dd"></div></div>
+                                                <div id="buy-rate" class="buy-rate item fl hide">
+                            <p>选购指数</p>
+                            <a class="count" href="//help.jd.com/user/issue/236-1470.html" target="_blank"  clstag="shangpin|keycount|product|xuangouzhishu_100013116298">0</a>
+                        </div>
                                             </div>
-
-                                                                                                                                            <div id="choose-type" class="li" style="display:none;">
-                        <div class="dt">购买方式</div>
-                        <div class="dd clearfix"> </div>
-                    </div>
-                    <div id="choose-type-hy" class="li" style="display:none;">
-                        <div class="dt">合约类型</div>
-                        <div class="dd clearfix"> </div>
-                    </div>
-                    <div id="choose-type-suit" class="li" style="display:none;">
-                        <div class="dt">合约套餐</div>
-                        <div class="dd clearfix">
-                            <div class="item J-suit-trigger" clstag="shangpin|keycount|product|taocanleixing">
-                                <i class="sprite-selected"></i>
-                                <a href="#none" title="选择套餐与资费">选择套餐与资费</a>
-                            </div>
-                            <div class="fl" style="padding-top:5px;">
-                                <span class="J-suit-tips hide">请选择套餐内容</span>
-                                <span class="J-suit-resel J-suit-trigger hl_blue hide" href="#none">重选</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="btype-tip" style="display:none;">&#x3000;您选择的地区暂不支持合约机销售！</div>
-
-                    <div id="choose-gift" class="choose-gift li"  style="display: none;">
-                        <div class="dt">搭配赠品</div>
-                        <div class="dd clearfix">
-                            <div class="gift J-gift" clstag="shangpin|keycount|product|dapeizengpin">
-                                <i class="sprite-gift J-popup"></i><span class="gift-tips">选择搭配赠品(共<em>0</em>个)</span>
-                            </div>
-                            <!--choosed-->
-                            <div class="J-gift-selected hide">
-                                <div class="gift choosed J-gift-choosed"></div>
-                                <a href="#none" class="gift-modify J-popup" clstag="shangpin|keycount|product|zengpin-genggai">更改</a>
+                                                                                                                        <div id="summary-quan" class="li p-choose hide" clstag="shangpin|keycount|product|lingquan"></div>
+                                        <div id="J-summary-top" class="summary-top" clstag="shangpin|keycount|product|cuxiao">
+                        <div id="summary-promotion" class="summary-promotion" data-hook="hide">
+                            <div class="dt">促&#x3000;&#x3000;销</div>
+                            <div class="dd J-prom-wrap p-promotions-wrap">
+                                <div class="p-promotions">
+                                    <ins id="prom-mbuy" data-url="https://cd.jd.com/qrcode?skuId=100013116298&location=3&isWeChatStock=2"></ins>
+                                    <ins id="prom-car-gift"></ins>
+                                    <ins id="prom-gift" clstag="shangpin|keycount|product|zengpin_1"></ins>
+                                    <ins id="prom-fujian" clstag="shangpin|keycount|product|fujian_1"></ins>
+                                    <ins id="prom"></ins>
+                                    <ins id="prom-one"></ins>
+                                    <ins id="prom-phone"></ins>
+                                    <ins id="prom-phone-jjg"></ins>
+                                    <ins id="prom-tips"></ins>
+                                    <ins id="prom-quan"></ins>
+                                    <div class="J-prom-more view-all-promotions" data-hook="hide">
+                                        <span class="prom-sum">展开促销</span>
+                                        <a href="#none" class="view-link"><i class="sprite-arr-close"></i></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                                                            <div id="choose-service" class="li" style="display:none;">
-                        <div class="dt" data-yb="new_yb_server"></div>
-                        <div class="dd"></div>
-                    </div>
-                                                                                <div id="choose-service+" class="li" style="display:none;">
-                        <div class="dt">京东服务</div>
-                        <div class="dd"></div>
-                    </div>
-                                                                                                                                                                <div class="summary-line"></div>
-                                        <div id="choose-btns" class="choose-btns clearfix">
-                                            <div class="choose-amount" clstag="shangpin|keycount|product|goumaishuliang_1">
-                            <div class="wrap-input">
-                                <input class="text buy-num" onkeyup="setAmount.modify('#buy-num');" id="buy-num" value="1" data-max="200" />
-                                <a class="btn-reduce" onclick="setAmount.reduce('#buy-num')" href="javascript:;">-</a>
-                                <a class="btn-add" onclick="setAmount.add('#buy-num')" href="javascript:;">+</a>
-                            </div>
-                        </div>
-                                                                        <div class="mobile-only clearfix J-mobile-only" style="display:none;">
-                            <div class="qrcode fl" data-url="https://cd.jd.com/qrcode?skuId=100007300763&location=2&isWeChatStock=2"></div>
-                            <div class="text lh">仅支持手机扫码参与抽签<br/>扫一扫，立即参与</div>
-                        </div>
-                                                <!--<a id="choose-btn-gift" class="btn-special1 btn-lg" style="display:none;" href="//cart.gift.jd.com/cart/addGiftToCart.action?pid=100007300763&pcount=1&ptype=1" class="btn-gift" clstag="shangpin|keycount|product|选作礼物购买_1"><b></b>选作礼物购买</a>-->
-                                                <a href="#none" id="btn-reservation" onclick='log("product", "btn1-立即预约-yuyue", "100007300763")' class="btn-special1 btn-lg" style="display:none;">
-                            立即预约                        </a>
-                                                                                                                        <a id="btn-baitiao" class="btn-special2 btn-lg" style="display:none;" clstag="shangpin|keycount|product|dabaitiaobutton_737_794_798">打白条</a>
-                                                                                                <span class="yuyue-share J-yuyue-share" clstag="shangpin|keycount|product|share-yuyue"><i class="sprite-share"></i>分享</span>
-                                                                                                <!--<a href="#none" id="btn-notify" class="J-notify-stock btn-def btn-lg" style="display:none;" data-type="2" data-sku="100007300763" clstag="shangpin|keycount|product|daohuo_1">到货通知</a> -->
-                                        </div>
-                    <div id="local-tips" class="summary-tips hide">
-                        <div class="dt">本地活动</div>
-                        <div class="dd">
-                            <ol class="tips-list clearfix"></ol>
-                        </div>
-                    </div>
-                                                            <div id="summary-tips" class="summary-tips" clstag="shangpin|keycount|product|wenxintishi_1" style="display: none">
-                        <div class="dt">温馨提示</div>
-                        <div class="dd">
-                            <ol class="tips-list clearfix">
-                            </ol>
-                        </div>
-                    </div>
-                                                                            </div>
-                            </div>
-                                    <div id="track" class="track">
-                <div class="extra-trigger">
-                    <a href="#none"><i class="sprite-extra"></i>更多商品信息</a>
-                </div>
-                <div class="extra">
-                                                                                                                                                <div class="brand-logo" clstag="shangpin|keycount|product|dianpulogo">
-                                <a href='//mall.jd.com/index-1000324421.html?from=pc' target='_blank'>
-                                    <img src='//img30.360buyimg.com/popshop/jfs/t1/106339/26/18608/12120/5e95789bE393595b8/e3855b83258cddbe.jpg' title='海信京东自营旗舰店'/>
-                                </a>
-                            </div>
-                                                                                                                                    <div class="track-tit">
-                        <h3></h3>
-                        <span></span>
-                    </div>
-                    <div class="track-con" data-rid="902029">
-                    </div>
-                    <div class="track-more">
-                        <a href="#none" class="J-prev sprite-up">上翻</a>
-                        <a href="#none" class="J-next sprite-down">下翻</a>
                     </div>
                 </div>
             </div>
+
+                        <div class="summary p-choose-wrap">
+             
+                                <div id="summary-support" class="li hide">
+                    <div class="dt">增值业务</div>
+                    <div class="dd">
+                        <ul class="choose-support lh">
+                        </ul>
                     </div>
+                </div>
+
+                <div class="summary-stock" clstag="shangpin|keycount|product|quyuxuanze_1" >
+                    <div class="dt">配 送 至</div>
+                    <div class="dd">
+                        <div class="store clearfix">
+                            <div class="stock-address">
+                                <div id="area1" class="ui-area-wrap">
+                                    <div class="ui-area-text-wrap"><!--展示内容主体-->
+                                        <div class="ui-area-text">--请选择--</div><!--显示被选中的地区-->
+                                        <b></b><!--小箭头-->
+                                    </div>
+                                    <div class="ui-area-content-wrap"><!--弹出内容主体-->
+                                        <div class="ui-area-tab"></div><!--省市区选择标签-->
+                                        <div class="ui-area-content"></div><!--地区内容-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="store-prompt" class="store-prompt"></div>
+                            <div class="J-promise-icon promise-icon fl promise-icon-more" clstag="shangpin|keycount|product|promisefw_1">
+                                <div class="title fl">支持</div>
+                                <div class="icon-list fl">
+                                    <ul></ul>
+                                    <span class="clr"></span>
+                                </div>
+                            </div>
+                            <div class="J-dcashDesc dcashDesc fl"></div>
+                        </div>
+                    </div>
+                </div>
+                                                <div id="summary-supply" class="li" style="display:none">
+                    <div class="dt">&#x3000;&#x3000;</div>
+                    <div class="dd">
+                        <div id="summary-service" class="summary-service"  clstag="shangpin|keycount|product|fuwu_1"></div>
+                    </div>
+                </div>
+                                                <div id="summary-weight" class="li" style="display:none">
+                    <div class="dt">重&#x3000;&#x3000;量</div>
+                    <div class="dd"></div>
+                </div>
+                                                                <div class="SelfAssuredPurchase li" id="J_SelfAssuredPurchase" style="display:none;"></div>
+                                <div class="summary-line"></div>
+             
+                                                                                                   <div id="choose-attrs"  >
+                                                                                <div id="choose-attr-1" class="li p-choose" data-type="尺寸" data-idx="0">
+                        <div class="dt ">选择尺寸                                                </div>
+                        <div class="dd">
+                                                        <div class="item  selected  " data-sku="100013116298" data-value="荣耀智慧屏X1系列">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-荣耀智慧屏X1系列">
+                                                                                                            <img data-img="1" src="//img13.360buyimg.com/n9/s40x40_jfs/t1/146019/39/5431/118947/5f380328E953a47ba/04471d81482d3a31.jpg" width="40" height="40" alt="荣耀智慧屏X1系列"><i>荣耀智慧屏X1系列</i>
+                                                                                                        </a>
+                                                            </div>
+                                                        <div class="item  " data-sku="100007006134" data-value="荣耀智慧屏 系列">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-荣耀智慧屏 系列">
+                                                                                                            <img data-img="1" src="//img14.360buyimg.com/n9/s40x40_jfs/t1/119904/39/8367/181981/5f22a2a9Ef7e9d999/f8a54440c3482267.jpg" width="40" height="40" alt="荣耀智慧屏 系列"><i>荣耀智慧屏 系列</i>
+                                                                                                        </a>
+                                                            </div>
+                                                        <div class="item  " data-sku="100004099019" data-value="荣耀智慧屏PRO系列">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-荣耀智慧屏PRO系列">
+                                                                                                            <img data-img="1" src="//img14.360buyimg.com/n9/s40x40_jfs/t1/147082/27/4416/181867/5f27a004Eea371989/2b84790fb072312b.jpg" width="40" height="40" alt="荣耀智慧屏PRO系列"><i>荣耀智慧屏PRO系列</i>
+                                                                                                        </a>
+                                                            </div>
+                                                                                </div>
+                    </div>
+                                                                                                    <div id="choose-attr-2" class="li p-choose" data-type="版本" data-idx="1">
+                        <div class="dt ">选择版本                                                </div>
+                        <div class="dd">
+                                                        <div class="item  " data-sku="100007791251" data-value="X1 50“ 新品惠购">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-X1 50“ 新品惠购">
+                                                                        X1 50“ 新品惠购                                                                    </a>
+                                                            </div>
+                                                        <div class="item  " data-sku="100007006134" data-value="55“ 超薄金属机身818旗舰芯片">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-55“ 超薄金属机身818旗舰芯片">
+                                                                        55“ 超薄金属机身818旗舰芯片                                                                    </a>
+                                                            </div>
+                                                        <div class="item  " data-sku="100004099019" data-value="55“ 视频通话震撼音效炫彩灯效">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-55“ 视频通话震撼音效炫彩灯效">
+                                                                        55“ 视频通话震撼音效炫彩灯效                                                                    </a>
+                                                            </div>
+                                                        <div class="item  selected  " data-sku="100013116298" data-value="X1 55“ 央视推荐">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-X1 55“ 央视推荐">
+                                                                        X1 55“ 央视推荐                                                                    </a>
+                                                            </div>
+                                                        <div class="item  " data-sku="100005171625" data-value="55“  4G超大内存818旗舰芯片">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-55“  4G超大内存818旗舰芯片">
+                                                                        55“  4G超大内存818旗舰芯片                                                                    </a>
+                                                            </div>
+                                                        <div class="item  " data-sku="100005172199" data-value="55“ 视频通话远场语音超大内存">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-55“ 视频通话远场语音超大内存">
+                                                                        55“ 视频通话远场语音超大内存                                                                    </a>
+                                                            </div>
+                                                        <div class="item  " data-sku="100013150076" data-value="X1 65“ 超值之选">
+                                <b></b>
+                                                                <a href="#none" clstag="shangpin|keycount|product|yanse-X1 65“ 超值之选">
+                                                                        X1 65“ 超值之选                                                                    </a>
+                                                            </div>
+                                                                                </div>
+                    </div>
+                                                                                <div id="choose-results" class="li" style="display:none"><div class="dt">已选择</div><div class="dd"></div></div>
+                                    </div>
+
+                                                
+                                                                                                <div id="choose-luodipei" class="choose-luodipei li" style="display:none">
+                    <div class="dt">送装服务</div>
+                    <div class="dd"></div>
+                </div>
+                                                                <div id="choose-suits" class="li choose-suits" style="display:none">
+                    <div class="dt">套&#x3000;&#x3000;装</div>
+                    <div class="dd clearfix"></div>
+                </div>
+                                <div id="choose-gift" class="choose-gift li"  style="display: none;">
+                    <div class="dt">搭配赠品</div>
+                    <div class="dd clearfix">
+                        <div class="gift J-gift" clstag="shangpin|keycount|product|dapeizengpin">
+                            <i class="sprite-gift J-popup"></i><span class="gift-tips">选择搭配赠品(共<em>0</em>个)</span>
+                        </div>
+                        <!--choosed-->
+                        <div class="J-gift-selected hide">
+                            <div class="gift choosed J-gift-choosed"></div>
+                            <a href="#none" class="gift-modify J-popup" clstag="shangpin|keycount|product|zengpin-genggai">更改</a>
+                        </div>
+                    </div>
+                </div>
+                                                                                <div id="choose-service" class="li" data-hook="hide" style="display:none;">
+                    <div class="dt" data-yb="new_yb_server"></div>
+                    <div class="dd"></div>
+                </div>
+                                                                <div id="choose-service+" class="li" style="display:none;">
+                    <div class="dt">京东服务</div>
+                    <div class="dd"></div>
+                </div>
+                                                                                <div id="choose-baitiao" class="li choose-baitiao" style="display:none"></div>
+                                <div id="choose-jincai" class="li choose-jincai" style="display:none">
+                    <div class="dt">企业金采</div>
+                    <div class="dd">
+                        <div class="jincai-list J-jincai-list">
+                            <div class="item">
+                                <a href="#none">先采购，后付款</a>
+                            </div>
+                            <div class="bt-info-tips">
+                                <a class="J-bt-tips question icon fl" href="#none">　</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                                                                                              <div class="summary-line"></div>
+                                <div id="choose-btns" class="choose-btns clearfix" >
+                                    <div class="choose-amount "  clstag="shangpin|keycount|product|goumaishuliang_1">
+                        <div class="wrap-input">
+                            <input class="text buy-num" onkeyup="setAmount.modify('#buy-num');" id="buy-num" value="1"  data-max="200"/>
+                            <a class="btn-reduce" onclick="setAmount.reduce('#buy-num')" href="#none">-</a>
+                            <a class="btn-add" onclick="setAmount.add('#buy-num')" href="#none">+</a>
+                        </div>
+                    </div>
+                <!--<a id="choose-btn-gift" class="btn-special1 btn-lg" style="display:none;" href="//cart.gift.jd.com/cart/addGiftToCart.action?pid=100013116298&pcount=1&ptype=1" class="btn-gift" clstag="shangpin|keycount|product|选作礼物购买_1"><b></b>选作礼物购买</a>-->
+                                                                                                                                    <a href="//cart.jd.com/gate.action?pid=100013116298&pcount=1&ptype=1" id="InitCartUrl" class="btn-special1 btn-lg "  onclick='log("product", "加入购物车_1", "100013116298")' >加入购物车</a>
+                                                <a id="btn-baitiao" class="btn-special2 btn-lg" style="display:none;" onclick='log("product", "dabaitiaobutton_737_794_798", "100013116298")'>打白条</a>
+                <a href="//jc.jd.com" target="_blank" id="btn-jincai" class="btn-special2 btn-lg" style="display: none;" clstag="shangpin|keycount|product|jincai_1">使用金采</a>
+                                                                                                                    <a href="#none" id="btn-notify" class="J-notify-stock btn-special3 btn-lg notify-stock" style="display:none;" data-type="2" data-sku="100013116298" clstag="shangpin|keycount|product|daohuo_1">到货通知</a>
+                                                                                                            </div>
+                        <div id="local-tips" class="summary-tips hide">
+                <div class="dt">本地活动</div>
+                <div class="dd">
+                    <ol class="tips-list clearfix"></ol>
+                </div>
+            </div>
+                                                <div id="summary-tips" class="summary-tips" clstag="shangpin|keycount|product|wenxintishi_1" style="display: none">
+                <div class="dt">温馨提示</div>
+                <div class="dd">
+                    <ol class="tips-list clearfix">
+                    </ol>
+                </div>
+            </div>
+                                                        </div>
+            </div>
+            <div id="track" class="track">
+        <div class="extra-trigger">
+            <a href="#none"><i class="sprite-extra"></i>更多商品信息</a>
+        </div>
+        <div class="extra">
+                                                                        <div class="brand-logo" clstag="shangpin|keycount|product|dianpulogo">
+                <a href='//honor.jd.com' target='_blank'>
+                    <img src='//img30.360buyimg.com/popshop/jfs/t30451/261/1021356198/6313/6e0cd22a/5c04d2ffNfdd0d798.jpg' title='荣耀京东自营旗舰店'/>
+                </a>
+            </div>
+                                                            <div class="track-tit">
+                <h3></h3>
+                <span></span>
+            </div>
+            <div class="track-con" data-rid="902029">
+            </div>
+            <div class="track-more">
+                <a href="#none" class="J-prev sprite-up">上翻</a>
+                <a href="#none" class="J-next sprite-down">下翻</a>
+            </div>
+        </div>
     </div>
-    
-        <div class="w">
-    <div id="yuyue-process" class="yy-process">
-        <h3>预约抢购流程</h3>
-        <div class="item item1">
-            <i class="sprite-yy-step1"></i>
-            <dl>
-                <dt>1.等待预约</dt>
-                <dd class="J-step1">预约即将开始</dd>
-            </dl>
-            <span class="sprite-arrow"></span>
+    </div>
+</div>
+
+
+<div class="w">
+    <div class="m m-content hide" id="similar">
+        <div class="mt">
+            <h3 class="fl">为你推荐</h3>
+            <div class="extra">
+                <div class="page-num"></div>
+            </div>
         </div>
-        <div class="item item2">
-            <i class="sprite-yy-step2"></i>
-            <dl>
-                <dt>2.预约中</dt>
-                <dd class="J-step2">-</dd>
-            </dl>
-            <span class="sprite-arrow"></span>
-        </div>
-        <div class="item item3">
-            <i class="sprite-yy-step3"></i>
-            <dl>
-                <dt>3.等待抢购</dt>
-                <dd class="J-step3">抢购即将开始</dd>
-            </dl>
-        </div>
-        <div class="item item4">
-            <i class="sprite-yy-step4"></i>
-            <dl>
-                <dt>4.抢购中</dt>
-                <dd class="J-step4">-</dd>
-            </dl>
+        <div class="mc">
+            <a href="#none" class="arrow-prev disabled"><i class="sprite-arrow-prev"></i></a>
+            <div class="list clearfix"></div>
+            <a href="#none" class="arrow-next disabled"><i class="sprite-arrow-next"></i></a>
         </div>
     </div>
 </div>
 
-                    <div class="w">
-        <div id="fittings" class="fittings ETab hide">
-            <div class="tab-main large">
-                <ul>
-                    <li data-tab="trigger" class="current" data-name="人气配件" onclick='log("gz_item", "gz_detail","02","tjpj_pjfl_人气配件","","main")'>人气配件</li>
-                </ul>
-                <div class="extra"></div>
-            </div>
-            <div class="tab-con J_fitting_con clearfix">
-                <div class="master">
-                    <div class="p-list">
-                        <div class="p-img">
-                            <a href="//jd.com/" target="_blank">
-                                <img data-img="1" src="//img14.360buyimg.com/n4/jfs/t1/128105/3/9469/200006/5f368247E7cfca402/9d8a94fd1d2b55ce.jpg" width="100" height="100" alt="海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源"/>
-                            </a>
-                        </div>
-                        <div class="p-name">
-                            <a href="//item.jd.com/100007300763.html" target="_blank">海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源</a>
-                        </div>
-                        <div class="p-price hide">
-                            <input type="checkbox" data-sku="100007300763" id="inp-acc-master" checked/>
-                            <label for="inp-acc-master"><strong class="J-p-100007300763">￥</strong></label>
-                        </div>
-                        <i class="plus">+</i>
-                    </div>
-                </div>
-                <div class="suits">
-                    <div class="switchable-wrap" data-tab="item">
-                        <div class="btns">
-                            <a href="javascript:void(0)" target="_self" class="prev-btn"></a>
-                            <a href="javascript:void(0)" target="_self" class="next-btn"></a>
-                        </div>
-                        <div class="lh-wrap">
-                            <ul class="lh clearfix"></ul>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="infos">
-                    <div class="selected">已选择<em class="J-selected-cnt">0</em>个配件</div>
-                    <div class="p-price">
-                        <span>组合价</span>
-                        <strong class="J_cal_jp">￥暂无报价</strong>
+
+<div class="w">
+    <div id="fittings" class="fittings ETab hide">
+        <div class="tab-main large">
+            <ul>
+                <li data-tab="trigger" class="current" data-name="人气配件" onclick='log("gz_item", "gz_detail","02","tjpj_pjfl_人气配件","","main")'>人气配件</li>
+            </ul>
+            <div class="extra"></div>
+        </div>
+        <div class="tab-con J_fitting_con clearfix">
+            <div class="master">
+                <div class="p-list">
+                    <div class="p-img">
+                        <a href="//jd.com/" target="_blank">
+                            <img data-img="1" src="//img14.360buyimg.com/n4/jfs/t1/146019/39/5431/118947/5f380328E953a47ba/04471d81482d3a31.jpg" width="100" height="100" alt="荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏"/>
+                        </a>
                     </div>
-                    <div class="btn">
-                        <a href="#none" class="btn-primary J-btn"  onclick='log("gz_item", "gz_detail","02","tjpj_ycgm_ljgm", pageConfig.getAccSelectedSkus(),"main")'>立即购买</a>
+                    <div class="p-name">
+                        <a href="//item.jd.com/100013116298.html" target="_blank">荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏</a>
                     </div>
-                                                                <a href="//kong.jd.com/index?sku=100007300763&cid=798" target="_blank" class="acc-buy-center" onclick='log("gz_item", "gz_detail","02","tjpj_gdpj","","main")'>配件选购中心</a>
-                                        <i class="equal">=</i>
+                    <div class="p-price hide">
+                        <input type="checkbox" data-sku="100013116298" id="inp-acc-master" checked/>
+                        <label for="inp-acc-master"><strong class="J-p-100013116298">￥</strong></label>
+                    </div>
+                    <i class="plus">+</i>
                 </div>
+            </div>
+            <div class="suits">
+                <div class="switchable-wrap" data-tab="item">
+                    <div class="btns">
+                        <a href="javascript:void(0)" target="_self" class="prev-btn"></a>
+                        <a href="javascript:void(0)" target="_self" class="next-btn"></a>
+                    </div>
+                    <div class="lh-wrap">
+                        <ul class="lh clearfix"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="infos">
+                <div class="selected">已选择<em class="J-selected-cnt">0</em>个配件</div>
+                <div class="p-price">
+                    <span>组合价</span>
+                    <strong class="J_cal_jp">￥暂无报价</strong>
+                </div>
+                <div class="btn">
+                    <a href="#none" class="btn-primary J-btn" target="_blank" onclick='log("gz_item", "gz_detail","02","tjpj_ycgm_ljgm", pageConfig.getAccSelectedSkus(),"main")'>立即购买</a>
+                </div>
+                                                <a href="//kong.jd.com/index?sku=100013116298&cid=798" target="_blank" class="acc-buy-center" onclick='log("gz_item", "gz_detail","02","tjpj_gdpj","","main")'>配件选购中心</a>
+                                <i class="equal">=</i>
             </div>
         </div>
     </div>
-                <div class="w">
-        <div class="aside">
-            <div class="m m-aside pop-hot" id="pop-hot">
-    <div class="mc no-padding">
-        <div class="ETab">
-            <div class="tab-main large">
+</div>
+<div class="w">
+    </div>
+
+<div class="w">
+    <div class="aside">
+                                <div class="m m-aside popbox" id="popbox">
+            <div class="popbox-inner" data-fixed="pro-detail-hd-fixed">
+    <div class="mt">
+        <h3>
+                        <a href="//honor.jd.com" target="_blank" title="荣耀京东自营旗舰店" clstag="shangpin|keycount|product|dianpuname2_荣耀京东自营旗舰店">荣耀京东自营旗舰店</a>
+                                </h3>
+                        <span class="arrow"></span>
+            </div>
+        <div class="mc">
+        <div class="pop-score-summary">
+            <div class="btns">
+                <a href="//honor.jd.com" target="_blank" class="btn-def enter-shop J-enter-shop" clstag="shangpin|keycount|product|jindian2">
+                    <i class="sprite-enter"></i>
+                    <span>进店逛逛</span>
+                </a>
+                <a href="#none" class="btn-def follow-shop J-follow-shop" data-vid="1000000904" clstag="shangpin|keycount|product|guanzhu2">
+                    <i class="sprite-follow"> </i>
+                    <span>关注店铺</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+        </div>
+                                
+                        <div id="sp-search" class="m m-aside sp-search" clstag="shangpin|keycount|product|pop-03">
+            <div class="mt">
+                <h3>店内搜索</h3>
+            </div>
+            <div class="mc">
+                <p class="sp-form-item1"><label for="sp-keyword">关键字：</label><span><input type="text" id="sp-keyword" onkeydown="javascript:if(event.keyCode==13){pageConfig.searchClick(1);}"></span></p>
+                <p class="sp-form-item2"><label for="sp-price">价&#x3000;格：</label><span><input type="text" id="sp-price" onkeyup="changeSpPrice('sp-price');" onkeydown="javascript:if(event.keyCode==13){pageConfig.searchClick(1);}"/> 到 <input type="text" id="sp-price1" onkeyup="changeSpPrice('sp-price1');" onkeydown="javascript:if(event.keyCode==13){pageConfig.searchClick(1);}"/></span></p>
+                <p class="sp-form-item3"><label for="">&#x3000;&#x3000;&#x3000;</label><span><input type="submit" value="搜索" id="btnShopSearch" data-url='//honor.jd.com/view_shop_search-394032.html' /></span></p>
+            </div>
+        </div>
+                                <div id="sp-category" class="m m-aside sp-category" clstag="shangpin|keycount|product|pop-04">
+            <div class="mt">
+                <h3>店内分类</h3>
+            </div>
+            <div class="mc no-padding">
+                                <dl class=''>
+                    <dt class=''><s></s><a href='//mall.jd.com/view_search-394032-13852011-1-0-20-1.html' target='_blank'>荣耀手机</a></dt>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13884314-1-0-20-1.html' target='_blank'>荣耀V系列</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13884315-1-0-20-1.html' target='_blank'>荣耀HONOR系列</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13884316-1-0-20-1.html' target='_blank'>荣耀X系列</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13884317-1-0-20-1.html' target='_blank'>荣耀Play系列</a></dd>
+                                    </dl>
+                                <dl class=''>
+                    <dt class=''><s></s><a href='//mall.jd.com/view_search-394032-13246122-1-0-20-1.html' target='_blank'>智慧屏</a></dt>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14518444-1-0-20-1.html' target='_blank'>荣耀智慧屏X1系列</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246123-1-0-20-1.html' target='_blank'>荣耀智慧屏</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13559652-1-0-20-1.html' target='_blank'>荣耀智慧屏4G版</a></dd>
+                                    </dl>
+                                <dl class=''>
+                    <dt class=''><s></s><a href='//mall.jd.com/view_search-394032-13246380-1-0-20-1.html' target='_blank'>笔记本</a></dt>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13552578-1-0-20-1.html' target='_blank'>MagicBook 14</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13552579-1-0-20-1.html' target='_blank'>MagicBook 15</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246381-1-0-20-1.html' target='_blank'>MagicBook 2019 锐龙版</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246382-1-0-20-1.html' target='_blank'>MagicBook Pro 锐龙版</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246383-1-0-20-1.html' target='_blank'>MagicBook 2019 英特尔</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246384-1-0-20-1.html' target='_blank'>MagicBook Pro 英特尔</a></dd>
+                                    </dl>
+                                <dl class=''>
+                    <dt class=''><s></s><a href='//mall.jd.com/view_search-394032-13246118-1-0-20-1.html' target='_blank'>平板电脑</a></dt>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14903226-1-0-20-1.html' target='_blank'>荣耀平板V6</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14903227-1-0-20-1.html' target='_blank'>荣耀平板6</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14903228-1-0-20-1.html' target='_blank'>荣耀平板5</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14903229-1-0-20-1.html' target='_blank'>荣耀畅玩平板2</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14903230-1-0-20-1.html' target='_blank'>配件</a></dd>
+                                    </dl>
+                                <dl class=''>
+                    <dt class=''><s></s><a href='//mall.jd.com/view_search-394032-13246053-1-0-20-1.html' target='_blank'>智能穿戴</a></dt>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246054-1-0-20-1.html' target='_blank'>手环5系列</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246055-1-0-20-1.html' target='_blank'>手环4系列</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246056-1-0-20-1.html' target='_blank'>手表2系列</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246057-1-0-20-1.html' target='_blank'>手表1系列</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246058-1-0-20-1.html' target='_blank'>儿童手表小k2系列</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246059-1-0-20-1.html' target='_blank'>手环3系列</a></dd>
+                                    </dl>
+                                <dl class=''>
+                    <dt class=''><s></s><a href='//mall.jd.com/view_search-394032-13246351-1-0-20-1.html' target='_blank'>路由器</a></dt>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14590578-1-0-20-1.html' target='_blank'>荣耀路由3 AX3000</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14590579-1-0-20-1.html' target='_blank'>荣耀路由X3pro</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13690467-1-0-20-1.html' target='_blank'>荣耀猎人电竞路由</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246352-1-0-20-1.html' target='_blank'>荣耀路由Pro 2</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246353-1-0-20-1.html' target='_blank'>荣耀路由X2</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246354-1-0-20-1.html' target='_blank'>荣耀路由X2 增强版</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246355-1-0-20-1.html' target='_blank'>荣耀路由X2增强 Mesh版</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246357-1-0-20-1.html' target='_blank'>荣耀路由Pro</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246358-1-0-20-1.html' target='_blank'>荣耀路由Pro 游戏版</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246359-1-0-20-1.html' target='_blank'>荣耀分布式路由</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246360-1-0-20-1.html' target='_blank'>荣耀Wifi穿墙宝 双支装</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246361-1-0-20-1.html' target='_blank'>荣耀Wifi穿墙宝 单支装</a></dd>
+                                    </dl>
+                                <dl class=''>
+                    <dt class=''><s></s><a href='//mall.jd.com/view_search-394032-13246406-1-0-20-1.html' target='_blank'>手机伴侣</a></dt>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246407-1-0-20-1.html' target='_blank'>音频耳机</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246408-1-0-20-1.html' target='_blank'>智能手环</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246409-1-0-20-1.html' target='_blank'>智能设备</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246410-1-0-20-1.html' target='_blank'>自拍杆/架</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246411-1-0-20-1.html' target='_blank'>充电器/线</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-13246412-1-0-20-1.html' target='_blank'>移动电源</a></dd>
+                                    </dl>
+                                <dl class=''>
+                    <dt class=''><s></s><a href='//mall.jd.com/view_search-394032-13246450-1-0-20-1.html' target='_blank'>智能家居</a></dt>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14589204-1-0-20-1.html' target='_blank'>生活电器</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14589205-1-0-20-1.html' target='_blank'>个护健康</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14589206-1-0-20-1.html' target='_blank'>智能设备</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14589207-1-0-20-1.html' target='_blank'>灯饰照明</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14589208-1-0-20-1.html' target='_blank'>水具酒具</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14589209-1-0-20-1.html' target='_blank'>游戏设备</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14589210-1-0-20-1.html' target='_blank'>外设产品</a></dd>
+                                        <dd><a href='//mall.jd.com/view_search-394032-14788810-1-0-20-1.html' target='_blank'>影音娱乐</a></dd>
+                                    </dl>
+                            </div>
+        </div>
+                <div class="m m-aside pop-hot" id="pop-hot">
+            <div class="mc no-padding">
+                <div class="ETab">
+                    <div class="tab-main large">
+                        <ul>
+                            <li data-tab="trigger" class="current">店铺热销</li>
+                            <li data-tab="trigger">热门关注</li>
+                        </ul>
+                    </div>
+                    <div class="tab-con">
+                        <div id="sp-hot-sale" data-tab="item" clstag="shangpin|keycount|product|dianpurexiao_2"></div>
+                        <div id="sp-hot-fo" data-tab="item" class="hide" clstag="shangpin|keycount|product|remenguanzhu_2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="m m-aside" id="sp-new" clstag="shangpin|keycount|product|dianpuxinpin_1"></div>
+
+                        <div id="sp-ad" class="m m-aside hide">
+        </div>
+
+                                        <div id="miaozhen7886" class="m m-aside" clstag="shangpin|keycount|product|ad_1"></div>
+        <div id="miaozhen10767" class="m m-aside" clstag="shangpin|keycount|product|ad_1"></div>
+                                <div id="ad_market_1" class="m m-aside"></div>
+            </div>
+    <div class="detail">
+                        <div class="ETab" id="detail">
+            <div class="tab-main large" data-fixed="pro-detail-hd-fixed">
                 <ul>
-                    <li data-tab="trigger" class="current">店铺热销</li>
-                    <li data-tab="trigger">热门关注</li>
+                    <li data-tab="trigger" data-anchor="#detail" class="current" clstag="shangpin|keycount|product|shangpinjieshao_1">商品介绍</li>
+                                        <li data-tab="trigger" data-anchor="#detail" clstag="shangpin|keycount|product|pcanshutab">规格与包装</li>
+                                                            <li data-tab="trigger" data-anchor="#detail" clstag="shangpin|keycount|product|ershouzhijian" style="display:none">质检报告</li>
+                                                            <li data-tab="trigger" data-anchor="#detail" clstag="shangpin|keycount|product|psaleservice">售后保障</li>
+                                                            <li data-tab="trigger" data-offset="38" data-anchor="#comment" clstag="shangpin|keycount|product|shangpinpingjia_1">商品评价<s></s></li>
+                                                                                <li style="display:none" data-tab="trigger" data-offset="38" data-anchor="#try-holder" clstag="shangpin|keycount|product|try-entry">京东试用<sup>new<b>◤</b></sup></li>
                 </ul>
+                <div class="extra">
+                                        <div class="item addcart-mini">
+                        <div class="J-addcart-mini EDropdown">
+                            <div class="inner">
+                                <div class="head" data-drop="head">
+                                                                        <a id="InitCartUrl-mini" class="btn-primary" href="//cart.jd.com/gate.action?pid=100013116298&pcount=1&ptype=1" onclick='log("product", "gouwuchexuanfu_1", "100013116298")'>加入购物车</a>
+                                                                    </div>
+                                <div class="content hide" data-drop="content">
+                                    <div class="mini-product-info">
+                                        <div class="p-img fl">
+                                            <img src="//img13.360buyimg.com/n4/jfs/t1/146019/39/5431/118947/5f380328E953a47ba/04471d81482d3a31.jpg" data-img="1" width="100" height="100" />
+                                        </div>
+                                        <div class="p-info lh">
+                                            <div class="p-name">荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏</div>
+                                            <div class="p-price">
+                                                <strong class="J-p-100013116298"></strong> <span>X <span class="J-buy-num"></span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                                            <div class="item nav-im">
+                        <div class="J-im-btn" clstag="shangpin|keycount|product|dongdong_1"></div>
+                    </div>
+                                    </div>
             </div>
             <div class="tab-con">
-                <div id="sp-hot-sale" data-tab="item" clstag="shangpin|keycount|product|dianpurexiao_2"></div>
-                <div id="sp-hot-fo" data-tab="item" class="hide" clstag="shangpin|keycount|product|remenguanzhu_2"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="m m-aside yuyue-reco hide" id="yuyue-reco">
-    <div class="mt"><h3>火热预约</h3></div>
-    <div class="mc" clstag="shangpin|keycount|product|side-reco-yuyue"></div>
-</div>
-<div class="m m-aside" id="view-view" clstag="shangpin|keycount|product|seemore_1"></div>
-
-<div id="miaozhen7886" class="m m-aside" clstag="shangpin|keycount|product|ad_1"></div>
-<div id="miaozhen10767" class="m m-aside" clstag="shangpin|keycount|product|ad_1"></div>
-<div id="sp-ad" class="m m-aside hide">
-</div>
-
-<div id="ad_market_1" class="m m-aside"></div>
-        </div>
-        <div class="detail">
-                        <div class="ETab" id="detail">
-                <div class="tab-main large" data-fixed="pro-detail-hd-fixed">
-                    <ul>
-                        <li data-tab="trigger" data-anchor="#detail" class="current" clstag="shangpin|keycount|product|shangpinjieshao_1">商品介绍</li>
-                                                <li data-tab="trigger" data-anchor="#detail" clstag="shangpin|keycount|product|pcanshutab">规格与包装</li>
-                                                <li data-tab="trigger" data-anchor="#detail" clstag="shangpin|keycount|product|psaleservice">售后保障</li>
-                        <li data-tab="trigger" data-offset="38" data-anchor="#comment" clstag="shangpin|keycount|product|shangpinpingjia_1">商品评价<s></s></li>
-                                                
-                                                <li data-tab="trigger" data-anchor="#detail" id="pingou-rules-tab" clstag="shangpin|keycount|product|notice-yuyue">
-                            预约说明
-                        </li>
-                                            </ul>
-                    <div class="extra">
-                        <div class="item addcart-mini">
-                            <div class="J-addcart-mini EDropdown">
-                                <div class="inner">
-                                    <div class="head" data-drop="head">
-                                                                                <a id="btn-reservation-mini" class="btn-primary" style="display:none;" href="#none" onclick='log("product", "btn2-立即预约-yuyue", "100007300763")'>
-                                            立即预约                                        </a>
-                                                                            </div>
-                                    <div class="content hide" data-drop="content">
-                                        <div class="mini-product-info">
-                                            <div class="p-img fl">
-                                                <img src="//img13.360buyimg.com/n4/jfs/t1/128105/3/9469/200006/5f368247E7cfca402/9d8a94fd1d2b55ce.jpg" data-img="1" width="100" height="100" />
-                                            </div>
-                                            <div class="p-info lh">
-                                                <div class="p-name">海信（Hisense）60E3F 60英寸 4K超清 HDR 智慧语音 DTS音效 超薄悬浮全面屏 液晶平板电视机 教育资源</div>
-                                                <div class="p-price">
-                                                    <strong class="J-p-100007300763"></strong> <span>X <span class="J-buy-num"></span></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-con">
-                    <div data-tab="item">
-                        <div class="p-parameter">
-                                                                                    <ul id="parameter-brand" class="p-parameter-list">
-                                <li title='海信（Hisense）'>品牌： <a href='//list.jd.com/list.html?cat=737,794,798&ev=exbrand_7888' clstag='shangpin|keycount|product|pinpai_1' target='_blank'>海信（Hisense）</a>
-                                    <!-- href="#none" clstag='shangpin|keycount|product|guanzhupinpai' class="follow-brand btn-def"><b>&hearts;</b>关注-->
-                                </li>
-                            </ul>
-                                                        <ul class="parameter2 p-parameter-list">
-                                    <li title='海信60E3F'>商品名称：海信60E3F</li>
-    <li title='100007300763'>商品编号：100007300763</li>
-                         <li title='21.0kg'>商品毛重：21.0kg</li>
+                <div data-tab="item">
+                    <div class="p-parameter">
+                                                                        <ul id="parameter-brand" class="p-parameter-list">
+                            <li title='华为（HUAWEI）'>品牌： <a href='//list.jd.com/list.html?cat=737,794,798&ev=exbrand_8557' clstag='shangpin|keycount|product|pinpai_1' target='_blank'>华为（HUAWEI）</a>
+                                <!--a href="#none" class="follow-brand btn-def" clstag='shangpin|keycount|product|guanzhupinpai'><b>&hearts;</b>关注 -->
+                            </li>
+                        </ul>
+                                                <ul class="parameter2 p-parameter-list">
+                                <li title='华为LOK-350'>商品名称：华为LOK-350</li>
+    <li title='100013116298'>商品编号：100013116298</li>
+                         <li title='19.3kg'>商品毛重：19.3kg</li>
             <li title='中国大陆'>商品产地：中国大陆</li>
-                                    <li title='58-60英寸'>屏幕尺寸：58-60英寸</li>
+                                    <li title='55英寸'>屏幕尺寸：55英寸</li>
                   <li title='三级能效'>能效等级：三级能效</li>
-                  <li title='线上专供'>产品渠道：线上专供</li>
+                  <li title='全面屏，人工智能，教育电视，智慧屏，4K超清'>电视类型：全面屏，人工智能，教育电视，智慧屏，4K超清</li>
                   <li title='新品电视'>用户优选：新品电视</li>
-                  <li title='全面屏，人工智能，教育电视，超薄，4K超清'>电视类型：全面屏，人工智能，教育电视，超薄，4K超清</li>
-                  <li title='3m-3.5m（56-65英寸）'>观看距离：3m-3.5m（56-65英寸）</li>
                   <li title='10.0-8.0'>选购指数：10.0-8.0</li>
-                                              </ul>
-                                                        <p class="more-par">
-                                <a href="#product-detail" class="J-more-param">更多参数<s class="txt-arr">&gt;&gt;</s></a>
-                            </p>
-                                                    </div>
-                        <div id="quality-life" class="quality-life" style="display:none" clstag="shangpin|keycount|product|pinzhishenghuo">
-                            <div class="q-logo">
-                                <img src="//img20.360buyimg.com/da/jfs/t2077/314/2192172483/11044/f861504a/56ca6792N64e5eafc.png" alt="品质生活"/>
-                            </div>
-                            <ul class="quality-icon">
-                                                                                                                                <li class="J-ql-iframe ql-ico-1" data-type="1" data-text="质量承诺" style="display:none" data-title="质量承诺" clstag="shangpin|keycount|product|zhijianchengnuo">
-                                    <a href="#none"><i></i><span>质量承诺</span></a>
-                                </li>
-                                <li class="ql-ico-5" data-type="5" data-text="耐久性标签" style="display:none" clstag="shangpin|keycount|product|naijiuxingbiaoqian">
-                                    <a href="#none"><i></i><span>耐久性标签</span></a>
-                                </li>
-                                <li class="ql-ico-3" data-type="3" data-text="吊牌" style="display:none" clstag="shangpin|keycount|product|diaopai">
-                                    <a href="#none"><i></i><span>吊牌</span></a>
-                                </li>
-                                <li class="ql-ico-4" data-type="4" data-text="质检报告" style="display:none" clstag="shangpin|keycount|product|zhijianbaogao">
-                                    <a href="#none"><i></i><span>质检报告</span></a>
-                                </li>
-                                <li class="ql-ico-2" data-type="2" data-text="CCC证书" style="display:none" clstag="shangpin|keycount|product|3czhengshu">
-                                    <a href="#none"><i></i><span>CCC证书</span></a>
-                                </li>
-                                                                <li class="fresh-ico-1" data-text="实时温控" data-type="v1" style="display:none" clstag="shangpin|keycount|product|shishiwenkong">
-                                    <a href="#none"><i></i><span class="J-fresh-wd fresh-wd"></span><span>实时温控</span></a>
-                                </li>
-                                <li class="fresh-ico-2" data-text="检验报告" data-type="v2" style="display:none" clstag="shangpin|keycount|product|jiancebaogao">
-                                    <a href="#none"><i></i><span>检验报告</span></a>
-                                </li>
-                            </ul>
+                  <li title='2.5m-3m（46-55英寸）'>观看距离：2.5m-3m（46-55英寸）</li>
+                                          </ul>
+                                                <p class="more-par">
+                            <a href="#product-detail" class="J-more-param">更多参数<s class="txt-arr">&gt;&gt;</s></a>
+                        </p>
+                                            </div>
+                    <div id="quality-life" class="quality-life" style="display:none" clstag="shangpin|keycount|product|pinzhishenghuo">
+                        <div class="q-logo">
+                            <img src="//img20.360buyimg.com/da/jfs/t2077/314/2192172483/11044/f861504a/56ca6792N64e5eafc.png" alt="品质生活"/>
                         </div>
-                        <div id="suyuan-video"></div>
-                        <div id="J-detail-banner"></div>                                                                        <div id="activity_header" clstag="shangpin|keycount|product|activityheader"></div>
-                                                                        <div id="J-detail-pop-tpl-top-new" clstag="shangpin|keycount|product|pop-glbs">
-                                                    </div>
-
-                        <div class="detail-content clearfix" data-name="z-have-detail-nav">
-                            <div class="detail-content-wrap">
-                                                                                                
-                                <div class="detail-content-item">
-                                                                        <div id="J-detail-content">
-                                        <div class="loading-style1"><b></b>商品介绍加载中...</div>                                    </div><!-- #J-detail-content -->
-                                                                                                            <div id="activity_footer" clstag="shangpin|keycount|product|activityfooter"></div>
-                                                                    </div>
-                            </div>
-                                                        <div id="J-detail-nav" class="detail-content-nav">
-                                <ul id="J-detail-content-tab" class="detail-content-tab"></ul>
-                                                                                            </div>
-                        </div>
-                                                <div id="J-detail-pop-tpl-bottom-new" clstag="shangpin|keycount|product|pop-glbs">
-                                                    </div>
-
-                        <div class="clb"></div>
+                        <ul class="quality-icon">
+                                                                                                                                            <li class="J-ql-iframe ql-ico-1" data-type="1" data-text="质量承诺" style="display:none" data-title="质量承诺" clstag="shangpin|keycount|product|zhijianchengnuo">
+                                <a href="#none"><i></i><span>质量承诺</span></a>
+                            </li>
+                            <li class="ql-ico-5" data-type="5" data-text="耐久性标签" style="display:none" clstag="shangpin|keycount|product|naijiuxingbiaoqian">
+                                <a href="#none"><i></i><span>耐久性标签</span></a>
+                            </li>
+                            <li class="ql-ico-3" data-type="3" data-text="吊牌" style="display:none" clstag="shangpin|keycount|product|diaopai">
+                                <a href="#none"><i></i><span>吊牌</span></a>
+                            </li>
+                            <li class="ql-ico-4" data-type="4" data-text="质检报告" style="display:none" clstag="shangpin|keycount|product|zhijianbaogao">
+                                <a href="#none"><i></i><span>质检报告</span></a>
+                            </li>
+                            <li class="ql-ico-2" data-type="2" data-text="CCC证书" style="display:none" clstag="shangpin|keycount|product|3czhengshu">
+                                <a href="#none"><i></i><span>CCC证书</span></a>
+                            </li>
+                                                        <li class="fresh-ico-1" data-text="实时温控" data-type="v1" style="display:none" clstag="shangpin|keycount|product|shishiwenkong">
+                                <a href="#none"><i></i><span class="J-fresh-wd fresh-wd"></span><span>实时温控</span></a>
+                            </li>
+                            <li class="fresh-ico-2" data-text="检验报告" data-type="v2" style="display:none" clstag="shangpin|keycount|product|jiancebaogao">
+                                <a href="#none"><i></i><span>检验报告</span></a>
+                            </li>
+                        </ul>
                     </div>
-                                                            <div data-tab="item" class="hide">
-                                                <div class="Ptable">
+                    <div id="suyuan-video"></div>
+                                        <div id="J-detail-banner"></div>
+                                                            <div id="activity_header" clstag="shangpin|keycount|product|activityheader"></div>
+                                                            <div id="J-detail-pop-tpl-top-new" clstag="shangpin|keycount|product|pop-glbs">
+                                            </div>
+
+                    <div class="detail-content clearfix" data-name="z-have-detail-nav">
+                        <div class="detail-content-wrap">
+                                                                                    
+                            <div class="detail-content-item">
+                                                                <div id="J-detail-content">
+                                    <div class="loading-style1"><b></b>商品介绍加载中...</div>                                </div><!-- #J-detail-content -->
+                                                                                                <div id="activity_footer" clstag="shangpin|keycount|product|activityfooter"></div>
+                                                            </div>
+                        </div>
+                                                <div id="J-detail-nav" class="detail-content-nav">
+                            <ul id="J-detail-content-tab" class="detail-content-tab"></ul>
+                                                                                </div>
+                    </div>
+                                        <div id="J-detail-pop-tpl-bottom-new" clstag="shangpin|keycount|product|pop-glbs">
+                                            </div>
+
+                    <div class="clb"></div>
+                </div>
+                                                <div data-tab="item" class="hide">
+                                        <div class="Ptable">
             <div class="Ptable-item">
-        <h3>端口参数</h3>
+        <h3>交互设备</h3>
         <dl>
                                   <dl class="clearfix" style="margin:0">
-                                  <dt>USB2.0接口</dt><dd>2</dd>
+                                  <dt>语音控制</dt><dd>支持</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>HDMI2.0接口</dt><dd>2</dd>
-                            </dl>
-                              </dl>
-      </div>
-                <div class="Ptable-item">
-        <h3>USB支持格式</h3>
-        <dl>
-                                  <dl class="clearfix" style="margin:0">
-                                  <dt>USB支持音频格式</dt><dd>aac.flac.mp3.wav</dd>
+                                  <dt>遥控类型</dt><dd>蓝牙遥控</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>USB支持图片格式</dt><dd>JPEG/PNG/BMP</dd>
-                            </dl>
-                                              <dl class="clearfix" style="margin:0">
-                                  <dt>USB支持视频格式</dt><dd>.avi .mpg .ts .mkv .mp4 .flv .mov .rm .rmvb</dd>
-                            </dl>
-                              </dl>
-      </div>
-                <div class="Ptable-item">
-        <h3>规格参数</h3>
-        <dl>
-                                  <dl class="clearfix" style="margin:0">
-                                  <dt>单屏重量（kg）</dt><dd>14.5</dd>
-                            </dl>
-                                              <dl class="clearfix" style="margin:0">
-                                  <dt>外包装尺寸（宽*高*厚）mm</dt><dd>1501×920×149</dd>
-                            </dl>
-                                              <dl class="clearfix" style="margin:0">
-                                  <dt>单屏尺寸（宽*高*厚）mm</dt><dd>1353×780×74</dd>
-                            </dl>
-                                              <dl class="clearfix" style="margin:0">
-                                  <dt>含底座重量（kg）</dt><dd>14.7</dd>
-                            </dl>
-                                              <dl class="clearfix" style="margin:0">
-                                  <dt>含外包装重量（kg）</dt><dd>21</dd>
-                            </dl>
-                                              <dl class="clearfix" style="margin:0">
-                                  <dt>含底座尺寸（宽*高*厚）mm</dt><dd>1353×843×291</dd>
-                            </dl>
-                              </dl>
-      </div>
-                <div class="Ptable-item">
-        <h3>功耗参数</h3>
-        <dl>
-                                  <dl class="clearfix" style="margin:0">
-                                  <dt>电源功率（w）</dt><dd>145</dd>
-                            </dl>
-                                              <dl class="clearfix" style="margin:0">
-                                  <dt>待机功率（w）</dt><dd><0.5W</dd>
-                            </dl>
-                                              <dl class="clearfix" style="margin:0">
-                                  <dt>工作电压（v）</dt><dd>220v</dd>
+                                  <dt>语音输入</dt><dd>支持</dd>
                             </dl>
                               </dl>
       </div>
@@ -2339,10 +2414,10 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                                   <dt>CPU核数</dt><dd>四核心</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>运行内存</dt><dd>1.5GB</dd>
+                                  <dt>运行内存</dt><dd>2GB</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>操作系统</dt><dd>Android 9</dd>
+                                  <dt>操作系统</dt><dd>Harmony OS 1.0</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
                                   <dt>CPU</dt>
@@ -2355,7 +2430,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                       </div>
                     </div>
                   </dd>
-                  <dd>ARM Cortex A53*4 MAX1.4GHz</dd>
+                  <dd>鸿鹄818智慧芯片</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
                                   <dt>智能电视</dt>
@@ -2381,10 +2456,10 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                       </div>
                     </div>
                   </dd>
-                  <dd> 2核Mali-G52</dd>
+                  <dd>4*Mali-G51</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>存储内存</dt><dd>8GB</dd>
+                                  <dt>存储内存</dt><dd>16GB</dd>
                             </dl>
                               </dl>
       </div>
@@ -2392,55 +2467,89 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
         <h3>外观设计</h3>
         <dl>
                                   <dl class="clearfix" style="margin:0">
-                                  <dt>底座材料</dt><dd>全塑</dd>
+                                  <dt>机身厚薄</dt><dd>69.9mm（最薄处10.4mm）</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>机身厚薄</dt><dd>最薄处厚度8.56mm</dd>
+                                  <dt>边框材质</dt><dd>塑胶</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>安装孔距</dt><dd>300*200</dd>
+                                  <dt>安装孔距</dt><dd>200*200</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>边框材质</dt><dd>塑料</dd>
-                            </dl>
-                                              <dl class="clearfix" style="margin:0">
-                                  <dt>边框宽窄</dt><dd>边框宽度(上/左右/下)0/0/19.8mm</dd>
+                                  <dt>边框宽窄</dt><dd>以官网为准</dd>
                             </dl>
                               </dl>
       </div>
                 <div class="Ptable-item">
-        <h3>主体参数</h3>
+        <h3>端口参数</h3>
         <dl>
                                   <dl class="clearfix" style="margin:0">
-                                  <dt>上市时间</dt><dd>2020-05</dd>
+                                  <dt>USB3.0接口</dt><dd>1</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>产品颜色</dt><dd>黑色</dd>
+                                  <dt>HDMI2.0接口</dt><dd>3</dd>
+                            </dl>
+                              </dl>
+      </div>
+                <div class="Ptable-item">
+        <h3>网络参数</h3>
+        <dl>
+                                  <dl class="clearfix" style="margin:0">
+                                  <dt>连接方式</dt><dd>无线/网线</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>产品类型</dt><dd>全面屏电视；人工智能电视；大屏电视；超薄电视；4K超清电视</dd>
+                                  <dt>网络连接</dt><dd>支持有线&无线</dd>
+                            </dl>
+                              </dl>
+      </div>
+                <div class="Ptable-item">
+        <h3>规格参数</h3>
+        <dl>
+                                  <dl class="clearfix" style="margin:0">
+                                  <dt>单屏重量（kg）</dt><dd>13.42</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>能效等级</dt><dd>三级能效</dd>
+                                  <dt>单屏尺寸（宽*高*厚）mm</dt><dd>1233.4mm（长）*715.23mm（宽）*69.9mm（厚）（最薄处10.4mm）</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>认证型号</dt>
-                  <dd class="Ptable-tips">
-                    <a href="#none"><i class="Ptable-sprite-question"></i></a>
-                    <div class="tips">
-                      <div class="Ptable-sprite-arrow"></div>
-                      <div class="content">
-                        <p>认证型号：3C证书上的产品型号。</p>
-                      </div>
-                    </div>
-                  </dd>
-                  <dd>60E3F</dd>
+                                  <dt>外包装尺寸（宽*高*厚）mm</dt><dd>1360mm（长）×160mm（宽）×860mm（高）</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>产品品牌</dt><dd>海信（Hisense）</dd>
+                                  <dt>含底座重量（kg）</dt><dd>14.1</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>产品型号</dt><dd>60E3F</dd>
+                                  <dt>含外包装重量（kg）</dt><dd>19.3</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>含底座尺寸（宽*高*厚）mm</dt><dd>1233.4mm（长）*774.27mm（宽） *219.1 mm（厚）（最薄处10.4mm）</dd>
+                            </dl>
+                              </dl>
+      </div>
+                <div class="Ptable-item">
+        <h3>功耗参数</h3>
+        <dl>
+                                  <dl class="clearfix" style="margin:0">
+                                  <dt>电源功率（w）</dt><dd>140W</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>待机功率（w）</dt><dd>小于0.5W</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>工作电压（v）</dt><dd>220v</dd>
+                            </dl>
+                              </dl>
+      </div>
+                <div class="Ptable-item">
+        <h3>USB支持格式</h3>
+        <dl>
+                                  <dl class="clearfix" style="margin:0">
+                                  <dt>USB支持音频格式</dt><dd>MP3/MP4/3GP等</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>USB支持图片格式</dt><dd>PNG/JPG/BMP等</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>USB支持视频格式</dt><dd>AVI/MP4/MOV/MKV等</dd>
                             </dl>
                               </dl>
       </div>
@@ -2454,7 +2563,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                                   <dt>支持格式（高清）</dt><dd>2160p</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>屏幕尺寸</dt><dd>60英寸</dd>
+                                  <dt>屏幕尺寸</dt><dd>55英寸</dd>
                             </dl>
                                               <dl class="clearfix" style="margin:0">
                                   <dt>屏幕比例</dt><dd>16:9</dd>
@@ -2478,60 +2587,100 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                                               <dl class="clearfix" style="margin:0">
                                   <dt>屏幕分辨率</dt><dd>超高清4K</dd>
                             </dl>
+                              </dl>
+      </div>
+                <div class="Ptable-item">
+        <h3>音频参数</h3>
+        <dl>
+                                  <dl class="clearfix" style="margin:0">
+                                  <dt>扬声器数量</dt><dd>4个</dd>
+                            </dl>
+                              </dl>
+      </div>
+                <div class="Ptable-item">
+        <h3>主体参数</h3>
+        <dl>
+                                  <dl class="clearfix" style="margin:0">
+                                  <dt>上市时间</dt><dd>2020-05</dd>
+                            </dl>
                                               <dl class="clearfix" style="margin:0">
-                                  <dt>刷屏率</dt><dd>60HZ</dd>
+                                  <dt>产品颜色</dt><dd>幻夜黑</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>产品类型</dt><dd>全面屏电视；人工智能电视；大屏电视；4K超清电视；智慧屏电视</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>能效等级</dt><dd>三级能效</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>认证型号</dt>
+                  <dd class="Ptable-tips">
+                    <a href="#none"><i class="Ptable-sprite-question"></i></a>
+                    <div class="tips">
+                      <div class="Ptable-sprite-arrow"></div>
+                      <div class="content">
+                        <p>认证型号：3C证书上的产品型号。</p>
+                      </div>
+                    </div>
+                  </dd>
+                  <dd>LOK-350</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>产品品牌</dt><dd>华为（HUAWEI）</dd>
+                            </dl>
+                                              <dl class="clearfix" style="margin:0">
+                                  <dt>产品型号</dt><dd>LOK-350</dd>
                             </dl>
                               </dl>
       </div>
       </div>
-                                                <div class="package-list">
-                            <h3>包装清单</h3>
-                            <p>使用说明书*1，遥控器*1，音视频转接线*1 ,底座组件A*1，底座组件B*1，螺钉*4,7号电池*2</p>
-                        </div>
-                    </div>
-                                                            <div data-tab="item" class="hide">
-                        <!--售后保障-->
-                    </div>
-                    <div data-tab="item" class="hide">
-                        <!--商品评价-->
-                    </div>
-                                        
-                                            <div data-tab="item" class="hide">
-    <!--拼购/预售说明-->
-    <div class="pingou-rules">
-            <h3>预约规则：</h3>
-        <ol>
-            <li>1、部分商品预约成功后才有抢购资格，预约成功后，请关注抢购时间及时抢购，货源有限，先抢先得！</li>
-            <li>2、部分商品在预约期间抢购时间未定，我们会在商品开抢前通过Push通知提醒您，请在设置中选择允许通知，以免错过抢购时间。</li>
-            <li>3、对于预约成功享优惠的商品，预约用户可获得优惠券或专属优惠。优惠券在抢购开始后使用，使用时间以优惠券有效期为准；专属优惠在抢购开始后，点击“立即抢购”将商品加入购物车，可在购物车查看优惠，若抢购时间结束，优惠自动失效。</li>
-            <li>4、查看预约商品请至“我的京东”-“我的预售”-“我的预约”进行查看。</li>
-            <li>5、如果提供赠品，赠品赠送顺序按照预约商品购买成功时间来计算，而不是预约成功时间。</li>
-            <li>6、如您对活动有任何疑问，请联系客服咨询。</li>
-        </ol>
-        </div>
-</div>                                    </div>
-            </div>
+                                        <div class="package-list">
+                        <h3>包装清单</h3>
+                        <p>包装箱标配：
+1）整机 x 1；
+2）底座 x 2；
+3）螺丝 x 4；
+4）语音遥控器 x 1；
+5）快速入门 x 1；
+6）AV转接线 x 1；
+7）电源线 x 1；
+8）保修卡 x 1；
+9）7号电池 x 2；
 
-            <div class="m m-content guarantee" id="guarantee">
-                <div class="mt">
-                    <h3>售后保障</h3>
+温馨提示：不同批次包装清单会存在差异，请以实物为准。</p>
+                    </div>
                 </div>
-                <div class="mc">
-                    <div class="item-detail item-detail-copyright">
-                        <div class="serve-agree-bd">
-    <dl>
+                                                                <div data-tab="item" class="hide">
+                    <!--质检报告-->
+                </div>
+                                                <div data-tab="item" class="hide">
+                    <!--售后保障 家用电器展示一个图文的字段 -->
+                </div>
+                                                <div data-tab="item" class="hide">
+                    <!--商品评价-->
+                </div>
+                                                                <div data-tab="item" class="hide"></div>
+            </div>
+        </div>
 
-                                                                                
+                        <div class="m m-content guarantee" id="guarantee">
+                                    <div class="mt">
+                       <h3>售后保障</h3>
+                    </div>
+                                                <div class="mc">
+                    <div class="item-detail item-detail-copyright">
+                                                <div class="serve-agree-bd">
+    <dl>
+                                                                
+                
                         <dt>
             <i class="goods"></i>
             <strong>厂家服务</strong>
         </dt>
         <dd>
-                                                                            本产品全国联保，享受三包服务，质保期为：1年质保<br/>
+                                                                            本产品全国联保，享受三包服务，质保期为：整机一年<br/>
                                                                                                             本产品提供上门安装调试、提供上门检测和维修等售后服务，自收到商品之日起，如您所购买家电商品出现质量问题，请先联系厂家进行检测，凭厂商提供的故障检测证明，在“我的京东-客户服务-返修退换货”页面提交退换申请，将有专业售后人员提供服务。京东承诺您：30天内产品出现质量问题可退货，180天内产品出现质量问题可换货，超过180天按国家三包规定享受服务。<br />
-                                                                                    您可以查询本品牌在各地售后服务中心的联系方式，<a target='_blank' href='http://www.hisense.com'>请点击这儿查询......</a><br/><br/>
-            品牌官方网站：<a target='_blank' href='http://www.hisense.com'>http://www.hisense.com</a><br/>
-                                    售后服务电话：400-611-1111                                </dd>
+                                                                                                        </dd>
                                 <dt>
             <i class="goods"></i>
             <strong>京东承诺</strong>
@@ -2541,7 +2690,8 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                                         注：因厂家会在没有任何提前通知的情况下更改产品包装、产地或者一些附件，本司不能确保客户收到的货物与商城图片、产地、附件说明完全一致。只能确保为原厂正货！并且保证与当时市场上同样主流新品一致。若本商城没有及时更新，请大家谅解！
         </dd>
                                 <dt>
-            <i class="goods"></i><strong>正品行货</strong>
+            <i class="goods"></i><strong>
+             正品行货             </strong>
         </dt>
                         <dd>京东商城向您保证所售商品均为正品行货，京东自营商品开具机打发票或电子发票。</dd>
                                                 <dt><i class="unprofor"></i><strong>全国联保</strong></dt>
@@ -2555,8 +2705,7 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
         </dd>
             </dl>
 </div>
-
-                        <div id="state">
+                                                <div id="state">
                             <strong>权利声明：</strong><br />京东上的所有商品信息、客户评价、商品咨询、网友讨论等内容，是京东重要的经营资源，未经许可，禁止非法转载使用。
                             <p><b>注：</b>本站商品信息均来自于合作方，其真实性、准确性和合法性由信息拥有者（合作方）负责。本站不提供任何保证，并不承担任何法律责任。</p>
                                                         <br />
@@ -2566,195 +2715,184 @@ background:#333 url("//img13.360buyimg.com/cms/jfs/t3121/284/4170076300/1201/43e
                             <p><b>折扣：</b>如无特殊说明，折扣指销售商在原价、或划线价（如品牌专柜标价、商品吊牌价、厂商指导价、厂商建议零售价）等某一价格基础上计算出的优惠比例或优惠金额；如有疑问，您可在购买前联系销售商进行咨询。</p>
                             <p><b>异常问题：</b>商品促销信息以商品详情页“促销”栏中的信息为准；商品的具体售价以订单结算页价格为准；如您发现活动商品售价或促销信息有异常，建议购买前先联系销售商咨询。</p>
 
-                                                        <br />
-                            <strong>能效标识说明：</strong><br />
-                            <p>根据国家相关能效标识法规和标准的要求，京东自营在售商品的能效标识图样，将会逐步替换为新版能源效率标识贴；受能效标识标准变化影响，部分产品的新版和旧版能效标识，在能效等级、测试值等方面会有差异，但产品实际性能完全一样，并不影响购买和使用，加贴新版或旧版能效标识的商品会随机发放，请您放心购买；如有疑问，请在购买前通过咚咚或来电咨询。</p>
-                                                    </div>
+                                                <br />
+                        <strong>能效标识说明：</strong><br />
+                        <p>根据国家相关能效标识法规和标准的要求，京东自营在售商品的能效标识图样，将会逐步替换为新版能源效率标识贴；受能效标识标准变化影响，部分产品的新版和旧版能效标识，在能效等级、测试值等方面会有差异，但产品实际性能完全一样，并不影响购买和使用，加贴新版或旧版能效标识的商品会随机发放，请您放心购买；如有疑问，请在购买前通过咚咚或来电咨询。</p>
+                                            </div>
+                </div>
+            </div>
+                    </div>
+                                        <div class="m m-content comment" id="comment">
+            <div class="mt">
+                <h3>商品评价</h3>
+            </div>
+            <div class="mc">
+                <div class="J-i-comment i-comment clearfix"></div>
+                <div class="J-comments-list comments-list ETab" >
+                    <div class="tab-main small">
+                        <ul>
+                            <li data-tab="trigger" clstag="shangpin|keycount|product|allpingjia_1" class="current"><a href="javascript:;">全部评论<em>()</em></a></li>
+                            <li data-tab="trigger" clstag="shangpin|keycount|product|shaipic"><a href="javascript:;">晒图<em>()</em></a></li>
+                            <li data-tab="trigger" clstag="shangpin|keycount|product|haoping_1"><a href="javascript:;">好评<em>()</em></a></li>
+                            <li data-tab="trigger" clstag="shangpin|keycount|product|zhongping_1"><a href="javascript:;">中评<em>()</em></a></li>
+                            <li data-tab="trigger" clstag="shangpin|keycount|product|chaping_1"><a href="javascript:;">差评<em>()</em></a></li>
+                            <li clstag="shangpin|keycount|product|sybg-bq" class="try-report-btn" style="display:none;"><a href="#try-report">试用报告<em>()</em></a></li>
+                        </ul>
+                        <div class="extra">
+                            <div class="sort-select J-sort-select hide">
+                                <div class="current"><span class="J-current-sortType">推荐排序</span><i></i></div>
+                                <div class="others">
+                                    <div class="curr"><span class="J-current-sortType">推荐排序</span><i></i></div>
+                                    <ul>
+                                        <li class="J-sortType-item" data-sorttype="5" clstag="shangpin|keycount|product|morenpaixu">推荐排序</li>
+                                        <li class="J-sortType-item" data-sorttype="6" clstag="shangpin|keycount|product|shijianpaixu">时间排序</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-con">
+                        <div id="comment-0" data-tab="item">全部评论</div>
+                        <div id="comment-1" data-tab="item" class="hide"><div class="iloading">正在加载中，请稍候...</div></div>
+                        <div id="comment-2" data-tab="item" class="hide"><div class="iloading">正在加载中，请稍候...</div></div>
+                        <div id="comment-3" data-tab="item" class="hide"><div class="iloading">正在加载中，请稍候...</div></div>
+                        <div id="comment-4" data-tab="item" class="hide"><div class="iloading">正在加载中，请稍候...</div></div>
                     </div>
                 </div>
             </div>
-                                                <div class="m m-content comment" id="comment">
-                <div class="mt">
-                    <h3>商品评价</h3>
+        </div>
+                        <div id="askAnswer" class="m m-content askAnswer hide">
+            <div class="mt">
+                <h3>商品问答</h3>
+            </div>
+            <div class="mc">
+                                <div class="ask-wrap">
+                    <i class="icon-dog"></i><span>心中疑惑就问问买过此商品的同学吧~</span><a href="#none" clstag="shangpin|keycount|product|woyaotiwen" class="J-btn-ask btn-ask">我要提问</a>
                 </div>
-                <div class="mc">
-                    <div class="J-i-comment i-comment clearfix"></div>
-                    <div class="J-comments-list comments-list ETab" >
-                        <div class="tab-main small">
-                            <ul>
-                                <li data-tab="trigger" clstag="shangpin|keycount|product|allpingjia_1" class="current"><a href="javascript:;">全部评论<em>()</em></a></li>
-                                <li data-tab="trigger" clstag="shangpin|keycount|product|shaipic"><a href="javascript:;">晒图<em>()</em></a></li>
-                                <li data-tab="trigger" clstag="shangpin|keycount|product|haoping_1"><a href="javascript:;">好评<em>()</em></a></li>
-                                <li data-tab="trigger" clstag="shangpin|keycount|product|zhongping_1"><a href="javascript:;">中评<em>()</em></a></li>
-                                <li data-tab="trigger" clstag="shangpin|keycount|product|chaping_1"><a href="javascript:;">差评<em>()</em></a></li>
-                                <li clstag="shangpin|keycount|product|sybg-bq" class="try-report-btn" style="display:none;"><a href="#try-report">试用报告<em>()</em></a></li>
-                            </ul>
-                            <div class="extra">
-                                <div class="sort-select J-sort-select hide">
-                                    <div class="current"><span class="J-current-sortType">推荐排序</span><i></i></div>
-                                    <div class="others">
-                                        <div class="curr"><span class="J-current-sortType">推荐排序</span><i></i></div>
-                                        <ul>
-                                            <li class="J-sortType-item" data-sorttype="5" clstag="shangpin|keycount|product|morenpaixu">推荐排序</li>
-                                            <li class="J-sortType-item" data-sorttype="6" clstag="shangpin|keycount|product|shijianpaixu">时间排序</li>
-                                        </ul>
+                                <div class="askAnswer-list">
+                </div>
+            </div>
+        </div>
+                <div id="try-holder"></div>
+                <div class="m m-content try-entry hide" id="try-entry">
+            <div class="mt">
+                <h3>试用</h3>
+            </div>
+            <div class="mc">
+                <div class="try-product">
+                    <div class="p-img">
+                        <img src="//img11.360buyimg.com/n2/s100x100_jfs/t1/146019/39/5431/118947/5f380328E953a47ba/04471d81482d3a31.jpg" width="100" height="100" alt="">
+                    </div>
+                    <div class="p-name">荣耀智慧屏X1 55英寸LOK-350 2G+16G 8K解码开关机无广告远场语音4K超清人工智能液晶教育电视全面屏</div>
+                    <div class="p-price">
+                        <strong class="J-p-100013116298"></strong>
+                    </div>
+                    <div class="p-apply">
+                        提供 <strong class="J-count"></strong> 份 | 已有 <strong class="J-a-count"></strong> 人申请
+                    </div>
+                </div>
+                <div class="try-btn">
+                    <p class="time-left J-time-left">
+                        剩余 <strong></strong>天 <strong></strong>时 <strong></strong>分 <strong></strong>秒
+                    </p>
+                    <a href="//try.jd.com/{actid}.html&source=005" class="btn-primary"  target="_blank" clstag="shangpin|keycount|product|qushiyong" >去试用</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="try-report" class="try-report"></div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-con">
-                            <div id="comment-0" data-tab="item">全部评论</div>
-                            <div id="comment-1" data-tab="item" class="hide"><div class="iloading">正在加载中，请稍候...</div></div>
-                            <div id="comment-2" data-tab="item" class="hide"><div class="iloading">正在加载中，请稍候...</div></div>
-                            <div id="comment-3" data-tab="item" class="hide"><div class="iloading">正在加载中，请稍候...</div></div>
-                            <div id="comment-4" data-tab="item" class="hide"><div class="iloading">正在加载中，请稍候...</div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                                    <!--<div id="askAnswer" class="m m-content askAnswer hide">
-                <div class="mt">
-                    <h3>商品问答</h3>
-                </div>
-                <div class="mc">
-                                        <div class="ask-wrap">
-                        <i class="icon-dog"></i><span>心中疑惑就问问买过此商品的同学吧~</span><a href="#none" clstag="shangpin|keycount|product|woyaotiwen" class="J-btn-ask btn-ask">我要提问</a>
-                    </div>
-                                        <div class="askAnswer-list">
-                    </div>
-                </div>
-            </div>-->
-                        <div id="try-report" class="try-report"></div>
-                        <div class="m m-content consult" id="consult">
-                <div class="mt">
-                    <h3 class="fl">购买咨询</h3>
+    <div class="clb"></div>
+</div>
 
-                    <div class="extra">
-                        <div class="item">
-                                                                                    <a href="//club.jd.com/allconsultations/100007300763-1-1.html#form1" target="_blank" class="btn-primary">发表咨询</a>
-                                                    </div>
-                        <div class="item">
-                            <div class="J-jimi-btn" clstag="shangpin|keycount|product|consult12"></div>
-                        </div>
-                        <div class="item">
-                            <div class="J-im-btn" clstag="shangpin|keycount|product|consult11"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mc">
-                    <div class="ETab consult">
-                        <div class="tab-main small">
-                            <ul>
-                                <li data-tab="trigger" class="current" clstag="shangpin|keycount|product|consult01">全部</li>
-                                <li data-tab="trigger" clstag="shangpin|keycount|product|consult02">商品咨询</li>
-                                <li data-tab="trigger" clstag="shangpin|keycount|product|consult03">库存配送</li>
-                                <li data-tab="trigger" clstag="shangpin|keycount|product|consult04">支付</li>
-                                <li data-tab="trigger" clstag="shangpin|keycount|product|consult05">发票保修</li>
-                                <li data-tab="trigger" style="display:none"></li>
-                            </ul>
-                        </div>
-                        <div class="tab-con">
-                            <div class="search">
-                                <p>温馨提示：因每位咨询者购买情况、咨询时间等不同，以下回复对咨询者3天内有效，其他网友仅供参考。</p>
-                                <div class="search-from">
-                                    <input id="txbReferSearch" class="s-text" type="text" placeholder="输入关键词" />
-                                    <button id="btnReferSearch" clstag="shangpin|keycount|product|consult09"><i></i>搜索</button>
-                                </div>
-                                <div data-tab="item" class="search-list">
-                                    <div class="loading-style1"><b></b>加载中，请稍候...</div>
-                                </div>
-                                <div data-tab="item" class="search-list hide">
-                                    <div class="loading-style1"><b></b>加载中，请稍候...</div>
-                                </div>
-                                <div data-tab="item" class="search-list hide">
-                                    <div class="loading-style1"><b></b>加载中，请稍候...</div>
-                                </div>
-                                <div data-tab="item" class="search-list hide">
-                                    <div class="loading-style1"><b></b>加载中，请稍候...</div>
-                                </div>
-                                <div data-tab="item" class="search-list hide">
-                                    <div class="loading-style1"><b></b>加载中，请稍候...</div>
-                                </div>
-                                <div data-tab="item" class="search-list hide">
-                                    <div class="loading-style1"><b></b>加载中，请稍候...</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                                                        </div>
-        <div class="clb"></div>
+<div style='display:none'>
+        <a href='//www.jd.com/compare/100013116298-100013150076-0-0.html'>华为LOK-350和华为LOK-360哪个好</a>
+        <a href='//www.jd.com/compare/100013116298-100008970470-0-0.html'>华为LOK-350和海信HZ43E3D哪个好</a>
+        <a href='//www.jd.com/compare/100013116298-7185303-0-0.html'>华为LOK-350和创维43H5哪个好</a>
+        <a href='//www.jd.com/compare/100013116298-100005228312-0-0.html'>华为LOK-350和小米L65M5-EA哪个好</a>
+        <a href='//www.jd.com/compare/100013116298-100008828920-0-0.html'>华为LOK-350和小米L55M5-EX哪个好</a>
+        <a href='//www.jd.com/compare/100013116298-100003852503-0-0.html'>华为LOK-350和小米L32M5-EC哪个好</a>
+        <a href='//www.jd.com/compare/100013116298-8790549-0-0.html'>华为LOK-350和TCL32L2F哪个好</a>
     </div>
-        
-    <div id="placeholder-floatnav-stop"></div>
-
-        <!-- 主站品牌页 , 口碑、排行榜 SEO开始 -->
-    <div id='CBP_CRK' style='display:none'>
-                <!-- 主站品牌页 开始 -->
-                                    <a href='https://www.jd.com/pinpai/540440.html'>LKT</a>
-                            <a href='https://www.jd.com/pinpai/461356.html'>SCT</a>
-                            <a href='https://www.jd.com/pinpai/798-187025.html'>Lanking</a>
-                            <a href='https://www.jd.com/pinpai/798-182720.html'>创星</a>
-                            <a href='https://www.jd.com/pinpai/798-16538.html'>索尼（SONY）</a>
-                            <a href='https://www.jd.com/jiage/737da0b7de51ad05c67.html'>创维电视40</a>
-                            <a href='https://www.jd.com/jiage/737f6a418eb1a84419c.html'>超立体</a>
-                            <a href='https://www.jd.com/tupian/737ff5ad49f329c288a.html'>十堰恒通物流</a>
-                            <a href='https://www.jd.com/tupian/737077a6f9a5570bc0b.html'>夏讯电视新款</a>
-                            <a href='https://www.jd.com/xinkuan/737627a770e9761017d.html'>东芝曲面电视咋样</a>
-                            <a href='https://www.jd.com/xinkuan/73798950e04ceba8d3a.html'>海信（Hisense）HZ39E30D</a>
-                            <a href='https://www.jd.com/sptopic/73797a34aa74639d434.html'>海尔56寸高清电视</a>
-                            <a href='https://www.jd.com/sptopic/737e752a71dd779c09b.html'>6300ca</a>
-                            <a href='https://www.jd.com/sptopic/737d6ade282a96b2d7d.html'>创维电视55g6b</a>
-                            <a href='https://www.jd.com/hotitem/737c51fa136fafcc386.html'>海信电视55寸led</a>
-                            <a href='https://www.jd.com/hotitem/737bb0a8cb66bc65269.html'>电视机软屏</a>
-                            <a href='https://www.jd.com/hotitem/7375dd44ea35a0d5878.html'>荣事达高清电视</a>
-                            <a href='https://www.jd.com/jxinfo/9d0d7ca3b4a2a6e2.html'>康佳电视机39排行榜，康佳电视机39十大排名推荐</a>
-                            <a href='https://www.jd.com/jxinfo/40d3cfbac7683406.html'>电视tcl60英寸排行榜，电视tcl60英寸十大排名推荐</a>
-                            <a href='https://www.jd.com/jxinfo/632ab2ddbde1d5d6.html'>TCL曲面电视哪款好？TCL曲面电视怎么样好用吗？</a>
-                            <!-- 主站品牌页 结束 -->
-        
-                <!-- 排行榜 开始 -->
-                                    <a href='//club.jd.com/rank/798/e4b88de5a4aae5a5bd_2.html'>不太好</a>
-                            <a href='//club.jd.com/rank/798/e7ae80e6b481e5a4a7e696b9e7be8ee8a782_2.html'>简洁大方美观</a>
-                            <a href='//club.jd.com/rank/798/e4bdbfe794a8e696b9e4bebf_2.html'>使用方便</a>
-                            <a href='//club.jd.com/rank/798/e680a7e4bbb7e6af94e8be83e9ab98_2.html'>性价比较高</a>
-                            <a href='//club.jd.com/rank/798/e7b3bbe7bb9fe6b581e79585e7a8b3e5ae9a_2.html'>系统流畅稳定</a>
-                            <a href='//club.jd.com/rank/798/e8b4a8e9878fe69c89e4bf9de99a9c_2.html'>质量有保障</a>
-                            <a href='//club.jd.com/rank/798/e69c8de58aa1e68081e5baa6e5a5bd_2.html'>服务态度好</a>
-                            <a href='//club.jd.com/rank/798/e59381e8b4a8e580bce5be97e4bfa1e8b596_2.html'>品质值得信赖</a>
-                            <a href='//club.jd.com/rank/798/e789a9e6b581e9809fe5baa6e5bfab_2.html'>物流速度快</a>
-                            <a href='//club.jd.com/rank/798/e5a49ae6aca1e8b4ade4b9b0_2.html'>多次购买</a>
-                            <a href='//club.jd.com/rank/798.html'>好评度</a>
-                            <!-- 排行榜 结束 -->
-        
-                <!-- 口碑 开始 -->
-                                    <a href='//club.jd.com/koubei/757362e794b5e8a786.html'>usb电视</a>
-                            <a href='//club.jd.com/koubei/6c6364e794b5e8a786.html'>lcd电视</a>
-                            <a href='//club.jd.com/koubei/6c673364e794b5e8a786.html'>lg3d电视</a>
-                            <a href='//club.jd.com/koubei/3535e5afb8346be794b5e8a786.html'>55寸4k电视</a>
-                            <a href='//club.jd.com/koubei/e4b990e794b5e8a786.html'>乐电视</a>
-                            <a href='//club.jd.com/koubei/3332e5afb8346be794b5e8a786.html'>32寸4k电视</a>
-                            <a href='//club.jd.com/koubei/3635e5afb8346be794b5e8a786.html'>65寸4k电视</a>
-                            <a href='//club.jd.com/koubei/e9a39ee588a9e6b5a66c6564e794b5e8a786.html'>飞利浦led电视</a>
-                            <a href='//club.jd.com/koubei/6c6736353030e794b5e8a786.html'>lg6500电视</a>
-                            <a href='//club.jd.com/koubei/6c6736383030e794b5e8a786.html'>lg6800电视</a>
-                            <!-- 口碑 结束 -->
-            </div>
-    <!-- 主站品牌页 , 口碑、排行榜 SEO结束 -->
+<div style='display:none' >
+        <a href='https://yp.jd.com/737572b7f06d2e9e52f.html'>sharp彩电</a>
+        <a href='https://yp.jd.com/737dad651f4d354755a.html'>58海信</a>
+        <a href='https://yp.jd.com/737d634eae8fdfd7a59.html'>海信48寸平板电视</a>
+        <a href='https://yp.jd.com/7371b72bb22b4c26ebe.html'>三星电视机65寸4k</a>
+        <a href='https://yp.jd.com/73705a8676b4190d4d2.html'>安卓液晶电视55</a>
+        <a href='https://www.jd.com/phb/7374b1c2d8faa00547c.html'>32吋液晶电视</a>
+        <a href='https://www.jd.com/phb/7379a8e8e98d8adf926.html'>led智能电视机</a>
+        <a href='https://www.jd.com/phb/7373f6ebb24211411a5.html'>noc液晶电视</a>
+        <a href='https://www.jd.com/phb/7373f42823a66035aaf.html'>电视机55寸高清</a>
+        <a href='https://www.jd.com/phb/73721a511dcfaf8992d.html'>无限电视</a>
+    </div>
+<!-- 主站品牌页 , 口碑、排行榜 SEO开始 -->
+<div id='CBP_CRK' style='display:none'>
+        <!-- 主站品牌页 开始 -->
+            <a href='https://www.jd.com/pinpai/540440.html'>LKT</a>
+        <a href='https://www.jd.com/pinpai/461356.html'>SCT</a>
+        <a href='https://www.jd.com/pinpai/798-187025.html'>Lanking</a>
+        <a href='https://www.jd.com/pinpai/798-182720.html'>创星</a>
+        <a href='https://www.jd.com/pinpai/798-16538.html'>索尼（SONY）</a>
+        <a href='https://www.jd.com/jiage/737da0b7de51ad05c67.html'>创维电视40</a>
+        <a href='https://www.jd.com/jiage/737f6a418eb1a84419c.html'>超立体</a>
+        <a href='https://www.jd.com/tupian/737ff5ad49f329c288a.html'>十堰恒通物流</a>
+        <a href='https://www.jd.com/tupian/737077a6f9a5570bc0b.html'>夏讯电视新款</a>
+        <a href='https://www.jd.com/xinkuan/737627a770e9761017d.html'>东芝曲面电视咋样</a>
+        <a href='https://www.jd.com/xinkuan/73798950e04ceba8d3a.html'>海信（Hisense）HZ39E30D</a>
+        <a href='https://www.jd.com/sptopic/73797a34aa74639d434.html'>海尔56寸高清电视</a>
+        <a href='https://www.jd.com/sptopic/737e752a71dd779c09b.html'>6300ca</a>
+        <a href='https://www.jd.com/sptopic/737d6ade282a96b2d7d.html'>创维电视55g6b</a>
+        <a href='https://www.jd.com/hotitem/737c51fa136fafcc386.html'>海信电视55寸led</a>
+        <a href='https://www.jd.com/hotitem/737bb0a8cb66bc65269.html'>电视机软屏</a>
+        <a href='https://www.jd.com/hotitem/7375dd44ea35a0d5878.html'>荣事达高清电视</a>
+        <a href='https://www.jd.com/jxinfo/9d0d7ca3b4a2a6e2.html'>康佳电视机39排行榜，康佳电视机39十大排名推荐</a>
+        <a href='https://www.jd.com/jxinfo/40d3cfbac7683406.html'>电视tcl60英寸排行榜，电视tcl60英寸十大排名推荐</a>
+        <a href='https://www.jd.com/jxinfo/632ab2ddbde1d5d6.html'>TCL曲面电视哪款好？TCL曲面电视怎么样好用吗？</a>
+            <!-- 主站品牌页 结束 -->
     
-                <div id="GLOBAL_FOOTER"></div>
-        <script>
-                seajs.use('MOD_ROOT/main/main.js', function (App) {
-            App.init(pageConfig.product);
-        });
+        <!-- 排行榜 开始 -->
+            <a href='//club.jd.com/rank/798/e4b88de5a4aae5a5bd_2.html'>不太好</a>
+        <a href='//club.jd.com/rank/798/e7ae80e6b481e5a4a7e696b9e7be8ee8a782_2.html'>简洁大方美观</a>
+        <a href='//club.jd.com/rank/798/e4bdbfe794a8e696b9e4bebf_2.html'>使用方便</a>
+        <a href='//club.jd.com/rank/798/e680a7e4bbb7e6af94e8be83e9ab98_2.html'>性价比较高</a>
+        <a href='//club.jd.com/rank/798/e7b3bbe7bb9fe6b581e79585e7a8b3e5ae9a_2.html'>系统流畅稳定</a>
+        <a href='//club.jd.com/rank/798/e8b4a8e9878fe69c89e4bf9de99a9c_2.html'>质量有保障</a>
+        <a href='//club.jd.com/rank/798/e69c8de58aa1e68081e5baa6e5a5bd_2.html'>服务态度好</a>
+        <a href='//club.jd.com/rank/798/e59381e8b4a8e580bce5be97e4bfa1e8b596_2.html'>品质值得信赖</a>
+        <a href='//club.jd.com/rank/798/e789a9e6b581e9809fe5baa6e5bfab_2.html'>物流速度快</a>
+        <a href='//club.jd.com/rank/798/e5a49ae6aca1e8b4ade4b9b0_2.html'>多次购买</a>
+        <a href='//club.jd.com/rank/798.html'>好评度</a>
+            <!-- 排行榜 结束 -->
+    
+        <!-- 口碑 开始 -->
+            <a href='//club.jd.com/koubei/757362e794b5e8a786.html'>usb电视</a>
+        <a href='//club.jd.com/koubei/6c6364e794b5e8a786.html'>lcd电视</a>
+        <a href='//club.jd.com/koubei/6c673364e794b5e8a786.html'>lg3d电视</a>
+        <a href='//club.jd.com/koubei/3535e5afb8346be794b5e8a786.html'>55寸4k电视</a>
+        <a href='//club.jd.com/koubei/e4b990e794b5e8a786.html'>乐电视</a>
+        <a href='//club.jd.com/koubei/3332e5afb8346be794b5e8a786.html'>32寸4k电视</a>
+        <a href='//club.jd.com/koubei/3635e5afb8346be794b5e8a786.html'>65寸4k电视</a>
+        <a href='//club.jd.com/koubei/e9a39ee588a9e6b5a66c6564e794b5e8a786.html'>飞利浦led电视</a>
+        <a href='//club.jd.com/koubei/6c6736353030e794b5e8a786.html'>lg6500电视</a>
+        <a href='//club.jd.com/koubei/6c6736383030e794b5e8a786.html'>lg6800电视</a>
+            <!-- 口碑 结束 -->
+    </div>
+<!-- 主站品牌页 , 口碑、排行榜 SEO结束 -->
+
+<div id="footmark" class="w footmark"></div>
+<div id="GLOBAL_FOOTER"></div>
+<script>
+        seajs.use('MOD_ROOT/main/main.js', function (App) {
+        App.init(pageConfig.product);
+    });
 
 
-                                function totouchbate() {
+                function totouchbate() {
   var exp = new Date();
   exp.setTime(exp.getTime() + 30 * 24 * 60 * 60 * 1000);
   document.cookie = "pcm=2;expires=" + exp.toGMTString() + ";path=/;domain=jd.com";
-    window.location.href="//item.m.jd.com/product/100007300763.html";
+    window.location.href="//item.m.jd.com/product/100013116298.html";
 }
 if(window.showtouchurl) {
   $("#GLOBAL_FOOTER").after("<div class='ac' style='padding-bottom:30px;'>你的浏览器更适合浏览触屏版&nbsp;&nbsp;&nbsp;&nbsp;<a href='#none' style='text-decoration:underline;' onclick='totouchbate()'>京东触屏版</a></div>");
@@ -2765,8 +2903,18 @@ if(window.showtouchurl) {
         globalInit();
         category({type:'mini', mainId:'#categorys-mini', el:'#categorys-mini-main'});
     });
-    </script>
-        <img src="//jcm.jd.com/pre" width="0" height="0" style="display:none"/>
+</script>
+<script type="text/javascript">
+    $(".Ptable-tips").mouseover(function(){
+        $(this).find(".tips").show();
+    });
+    $(".Ptable-tips").mouseout(function(){
+        $(this).find(".tips").hide();
+    });
+</script>
+
+
+<img src="//jcm.jd.com/pre" width="0" height="0" style="display:none"/>
 <script>
 seajs.use('//wl.jd.com/wl.js');
 var hashTag = window.location.hash
@@ -2797,7 +2945,7 @@ if(hashTag && hashTag.match(new RegExp('[\"\'\(\)]'))){
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(jdwebm, s);
 })();
-</script>        <div id="J-global-toolbar"></div>
+</script><div id="J-global-toolbar"></div>
 <script>
 /*
 (function(cfg) {
@@ -2906,3 +3054,8 @@ print(skuids_pettern.findall(src))
 print(shop_name_pettern.findall(src))
 print(ziying_pettern.findall(src))
 print(cat_pettern.findall(src))
+
+class A:
+    def adsdd(self):
+        pass
+print(A().adsdd.__name__)

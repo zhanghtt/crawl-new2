@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import importlib
 import threading
 import time
 
@@ -8,13 +9,65 @@ import pymongo
 import redis
 from scrapy.crawler import CrawlerProcess
 from scrapy.http import Request
+from tqdm import tqdm
+
 from scrapy_redis.spiders import RedisSpider
 from scrapy_redis.utils import bytes_to_str
-from tqdm import tqdm
+
+
+# class Request(Request):
+#
+#     def serialize(self):
+#         dumps = {"encoding": self.encoding, "method": self.method, "priority": self.priority,
+#                  "callback": (self.callback.__module__, self.callback.__repr__().split(" ")[2]) if self.callback else None,
+#                  "errback": (self.errback.__module__, self.errback.__repr__().split(" ")[2]) if self.errback else None,
+#                  "cookies": self.cookies,
+#                  "headers": self.headers, "dont_filter": self.dont_filter, "meta": self.meta, "url": self.url,
+#                  "cb_kwargs": self._cb_kwargs, "flags": self.flags}
+#         return str(dumps)
+#
+#     @classmethod
+#     def parse(cls, str_request):
+#         item_dict = eval(str_request)
+#         if item_dict["callback"]:
+#             objs = item_dict["callback"][1].split(".")
+#             m = getattr(importlib.import_module(item_dict["callback"][0]), objs[0])
+#             for obj in objs[1:-1]:
+#                 m = getattr(m, obj)
+#             item_dict["callback"] = getattr(m.get_instance(), objs[-1])
+#         else:
+#             item_dict["callback"] = None
+#
+#         if item_dict["errback"]:
+#             objs = item_dict["errback"][1].split(".")
+#             m = getattr(importlib.import_module(item_dict["errback"][0]), objs[0])
+#             for obj in objs[1:]:
+#                 m = getattr(m, obj)
+#             item_dict["errback"] = m
+#         else:
+#             item_dict["errback"] = None
+#         return cls(**item_dict)
+# class Request(Request):
+#
+#     def serialize(self):
+#         dumps = {"encoding": self.encoding, "method": self.method, "priority": self.priority,
+#                  "callback": self.callback.__name__ if self.callback else None,
+#                  "errback": self.errback.__name__ if self.errback else None,
+#                  "cookies": self.cookies,
+#                  "headers": self.headers, "dont_filter": self.dont_filter, "meta": self.meta, "url": self.url,
+#                  "cb_kwargs": self._cb_kwargs, "flags": self.flags}
+#         return str(dumps)
+#
+#     @classmethod
+#     def parse(cls, str_request):
+#         item_dict = eval(str_request)
+#         print(item_dict)
+#         item_dict["callback"] = getattr(JiChengSpider.get_instance(), item_dict["callback"]) if item_dict["callback"] else None
+#         item_dict["errback"] = getattr(JiChengSpider.get_instance(), item_dict["errback"]) if item_dict["errback"] else None
+#         return cls(**item_dict)
 
 
 class JiChengSpider(RedisSpider):
-
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
         obj = super(JiChengSpider, cls).from_crawler(crawler, *args, **kwargs)
@@ -24,7 +77,7 @@ class JiChengSpider(RedisSpider):
     def make_request_from_data(self, data):
         data = bytes_to_str(data, self.redis_encoding)
         data = eval(data)
-        return Request(url=data["url"], meta=data["meta"], dont_filter=True, priority=0)
+        return Request(url=data["url"], meta=data["meta"], priority=0, callback=self.parse)
 
 
 class ThreadMonitor(threading.Thread):
@@ -58,8 +111,9 @@ class ThreadMonitor(threading.Thread):
 
 
 class ThreadWriter(threading.Thread):
-    def __init__(self, redis_key, bar_name=None, buffer_size=512, show_pbar=True, stop_epoch=12*30):
+    def __init__(self, redis_key, bar_name=None, buffer_size=512, show_pbar=True, stop_epoch=12*30, distinct_field=None):
         threading.Thread.__init__(self)
+        self.distinct_field = distinct_field
         self.show_pbar = show_pbar
         self.stop = False
         self.stop_epoch = stop_epoch
@@ -73,6 +127,7 @@ class ThreadWriter(threading.Thread):
             self.bar_name = bar_name
         else:
             self.bar_name = self.redis_key
+        self.distinct_set = set()
 
     def write(self, item):
         raise NotImplementedError
@@ -127,21 +182,33 @@ class ThreadWriter(threading.Thread):
 
 
 class ThreadFileWriter(ThreadWriter):
-    def __init__(self, redis_key, out_file, table_header, stop_epoch=12*1, bar_name=None, buffer_size=32):
+    def __init__(self, redis_key, out_file, table_header, stop_epoch=12*1, bar_name=None, buffer_size=32, distinct_field=None):
         super(ThreadFileWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch,
-                                               bar_name=bar_name, buffer_size=buffer_size)
+                                               bar_name=bar_name, buffer_size=buffer_size,distinct_field=distinct_field)
         self.out_file = out_file
         self.out = open(self.out_file, "w")
         self.table_header = table_header
         self.out.write("\t".join(self.table_header) + "\n")
         self.buffer = []
 
+    def is_already_write(self, item):
+        if self.distinct_field:
+            if item.get(self.distinct_field) in self.distinct_set:
+                return True
+            else:
+                self.distinct_set.add(item.get(self.distinct_field))
+                return False
+        else:
+            return False
+
     def stop(self):
         self.stop = True
 
     def write(self, item):
-        self.counter = self.counter + 1
         item = eval(item)
+        if self.is_already_write(item):
+            return
+        self.counter = self.counter + 1
         self.buffer.append(item)
         if self.counter % self.buffer_size == 0:
             self.flush()
@@ -170,8 +237,8 @@ class ThreadFileWriter(ThreadWriter):
 
 
 class ThreadMongoWriter(ThreadWriter):
-    def __init__(self, redis_key, out_mongo_url, db_collection, stop_epoch=12*1, bar_name=None, buffer_size=512):
-        super(ThreadMongoWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch, bar_name=bar_name, buffer_size=buffer_size)
+    def __init__(self, redis_key, out_mongo_url, db_collection, stop_epoch=12*1, bar_name=None, buffer_size=512, distinct_field=None):
+        super(ThreadMongoWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch, bar_name=bar_name, buffer_size=buffer_size, distinct_field=distinct_field)
         self.db = pymongo.MongoClient(out_mongo_url)
         self.out = self.db[db_collection[0]][db_collection[1]]
         self.buffer = []
@@ -179,9 +246,22 @@ class ThreadMongoWriter(ThreadWriter):
     def stop(self):
         self.stop = True
 
+    def is_already_write(self, item):
+        if self.distinct_field:
+            if item.get(self.distinct_field) in self.distinct_set:
+                return True
+            else:
+                self.distinct_set.add(item.get(self.distinct_field))
+                return False
+        else:
+            return False
+
     def write(self, item):
-        self.counter = self.counter + 1
         item = eval(item)
+        if self.is_already_write(item):
+            return
+        self.counter = self.counter + 1
+
         self.buffer.append(item)
         if self.counter % self.buffer_size == 0:
             self.flush()
@@ -306,6 +386,8 @@ class Cluster(object):
                                                          "%(name)s:start_urls_num") % {"name": self.spider_name}
         self.http_proxies_queue_redis_key = self.setting.get("HTTP_PROXIES_QUEUE_REDIS_KEY",
                                                               "%(name)s:http_proxies_queue") % {"name": self.spider_name}
+        self.dupefilter_redis_key = self.setting.get("SCHEDULER_DUPEFILTER_KEY",
+                                                             "%(spider)s:dupefilter") % {"spider": self.spider_name}
         self.logger = self.get_loger()
         self.redis = get_redis_from_settings(self.setting)
         self.logger.info(self.redis)
@@ -345,7 +427,7 @@ class Slaver(Cluster):
         process.start()
 
 
-from multiprocess.core.HttpProxy import getHttpProxy, getHttpsProxy
+from multiprocess.core.HttpProxy import getHttpProxy
 
 
 class Master(Cluster):
@@ -358,6 +440,9 @@ class Master(Cluster):
 
     def get_thread_monitor(self):
         return NotImplementedError
+
+    def clear_dupefilter_redis(self):
+        self.redis.delete(self.dupefilter_redis_key)
 
     def init_proxies_queue(self, proxies=getHttpProxy()):
         self.redis.delete(self.http_proxies_queue_redis_key)
@@ -372,6 +457,7 @@ class Master(Cluster):
     def run(self):
         if self.spider_num == 0 and not self.write_asyn:
             return
+        self.clear_dupefilter_redis()
         #初始化代理池
         self.init_proxies_queue()
         #初始化种子URL
