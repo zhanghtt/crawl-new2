@@ -23,16 +23,10 @@ class Spider(JiChengSpider):
     ziying_pettern = re.compile(r'<div class="contact fr clearfix">[\s]*?<div class="name goodshop EDropdown">[\s]*?<em class="u-jd">[\s]*?(\S*?)[\s]*?</em>[\s]*?</div>')
     cat_pettern = re.compile(r'cat: \[([,\d]*)\],')
 
-
-
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
         obj = super(Spider, cls).from_crawler(crawler, *args, **kwargs)
         return obj
-
-    # @staticmethod
-    # def get_instance(self):
-    #     return self.singleton if self.singleton else None
 
     def make_request_from_data(self, data):
         str_seed = bytes_to_str(data, self.redis_encoding)
@@ -269,15 +263,15 @@ class RetryMaster(FirstMaster):
                 self.redis.sadd(self.start_urls_redis_key, *buffer)
 
 
-def run(retry):
+def run_master(retry=False, spider_name=Spider.name, spider_num=1, write_asyn=True):
     if retry:
-        master = RetryMaster(spider_name=Spider.name, spider_num=2, write_asyn=True, start_id=0)
+        master = RetryMaster(spider_name=spider_name, spider_num=spider_num, write_asyn=write_asyn)
         master.run()
     else:
-        master = FirstMaster(spider_name=Spider.name, spider_num=2, write_asyn=True, start_id=0)
+        master = FirstMaster(spider_name=spider_name, spider_num=spider_num, write_asyn=write_asyn)
         master.run()
 
 
-# r=Request(url="https://www.baiud.con", callback=Spider.parse)
-# print(r.serialize())
-# print(r.parse(r.serialize()))
+def run_slaver(spider_name=Spider.name, spider_num=1):
+    slaver = Slaver(spider_name=spider_name, spider_num=spider_num)
+    slaver.run()

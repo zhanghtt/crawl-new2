@@ -23,12 +23,12 @@ from multiprocess.core.HttpProxy import getHttpProxy,getHttpsProxy
 current_date = timeUtil.current_time()
 
 
-class Master(Master):
+class FirstMaster(Master):
     def __init__(self, *args, **kwargs):
-        super(Master, self).__init__(*args, **kwargs)
+        super(FirstMaster, self).__init__(*args, **kwargs)
 
     def init_proxies_queue(self, proxies=getHttpsProxy()):
-        super(Master, self).init_proxies_queue(proxies=proxies)
+        super(FirstMaster, self).init_proxies_queue(proxies=proxies)
 
     def init_start_urls(self):
         self.redis.delete(self.start_urls_redis_key)
@@ -69,6 +69,15 @@ class Master(Master):
         return thread_monitor
 
 
-def run():
-    master = Master(spider_name=Spider.name, spider_num=2, write_asyn=True, start_id=0)
-    master.run()
+def run_master(retry=False, spider_name=Spider.name, spider_num=1, write_asyn=True):
+    if retry:
+        master = RetryMaster(spider_name=spider_name, spider_num=spider_num, write_asyn=write_asyn)
+        master.run()
+    else:
+        master = FirstMaster(spider_name=spider_name, spider_num=spider_num, write_asyn=write_asyn)
+        master.run()
+
+
+def run_slaver(spider_name=Spider.name, spider_num=1):
+    slaver = Slaver(spider_name=spider_name, spider_num=spider_num)
+    slaver.run()

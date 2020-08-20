@@ -160,6 +160,8 @@ class ThreadFileWriter(ThreadWriter):
 
     def is_already_write(self, item):
         if self.distinct_field:
+            if item.get(self.distinct_field) is None:
+                return False
             if item.get(self.distinct_field) in self.distinct_set:
                 return True
             else:
@@ -223,6 +225,8 @@ class ThreadMongoWriter(ThreadWriter):
 
     def is_already_write(self, item):
         if self.distinct_field:
+            if item.get(self.distinct_field) is None:
+                return False
             if item.get(self.distinct_field) in self.distinct_set:
                 return True
             else:
@@ -263,6 +267,7 @@ class ThreadMongoWriter(ThreadWriter):
 from scrapy.utils.project import get_project_settings
 from scrapy_redis.connection import get_redis_from_settings
 import logging
+from scrapy.utils.log import configure_logging
 
 
 class ClusterRunner(object):
@@ -363,6 +368,7 @@ class Cluster(object):
         self.spider_name = spider_name
         self.spider_num = spider_num
         self.setting = get_project_settings()
+        configure_logging(self.setting)
         self.start_urls_redis_key = self.setting.get("START_URLS_KEY",
                                                      "%(name)s:start_urls") % {"name": self.spider_name}
         self.items_redis_key = self.setting.get("RESULT_ITEMS_REDIS_KEY", "%(name)s:items") % {"name": self.spider_name}
@@ -372,21 +378,12 @@ class Cluster(object):
                                                               "%(name)s:http_proxies_queue") % {"name": self.spider_name}
         self.dupefilter_redis_key = self.setting.get("SCHEDULER_DUPEFILTER_KEY",
                                                              "%(spider)s:dupefilter") % {"spider": self.spider_name}
-        self.logger = self.get_loger()
+        self.logger = logging.getLogger(__name__)
         self.redis = get_redis_from_settings(self.setting)
         self.logger.info(self.redis)
         self.start_id = start_id #范围start_id>=0 and start_id+self.spider_num<=237
         if not (self.start_id >= 0 and start_id + self.spider_num <= 237):
             raise InterruptedError("not valid start_id, spider_num")
-
-    def get_loger(self):
-        log_config = {}
-        parmer_map = {"LOG_LEVEL":"level","LOG_FILE":"filename","LOG_FORMAT":"format"}
-        for key in self.setting:
-            if key in parmer_map:
-                log_config[parmer_map[key]] = self.setting[key]
-        logging.basicConfig(**log_config)
-        return logging.getLogger(__name__)
 
     def run(self):
         raise NotImplementedError
@@ -397,7 +394,11 @@ class Slaver(Cluster):
         super(Slaver, self).__init__(*args, **kwargs)
 
     def get_thread_monitor(self):
-        pass
+        thread_monitor = ThreadMonitor(redis_key=self.start_urls_redis_key,
+                                       start_urls_num_redis_key=self.start_urls_num_redis_key,
+                                       bar_name=self.start_urls_redis_key)
+        thread_monitor.setDaemon(True)
+        return thread_monitor
 
     def run(self):
         #开启监控线程
