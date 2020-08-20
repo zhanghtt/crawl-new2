@@ -9,6 +9,7 @@ import sys
 import numpy as np
 from fake_useragent import UserAgent
 
+from multiprocess.core import HttpProxy
 from multiprocess.core.spider import SpiderManger, Seed
 from multiprocess.tools import process_manger
 from multiprocess.tools import timeUtil
@@ -17,7 +18,6 @@ from multiprocess.tools import timeUtil
 class SecooWeekJob(SpiderManger):
     def __init__(self, current_date, **kwargs):
         super(SecooWeekJob, self).__init__(**kwargs)
-        self.proxies = list(map(lambda x:("http://u{}:crawl@192.168.0.71:3128".format(x)), range(28)))
         self.ua = UserAgent()
         self.current_date = current_date
         space = np.linspace(0, 5800000, kwargs["spider_num"] + 1)
@@ -32,7 +32,8 @@ class SecooWeekJob(SpiderManger):
         for r in ranges:
             request = {"url": "http://list.secoo.com/all/0-0-0-0-0-7-0-0-0-10-{0}_{1}-0-100-0.shtml".format(r[0], r[1]),
                        "method":"get",
-                       "proxies": {"http": random.choice(self.proxies)},
+                       "sleep_time": 1,
+                       "timeout": 20,
                        "headers": {"Connection": "close",
                                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'}
                        }
@@ -49,9 +50,10 @@ class SecooWeekJob(SpiderManger):
     def make_request(self, seed):
         url = "http://list.secoo.com/all/0-0-0-0-0-7-0-0-{0}-10-{1}_{2}-0-100-0.shtml".format(*seed.value)
         request = {"url": url,
+                   "sleep_time":1,
                    "timeout": 20,
                    "method": "get",
-                   "proxies": {"http": random.choice(self.proxies)},
+                   "proxies": {"http": self.current_proxy},
                    "headers": {"Connection": "keep-alive",
                                "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'}}
         return request
@@ -103,7 +105,7 @@ class SecooWeekJob(SpiderManger):
 
                 results.append({"_seed":seed.value,"code": 0, "pid": pid, "name": name, "lo": lo, "self": ziying,"price":price,"_date":self.current_date})
         except:
-            results.append({"code": 1,"_seed":seed.value})
+            results.append({"code": 1,"_seed":seed.value,"_status":1})
         if results:
             self.write(results)
             seed.ok()
@@ -156,13 +158,12 @@ if __name__ == "__main__":
         , "retries": 3
         , "request_timeout": 10
         , "complete_timeout": 1 * 60
-        , "sleep_interval": 10
         , "rest_time": 15
-        , "write_seed" : True
         , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "secoo",
                            "collection": "List" + current_date}
         , "log_config": {"level": logging.ERROR,"filename": sys.argv[0] + '.logging', "filemode":'a',
                          "format": '%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
+        , "proxies_pool": HttpProxy.getHttpProxy()
         }
     p = SecooWeekJob(current_date, **config)
     p.main_loop(show_process=True)

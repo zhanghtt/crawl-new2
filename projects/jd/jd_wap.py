@@ -18,7 +18,6 @@ from multiprocess.core import HttpProxy
 class GetComment(SpiderManger):
     def __init__(self, seeds_file, dateindex, **kwargs):
         super(GetComment, self).__init__(**kwargs)
-        self.proxies = list(map(lambda x:("http://u{}:crawl@192.168.0.71:3128".format(x)), range(28)))
         self.ua = UserAgent()
         with open(seeds_file) as infile:
             data_set = collections.DataSet(infile)
@@ -29,15 +28,17 @@ class GetComment(SpiderManger):
         self.dateindex = dateindex
 
     def make_request(self, seed):
-        url = "http://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(seed.value)
+        url = "https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(seed.value)
         request={"url": url,
          "method":"get",
-         "proxies":{"http": random.choice(HttpProxy.getHttpProxy()),"https":random.choice(HttpProxy.getHttpsProxy())},
+         "allow_redirects":False,
+         "sleep_time": 0.156 + random.random() / 10,
+         "proxies":{"https": self.current_proxy, "http":self.current_proxy},
          "headers":{
          'Host': 'club.jd.com',
          'Connection': 'keep-alive',
          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
-         'Referer': 'http://item.jd.com/{0}.html'.format(seed.value)
+         'Referer': 'https://item.jd.com/{0}.html'.format(seed.value)
         }}
         return request
 
@@ -48,8 +49,8 @@ class GetComment(SpiderManger):
             result.append({"skuid": seed.value, "comment": "0", "_seed":seed.value})
         else:
             result.append({"skuid": seed.value, "comment": str(count[0]),"_seed":seed.value})
-        r = (0.1563 + random.random() / 10)
-        time.sleep(r)
+        #r = (0.1563 + random.random() / 10)
+        #time.sleep(r)
         if result:
             self.write(result)
             seed.ok()
@@ -59,22 +60,17 @@ if __name__ == "__main__":
     current_date = timeUtil.current_time()
     process_manger.kill_old_process(sys.argv[0])
     import logging
-    import pycurl
     new_config = {"job_name": "jdcomment"
               , "spider_num": 1
               , "retries": 3
-              , "pycurl_config": {pycurl.CONNECTTIMEOUT: 2, pycurl.TIMEOUT: 10}
+              ,"rest_time":5
               , "complete_timeout": 1*60
-              , "sleep_interval": 0
-              , "rest_time": 0
-              , "write_seed": False
               , "seeds_file": "resource/month202006"
               , "dateindex": current_date
-              , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jingdong",
+              , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jicheng",
                                  "collection": "comment" + current_date}
               , "log_config": {"level": logging.DEBUG, "filename": sys.argv[0] + '.logging', "filemode":'a', "format":'%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
-              , "proxies_pool": HttpProxy.getHttpProxy()
-              , "use_proxy": True
-              }
+              , "proxies_pool": HttpProxy.getHttpsProxy()
+                  }
     p = GetComment(**new_config)
     p.main_loop(show_process=True)

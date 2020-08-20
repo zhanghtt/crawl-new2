@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import importlib
 import threading
 import time
 
@@ -8,23 +9,42 @@ import pymongo
 import redis
 from scrapy.crawler import CrawlerProcess
 from scrapy.http import Request
+from tqdm import tqdm
+
 from scrapy_redis.spiders import RedisSpider
 from scrapy_redis.utils import bytes_to_str
-from tqdm import tqdm
+
+
+class Request(Request):
+
+    def serialize(self):
+        dumps = {"encoding": self.encoding, "method": self.method, "priority": self.priority,
+                 "callback": self.callback.__name__ if self.callback else None,
+                 "errback": self.errback.__name__ if self.errback else None,
+                 "cookies": self.cookies,
+                 "headers": self.headers, "dont_filter": self.dont_filter, "meta": self.meta, "url": self.url,
+                 "cb_kwargs": self._cb_kwargs, "flags": self.flags}
+        return str(dumps)
+
+    @classmethod
+    def deserialize(cls, str_request, self):
+        item_dict = eval(str_request)
+        item_dict["callback"] = getattr(self, item_dict["callback"]) if item_dict["callback"] else None
+        item_dict["errback"] = getattr(self, item_dict["errback"]) if item_dict["errback"] else None
+        return cls(**item_dict)
 
 
 class JiChengSpider(RedisSpider):
-
     @classmethod
-    def from_crawler(self, crawler, *args, **kwargs):
-        obj = super(JiChengSpider, self).from_crawler(crawler, *args, **kwargs)
+    def from_crawler(cls, crawler, *args, **kwargs):
+        obj = super(JiChengSpider, cls).from_crawler(crawler, *args, **kwargs)
+        obj.params = kwargs
         return obj
 
     def make_request_from_data(self, data):
         data = bytes_to_str(data, self.redis_encoding)
         data = eval(data)
-        self.logger.debug(data)
-        return Request(url=data["url"], meta=data["meta"], dont_filter=True)
+        return Request(url=data["url"], meta=data["meta"], priority=0, callback=self.parse)
 
 
 class ThreadMonitor(threading.Thread):
@@ -58,8 +78,9 @@ class ThreadMonitor(threading.Thread):
 
 
 class ThreadWriter(threading.Thread):
-    def __init__(self, redis_key, bar_name=None, buffer_size=512, show_pbar=True, stop_epoch=12*30):
+    def __init__(self, redis_key, bar_name=None, buffer_size=512, show_pbar=True, stop_epoch=12*30, distinct_field=None):
         threading.Thread.__init__(self)
+        self.distinct_field = distinct_field
         self.show_pbar = show_pbar
         self.stop = False
         self.stop_epoch = stop_epoch
@@ -73,6 +94,7 @@ class ThreadWriter(threading.Thread):
             self.bar_name = bar_name
         else:
             self.bar_name = self.redis_key
+        self.distinct_set = set()
 
     def write(self, item):
         raise NotImplementedError
@@ -127,21 +149,41 @@ class ThreadWriter(threading.Thread):
 
 
 class ThreadFileWriter(ThreadWriter):
-    def __init__(self, redis_key, out_file, table_header, stop_epoch=12*1, bar_name=None, buffer_size=32):
+    def __init__(self, redis_key, out_file, table_header, stop_epoch=12*1, bar_name=None, buffer_size=32, distinct_field=None):
         super(ThreadFileWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch,
-                                               bar_name=bar_name, buffer_size=buffer_size)
+                                               bar_name=bar_name, buffer_size=buffer_size,distinct_field=distinct_field)
         self.out_file = out_file
         self.out = open(self.out_file, "w")
         self.table_header = table_header
         self.out.write("\t".join(self.table_header) + "\n")
         self.buffer = []
 
+    def is_already_write(self, item):
+        if self.distinct_field:
+            if item.get(self.distinct_field) in self.distinct_set:
+                return True
+            else:
+                self.distinct_set.add(item.get(self.distinct_field))
+                return False
+        else:
+            return False
+
     def stop(self):
         self.stop = True
 
     def write(self, item):
+        item = item.decode("utf-8")
+        try:
+            item = eval(item)
+        except NameError as e:
+            self.logger.exception(e)
+            old = item
+            item = eval(item.replace("null","None"))
+            item = {key: item[key] for key in item if item[key] is not None}
+            self.logger.warning("replace item: {} to {}".format(str(old),str(item)))
+        if self.is_already_write(item):
+            return
         self.counter = self.counter + 1
-        item = eval(item)
         self.buffer.append(item)
         if self.counter % self.buffer_size == 0:
             self.flush()
@@ -155,9 +197,9 @@ class ThreadFileWriter(ThreadWriter):
                 for key in self.table_header:
                     if key in item:
                         if value:
-                            value = value + "\t" + str(item[key])
+                            value = value + "\t" + str(item.get(key))
                         else:
-                            value = str(item[key])
+                            value = str(item.get(key))
                     else:
                         value = value + "\t" + "NA"
                 if value:
@@ -170,8 +212,8 @@ class ThreadFileWriter(ThreadWriter):
 
 
 class ThreadMongoWriter(ThreadWriter):
-    def __init__(self, redis_key, out_mongo_url, db_collection, stop_epoch=12*1, bar_name=None, buffer_size=512):
-        super(ThreadMongoWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch, bar_name=bar_name, buffer_size=buffer_size)
+    def __init__(self, redis_key, out_mongo_url, db_collection, stop_epoch=12*1, bar_name=None, buffer_size=512, distinct_field=None):
+        super(ThreadMongoWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch, bar_name=bar_name, buffer_size=buffer_size, distinct_field=distinct_field)
         self.db = pymongo.MongoClient(out_mongo_url)
         self.out = self.db[db_collection[0]][db_collection[1]]
         self.buffer = []
@@ -179,9 +221,31 @@ class ThreadMongoWriter(ThreadWriter):
     def stop(self):
         self.stop = True
 
+    def is_already_write(self, item):
+        if self.distinct_field:
+            if item.get(self.distinct_field) in self.distinct_set:
+                return True
+            else:
+                self.distinct_set.add(item.get(self.distinct_field))
+                return False
+        else:
+            return False
+
     def write(self, item):
+        item = item.decode("utf-8")
+        try:
+            item = eval(item)
+        except NameError as e:
+            self.logger.exception(e)
+            old = item
+            item = eval(item.replace("null","None"))
+            item = {key: item[key] for key in item if item[key] is not None}
+            self.logger.warning("replace item: {} to {}".format(str(old),str(item)))
+
+        if self.is_already_write(item):
+            return
         self.counter = self.counter + 1
-        item = eval(item)
+
         self.buffer.append(item)
         if self.counter % self.buffer_size == 0:
             self.flush()
@@ -295,16 +359,25 @@ class ClusterRunner(object):
 
 
 class Cluster(object):
-    def __init__(self, spider_name, spider_num=psutil.cpu_count(logical=True)):
+    def __init__(self, spider_name, spider_num=psutil.cpu_count(logical=True), start_id=0):
         self.spider_name = spider_name
         self.spider_num = spider_num
-        self.start_urls_redis_key = "%(name)s:start_urls" % {"name": self.spider_name}
-        self.items_redis_key = "%(name)s:items" % {"name": self.spider_name}
-        self.start_urls_num_redis_key = "%(name)s:start_urls_num" % {"name": self.spider_name}
         self.setting = get_project_settings()
+        self.start_urls_redis_key = self.setting.get("START_URLS_KEY",
+                                                     "%(name)s:start_urls") % {"name": self.spider_name}
+        self.items_redis_key = self.setting.get("RESULT_ITEMS_REDIS_KEY", "%(name)s:items") % {"name": self.spider_name}
+        self.start_urls_num_redis_key = self.setting.get("START_URLS_NUM_KEY",
+                                                         "%(name)s:start_urls_num") % {"name": self.spider_name}
+        self.http_proxies_queue_redis_key = self.setting.get("HTTP_PROXIES_QUEUE_REDIS_KEY",
+                                                              "%(name)s:http_proxies_queue") % {"name": self.spider_name}
+        self.dupefilter_redis_key = self.setting.get("SCHEDULER_DUPEFILTER_KEY",
+                                                             "%(spider)s:dupefilter") % {"spider": self.spider_name}
         self.logger = self.get_loger()
         self.redis = get_redis_from_settings(self.setting)
         self.logger.info(self.redis)
+        self.start_id = start_id #范围start_id>=0 and start_id+self.spider_num<=237
+        if not (self.start_id >= 0 and start_id + self.spider_num <= 237):
+            raise InterruptedError("not valid start_id, spider_num")
 
     def get_loger(self):
         log_config = {}
@@ -316,11 +389,7 @@ class Cluster(object):
         return logging.getLogger(__name__)
 
     def run(self):
-        if self.spider_num >= 1:
-            process = CrawlerProcess(get_project_settings())
-            for spider in [self.spider_name]*self.spider_num:
-                process.crawl(spider)  # 根据爬虫名列表爬取
-            process.start()
+        raise NotImplementedError
 
 
 class Slaver(Cluster):
@@ -331,19 +400,18 @@ class Slaver(Cluster):
         pass
 
     def run(self):
-        if self.spider_num <= 0:
-            return
-        #初始化种子URL
         #开启监控线程
         self.thread_monitor = self.get_thread_monitor()
         if self.thread_monitor:
             self.thread_monitor.start()
             self.logger.info("start monitor success !")
-        if self.spider_num >= 1:
-            process = CrawlerProcess(get_project_settings())
-            for spider in [self.spider_name]*self.spider_num:
-                process.crawl(spider)  # 根据爬虫名列表爬取
-            process.start()
+        process = CrawlerProcess(get_project_settings())
+        for i, spider in enumerate([self.spider_name] * self.spider_num, start=self.start_id):
+            process.crawl(spider, **{"id": i})  # 根据爬虫名列表爬取
+        process.start()
+
+
+from multiprocess.core.HttpProxy import getHttpProxy
 
 
 class Master(Cluster):
@@ -357,10 +425,15 @@ class Master(Cluster):
     def get_thread_monitor(self):
         return NotImplementedError
 
-    @classmethod
-    def run_spider(cls, spider_name):
-        from scrapy.cmdline import execute
-        execute(['scrapy', 'crawl', spider_name])
+    def clear_dupefilter_redis(self):
+        self.redis.delete(self.dupefilter_redis_key)
+
+    def init_proxies_queue(self, proxies=getHttpProxy()):
+        self.redis.delete(self.http_proxies_queue_redis_key)
+        buffer = [str(None)]
+        for proxy in proxies:
+            buffer.append(str(proxy))
+        self.redis.rpush(self.http_proxies_queue_redis_key, *buffer)
 
     def init_start_urls(self):
         raise NotImplementedError
@@ -368,6 +441,9 @@ class Master(Cluster):
     def run(self):
         if self.spider_num == 0 and not self.write_asyn:
             return
+        self.clear_dupefilter_redis()
+        #初始化代理池
+        self.init_proxies_queue()
         #初始化种子URL
         self.init_start_urls()
         self.redis.set(self.start_urls_num_redis_key, self.redis.scard(self.start_urls_redis_key))
@@ -387,28 +463,21 @@ class Master(Cluster):
                 self.thread_writer.start()
                 self.logger.info("start writer success !")
                 # 开启爬虫
-                if self.spider_num > 1:
-                    process = CrawlerProcess(get_project_settings())
-                    for spider in [self.spider_name] * self.spider_num:
-                        process.crawl(spider)  # 根据爬虫名列表爬取
-                    process.start()
-                elif self.spider_num == 1:
-                    self.logger.info("mode : run in standalone !")
-                    self.run_spider(spider_name=self.spider_name)
-                self.thread_writer.join()
+                process = CrawlerProcess(get_project_settings())
+                for i, spider in enumerate([self.spider_name] * self.spider_num, start=self.start_id):
+                    process.crawl(spider, **{"id": i})  # 根据爬虫名列表爬取
+                process.start()
+                #self.thread_writer.join()
         else:
             # 开启爬虫
-            if self.spider_num > 1:
-                process = CrawlerProcess(get_project_settings())
-                for spider in [self.spider_name] * self.spider_num:
-                    process.crawl(spider)  # 根据爬虫名列表爬取
-                process.start()
-            elif self.spider_num == 1:
-                self.logger.info("mode : run in standalone !")
-                self.run_spider(spider_name=self.spider_name)
+            process = CrawlerProcess(get_project_settings())
+            for i, spider in enumerate([self.spider_name] * self.spider_num, start=self.start_id):
+                process.crawl(spider, **{"id": i})  # 根据爬虫名列表爬取
+            process.start()
             # 开启写线程
             self.thread_writer = self.get_thread_writer()
             if self.thread_writer:
                 self.thread_writer.start()
                 self.logger.info("start writer success !")
-                self.thread_writer.join()
+                #self.thread_writer.join()
+

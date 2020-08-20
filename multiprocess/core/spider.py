@@ -9,12 +9,13 @@ import threading
 import time
 import urllib
 from io import BytesIO
-from multiprocessing import Process, Value, Queue, Lock
+from multiprocessing import Process, Value, Queue, Lock, Manager
 import chardet
 import pymongo
 import requests
 from requests.adapters import HTTPAdapter
 from tqdm import tqdm
+from queue import Empty
 
 
 class SuccessResult(Exception):
@@ -34,11 +35,13 @@ class Counter(object):
     def get_count(self):
         return self.counter
 
+from ast import literal_eval
+
 
 class Seed(object):
 
     def __init__(self, value, retries=3, type = None, last_time=time.time(), rest_time=0,
-                 is_faid_task_write=True, is_ok=False):
+                 is_faid_task_write=True, is_ok=False, url=None, headers=None, status=0):
         self.retries = retries
         self.value = value
         self.type = type
@@ -47,9 +50,12 @@ class Seed(object):
         self.is_faid_task_write = is_faid_task_write
         self.is_ok = is_ok
         self.counter = Counter()
+        self.url = url
+        self.headers = headers
+        self.status = status
 
     def __str__(self):
-        return str(self.value) + "," + str(self.type) + "," + str(self.is_ok)
+        return str((self.value, self.type, self.url, self.headers))
 
     def sleep(self, rest_time):
         self.last_time = time.time()
@@ -63,6 +69,14 @@ class Seed(object):
 
     def retry(self):
         self.retries = self.retries - 1
+
+    @classmethod
+    def parse_seed(cls, str_seed):
+        tmp = literal_eval(str_seed)
+        return cls(value=tmp[0], type=tmp[1], url=tmp[2], headers=tmp[3])
+
+
+
 
 
 class ThreadMonitor(threading.Thread):
@@ -90,12 +104,11 @@ class ThreadMonitor(threading.Thread):
 
 class SpiderManger(object):
     def __init__(self, spider_num, mongo_config, complete_timeout=5*60,
-                 job_name=None, log_config=None, use_new_download_api=False
-                 , proxies_pool=None, pycurl_config=None, **kwargs):
+                 job_name=None, log_config=None, proxies_pool=None, **kwargs):
+        self.proxies_pool = Queue()
+        for proxy in proxies_pool:
+            self.proxies_pool.put(proxy)
         self.kwargs = kwargs
-        self.pycurl_config = pycurl_config
-        self.proxies_pool = proxies_pool
-        self.use_new_download_api = use_new_download_api
         self.complete_timeout = complete_timeout
         self.job_name = job_name
         self.seeds_queue = Queue()
@@ -109,6 +122,8 @@ class SpiderManger(object):
         self.log = logging
         self.log.info("output_db_collection: " + self.mongo_config["db"] + ","+ self.mongo_config["collection"])
         self.db_collect = None
+        self.id = None
+        self.current_proxy = None
 
 
     def fetch_task(self, timeout=None):
@@ -143,104 +158,104 @@ class SpiderManger(object):
         proxy = proxy.replace(password + "@", "")
         return proxy, password
 
-    def download(self, request):
-        request_url = request.get("url")
-        headers = request.get("headers")
-        if isinstance(headers, dict):
-            headers = [k+":"+v for k,v in headers.items()]
-        proxies = request.get("proxy")
-        mothed = request.get("mothed")
-        encoding = request.get("encoding")
-
-        c = pycurl.Curl()
-        body = BytesIO()
-        if self.pycurl_config:
-            #default
-            c.setopt(pycurl.FOLLOWLOCATION, 1)
-            c.setopt(pycurl.MAXREDIRS, 5)
-            c.setopt(pycurl.TIMEOUT, 3)
-            c.setopt(pycurl.CONNECTTIMEOUT, 1)
-            c.setopt(pycurl.URL, request_url)
-            if headers:
-                c.setopt(pycurl.HTTPHEADER, headers)
-            c.setopt(pycurl.ENCODING, 'gzip,deflate')
-            c.setopt(pycurl.SSL_VERIFYPEER, False)
-            c.setopt(pycurl.SSL_VERIFYHOST, False)
-            if mothed is None:
-                mothed = "get"
-            if mothed.lower() == "post":
-                c.setopt(pycurl.POST, 1)
-                data = request.get("data")
-                if data:
-                    c.setopt(pycurl.POSTFIELDS, urllib.urlencode(data))
-            c.setopt(pycurl.WRITEFUNCTION, body.write)
-            if self.use_proxy:
-                if proxies:
-                    proxy, password = self.convert_proxy_format(proxies)
-                    self.log.debug((proxy,password))
-                    c.setopt(pycurl.PROXY, proxy)
-                    c.setopt(pycurl.PROXYUSERPWD, password)
-                else:
-                    if self.used_proxy:
-                        proxy, password = self.convert_proxy_format(self.used_proxy)
-                        self.log.debug((proxy, password ))
-                        c.setopt(pycurl.PROXY, proxy)
-                        c.setopt(pycurl.PROXYUSERPWD, password)
-            #set pycurl_config
-            for k, v in self.pycurl_config.items():
-                c.setopt(k, v)
-            # set yourself
-            self.overwrite_download_opt(c)
-        else:
-            c.setopt(pycurl.FOLLOWLOCATION, 1)
-            c.setopt(pycurl.MAXREDIRS, 5)
-            c.setopt(pycurl.TIMEOUT, 3)
-            c.setopt(pycurl.CONNECTTIMEOUT, 1)
-            c.setopt(pycurl.URL, request_url)
-            if headers:
-                c.setopt(pycurl.HTTPHEADER, headers)
-            c.setopt(pycurl.ENCODING, 'gzip,deflate')
-            c.setopt(pycurl.SSL_VERIFYPEER, False)
-            c.setopt(pycurl.SSL_VERIFYHOST, False)
-            if mothed is None:
-                mothed = "get"
-            if mothed.lower() == "post":
-                c.setopt(pycurl.POST, 1)
-                data = request.get("data")
-                if data:
-                    c.setopt(pycurl.POSTFIELDS, urllib.urlencode(data))
-            c.setopt(pycurl.WRITEFUNCTION, body.write)
-            if self.use_proxy:
-                if proxies:
-                    proxy, password = self.convert_proxy_format(proxies)
-                    self.log.debug((proxy, password))
-                    c.setopt(pycurl.PROXY, proxy)
-                    c.setopt(pycurl.PROXYUSERPWD, password)
-                else:
-                    if self.used_proxy:
-                        proxy, password = self.convert_proxy_format(self.used_proxy)
-                        self.log.debug((proxy, password))
-                        c.setopt(pycurl.PROXY, proxy)
-                        c.setopt(pycurl.PROXYUSERPWD, password)
-
-            self.overwrite_download_opt(c)
-        try:
-            c.perform()
-            code = c.getinfo(pycurl.HTTP_CODE)
-            if code != 200:
-                raise pycurl.error(code, "")
-        except pycurl.error as err:
-            #if err[0] not in (7,28,56):
-             #   self.log.error(err)
-            self.log.exception(err)
-            #raise err
-            return ""
-        finally:
-            c.close()
-        result = body.getvalue()
-        if not encoding:
-            coding = chardet.detect(result)['encoding']
-        return result.decode(coding)
+    # def download(self, request):
+    #     request_url = request.get("url")
+    #     headers = request.get("headers")
+    #     if isinstance(headers, dict):
+    #         headers = [k+":"+v for k,v in headers.items()]
+    #     proxies = request.get("proxy")
+    #     mothed = request.get("mothed")
+    #     encoding = request.get("encoding")
+    #
+    #     c = pycurl.Curl()
+    #     body = BytesIO()
+    #     if self.pycurl_config:
+    #         #default
+    #         c.setopt(pycurl.FOLLOWLOCATION, 1)
+    #         c.setopt(pycurl.MAXREDIRS, 5)
+    #         c.setopt(pycurl.TIMEOUT, 3)
+    #         c.setopt(pycurl.CONNECTTIMEOUT, 1)
+    #         c.setopt(pycurl.URL, request_url)
+    #         if headers:
+    #             c.setopt(pycurl.HTTPHEADER, headers)
+    #         c.setopt(pycurl.ENCODING, 'gzip,deflate')
+    #         c.setopt(pycurl.SSL_VERIFYPEER, False)
+    #         c.setopt(pycurl.SSL_VERIFYHOST, False)
+    #         if mothed is None:
+    #             mothed = "get"
+    #         if mothed.lower() == "post":
+    #             c.setopt(pycurl.POST, 1)
+    #             data = request.get("data")
+    #             if data:
+    #                 c.setopt(pycurl.POSTFIELDS, urllib.urlencode(data))
+    #         c.setopt(pycurl.WRITEFUNCTION, body.write)
+    #         if self.use_proxy:
+    #             if proxies:
+    #                 proxy, password = self.convert_proxy_format(proxies)
+    #                 self.log.debug((proxy,password))
+    #                 c.setopt(pycurl.PROXY, proxy)
+    #                 c.setopt(pycurl.PROXYUSERPWD, password)
+    #             else:
+    #                 if self.used_proxy:
+    #                     proxy, password = self.convert_proxy_format(self.used_proxy)
+    #                     self.log.debug((proxy, password ))
+    #                     c.setopt(pycurl.PROXY, proxy)
+    #                     c.setopt(pycurl.PROXYUSERPWD, password)
+    #         #set pycurl_config
+    #         for k, v in self.pycurl_config.items():
+    #             c.setopt(k, v)
+    #         # set yourself
+    #         self.overwrite_download_opt(c)
+    #     else:
+    #         c.setopt(pycurl.FOLLOWLOCATION, 1)
+    #         c.setopt(pycurl.MAXREDIRS, 5)
+    #         c.setopt(pycurl.TIMEOUT, 3)
+    #         c.setopt(pycurl.CONNECTTIMEOUT, 1)
+    #         c.setopt(pycurl.URL, request_url)
+    #         if headers:
+    #             c.setopt(pycurl.HTTPHEADER, headers)
+    #         c.setopt(pycurl.ENCODING, 'gzip,deflate')
+    #         c.setopt(pycurl.SSL_VERIFYPEER, False)
+    #         c.setopt(pycurl.SSL_VERIFYHOST, False)
+    #         if mothed is None:
+    #             mothed = "get"
+    #         if mothed.lower() == "post":
+    #             c.setopt(pycurl.POST, 1)
+    #             data = request.get("data")
+    #             if data:
+    #                 c.setopt(pycurl.POSTFIELDS, urllib.urlencode(data))
+    #         c.setopt(pycurl.WRITEFUNCTION, body.write)
+    #         if self.use_proxy:
+    #             if proxies:
+    #                 proxy, password = self.convert_proxy_format(proxies)
+    #                 self.log.debug((proxy, password))
+    #                 c.setopt(pycurl.PROXY, proxy)
+    #                 c.setopt(pycurl.PROXYUSERPWD, password)
+    #             else:
+    #                 if self.used_proxy:
+    #                     proxy, password = self.convert_proxy_format(self.used_proxy)
+    #                     self.log.debug((proxy, password))
+    #                     c.setopt(pycurl.PROXY, proxy)
+    #                     c.setopt(pycurl.PROXYUSERPWD, password)
+    #
+    #         self.overwrite_download_opt(c)
+    #     try:
+    #         c.perform()
+    #         code = c.getinfo(pycurl.HTTP_CODE)
+    #         if code != 200:
+    #             raise pycurl.error(code, "")
+    #     except pycurl.error as err:
+    #         #if err[0] not in (7,28,56):
+    #          #   self.log.error(err)
+    #         self.log.exception(err)
+    #         #raise err
+    #         return ""
+    #     finally:
+    #         c.close()
+    #     result = body.getvalue()
+    #     if not encoding:
+    #         coding = chardet.detect(result)['encoding']
+    #     return result.decode(coding)
 
     def do_request(self, request):
         #自定义参数
@@ -248,7 +263,7 @@ class SpiderManger(object):
         if "sleep_time" in request:
             request.pop("sleep_time")
         if sleep_time > 0:
-            time.sleep(sleep_time + random.random()/10)
+            time.sleep(sleep_time)
         #requests参数
         max_retries = request.get("max_retries", 3)
         s = requests.Session()
@@ -257,6 +272,12 @@ class SpiderManger(object):
         try:
             r = s.request(**request)
             return r
+        except requests.exceptions.ProxyError as e :
+            self.log.exception(e)
+            old = self.current_proxy
+            self.proxies_pool.put(old)
+            self.current_proxy = self.proxies_pool.get()
+            self.log.info("swith new proxy from {} to {}".format(old, self.current_proxy))
         except Exception as e:
             self.log.exception(e)
             return None
@@ -322,16 +343,22 @@ class SpiderManger(object):
     #             except Exception as e:
     #                 return [{"_status": 2, "_seed": str(seed)}]
 
-    def run(self):
+    def run(self, id):
+        self.id = id
+        self.current_proxy = self.proxies_pool.get()
+        self.log.info((self.id,self.current_proxy))
         client = pymongo.MongoClient(self.mongo_config["addr"])
         self.db_collect = client[self.mongo_config["db"]][self.mongo_config["collection"]]
         while True:
             try:
                 seed = self.fetch_task(self.complete_timeout)
-            except Exception as e:
+            except Empty as e:
                 self.log.exception(e)
                 self.log.info("fetch task over time {}, spider will shutdown normally!")
                 break
+            except Exception as e:
+                self.log.exception(e)
+                continue
             try:
                 if seed:
                     if seed.retries <= 0:
@@ -359,6 +386,9 @@ class SpiderManger(object):
         client.close()
 
     def write(self, documents):
+        for doc in  documents:
+            if doc.get("_status") is None:
+                doc["_status"] = 0
         self.db_collect.insert_many(documents)
 
     def main_loop(self, show_process=True):
@@ -369,14 +399,19 @@ class SpiderManger(object):
         if self.spider_num > 1:
             self.spider_list = []
             for i in range(self.spider_num):
-                self.spider_list.append(Process(target=self.run, name="Spider-" + str(i)))
+                self.spider_list.append(Process(target=self.run, name="Spider-" + str(i), kwargs={"id": i}))
             for p in self.spider_list:
                 p.start()
             for p in self.spider_list:
                 p.join()
         else:
             if self.spider_num == 1:
-                self.run()
+                self.run(id=0)
 
 
 
+s=Seed(123)
+s.url="https://baidu"
+s.headers = {"Referer":"https://jd.com"}
+from ast import literal_eval
+print(literal_eval(str(s))[3]["Referer"])

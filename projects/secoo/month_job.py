@@ -19,7 +19,6 @@ from fake_useragent import UserAgent
 class SecooMonthJob(SpiderManger):
     def __init__(self, current_date, **kwargs):
         super(SecooMonthJob, self).__init__(**kwargs)
-        self.proxies = list(map(lambda x: ("http://u{}:crawl@192.168.0.71:3128".format(x)), range(28)))
         self.ua = UserAgent()
         self.current_date = current_date
         self.current_date = current_date
@@ -43,8 +42,10 @@ class SecooMonthJob(SpiderManger):
         url = 'https://las.secoo.com/api/comment/show_product_comment?filter=0&page=1' \
               '&pageSize=10&productBrandId=&productCategoryId=&productId={0}&type=0&callback=jsonp1'.format(seed.value[0])
         request = {"url": url,
+                   "sleep_time": 1,
+                   "timeout": 20,
                    "mothed": "get",
-                   "proxies": {"http": random.choice(self.proxies)},
+                   "proxies": {"http": self.current_proxy},
                    "headers": {"Connection": "close", "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'}}
         return request
 
@@ -66,8 +67,10 @@ class SecooMonthJob(SpiderManger):
             url = 'https://las.secoo.com/api/comment/show_product_comment?filter=0&page={0}' \
                   '&pageSize=10&productBrandId=&productCategoryId=&productId={1}&type=0&callback=jsonp1'.format(pageid,pid)
             request = {"url": url,
+                       "sleep_time": 1,
+                       "timeout": 20,
                        "mothed": "get",
-                       "proxies": {"http": random.choice(self.proxies)},
+                       "proxies": {"http": self.current_proxy},
                        "headers": {"Connection": "close",
                                    "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'}}
             respone = self.do_request(request)
@@ -115,7 +118,7 @@ class SecooMonthJob(SpiderManger):
                 if datestr != 'NoDate':
                     if (self.bench <= datestr):
                         result.append({"cid": cid, "pid_rel": pid_rel, "user": user, "device": device,
-                                       "price": price, "date": datestr, "_date": self.current_date})
+                                       "price": price, "date": datestr, "_date": self.current_date,"_status":0})
         if result:
             self.write(result)
             seed.ok()
@@ -128,13 +131,11 @@ if __name__ == "__main__":
     config = {"job_name": "secoo_month_job"
               , "spider_num": 40
               , "retries": 3
-              , "request_timeout": 10
-              , "complete_timeout": 1*60
-              , "sleep_interval": 10
               , "rest_time": 15
-              , "write_seed" : True
+              , "complete_timeout": 1*60
               , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "secoo", "collection": "secoComment" + current_date}
               , "log_config": {"level": logging.ERROR, "filename": sys.argv[0] + '.logging', "filemode":'a',"format":'%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
+              , "proxies_pool": HttpProxy.getHttpProxy()
               }
     p = SecooMonthJob(current_date, **config)
     p.main_loop(show_process=True)

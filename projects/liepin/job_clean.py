@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from mongo import op
 from tqdm import tqdm
+job_table = "job_20200617"
 pipeline=[
     {
         "$lookup": {
@@ -110,10 +111,9 @@ pipeline=[
         }
     },
     {
-        "$out": "job_20200602_clean"
+        "$out": "{}_clean".format(job_table)
     }
 ]
 
 with op.DBManger() as m:
-    m.aggregate(db_collect=("lieping",""),pipeline=pipeline)
-    print(m.get_lasted_collection("lieping", filter={"name": {"$regex": r"^comment20200728$"}}))
+    m.aggregate(db_collect=("liepin",job_table), pipeline=pipeline)

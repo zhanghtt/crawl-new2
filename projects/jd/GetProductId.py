@@ -20,14 +20,13 @@ class GetProductId(SpiderManger):
     def __init__(self, **kwargs):
         super(GetProductId, self).__init__(**kwargs)
         self.retries = 3
-        self.proxies = HttpProxy.getHttpProxy()
+        self.proxies = HttpProxy.getHttpsProxy()
         self.ua = UserAgent()
         with op.DBManger() as m:
             last_brand_collect = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^brand20\d\d\d\d\d\d$"}})
             pipeline = [
                 {"$match": {"cate_id": {"$ne": None}}},
                 {"$match": {"brand_id": {"$ne": None}}},
-                {"$match": {"name": {"$ne": None}}},
                 {"$match": {"_status": 0}}
             ]
             data_set = collections.DataSet(m.read_from(db_collect=("jingdong", last_brand_collect), out_field=("cate_id", "brand_id","name"), pipeline=pipeline))
@@ -48,14 +47,14 @@ class GetProductId(SpiderManger):
         else:
             en_cate_id, en_name = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
                 {"ev": "exbrand_" + name})
-        url = 'https://list.jd.com/list.html?{0}&{1}&cid3={2}'.format(en_cate_id, en_name, cid3)
+        url = 'https://list.jd.com/list.html?{0}&{1}&cid3={2}&psort=4'.format(en_cate_id, en_name, cid3)
         request = {"url": url,
-                   "sleep_time": 0.1,
-                   "method":"get",
-                   "proxies": {"http": random.choice(self.proxies)},
+                   "sleep_time": 0.156 + random.random()/10,
+                   "method" : "get",
+                   "proxies": {"https": self.current_proxy},
                    "headers": {"Connection": "close", "User-Agent": self.ua.chrome,
                                "Referer": "https://list.jd.com/list.html?{0}&cid3={1}&cid2={2}".format(en_cate_id, cid3, cid2)}}
-        rs = self.do_request(request)
+        rs = self.do_request(request).text
         if rs:
             page_strs = self.totalpage_perttern.findall(rs)
             if page_strs:
@@ -69,12 +68,12 @@ class GetProductId(SpiderManger):
                     url = 'https://list.jd.com/list.html?{0}&{1}&page={2}&s={3}&click=1'.format(en_cate_id, en_name,
                                                                                                 page, s)
                     request = {"url": url,
-                               "sleep_time": 0.1,
+                               "sleep_time": 0.156 + random.random()/10,
                                "method": "get",
-                               "proxies": {"http": random.choice(self.proxies)},
+                               "proxies": {"https": self.current_proxy},
                                "headers": {"Connection": "close", "User-Agent": self.ua.chrome,
                                            "Referer": url}}
-                    rs1 = self.do_request(request)
+                    rs1 = self.do_request(request).text
                     if rs1:
                         r1 = self.first_pettern.findall(rs1)
                         if r1:
@@ -83,13 +82,13 @@ class GetProductId(SpiderManger):
                                 for pid in r1.split(","):
                                     seed.counter.increase()
                                     request = {"url": "https://item.jd.com/{}.html".format(pid),
-                                           "sleep_time": 0.1,
+                                           "sleep_time": 0.156 + random.random()/10,
                                            "method": "get",
-                                           "proxies": {"http": random.choice(self.proxies)},
+                                           "proxies": {"https": self.current_proxy},
                                            "headers": {"Connection": "close", "User-Agent": self.ua.chrome,
                                                        "Referer": "https://list.jd.com/list.html?{0}&{1}&page={2}&s={3}&click=1".format(
                                                            en_cate_id, en_name, page, s)}}
-                                    rs2 = self.do_request(request)
+                                    rs2 = self.do_request(request).text
                                     if rs2:
                                         r2 = self.skuids_pettern.findall(rs2)
                                         for skuid in r2:
@@ -102,13 +101,13 @@ class GetProductId(SpiderManger):
                                 url = 'https://list.jd.com/list.html?{0}&{1}&page={2}&s={3}&scrolling=y&log_id=1596108547754.6591&tpl=1_M&isList=1&show_items={4}'.format(
                                     en_cate_id, en_name, page, s, items)
                                 request = {"url": url,
-                                           "sleep_time": 0.1,
+                                           "sleep_time": 0.156 + random.random()/10,
                                            "method": "get",
-                                           "proxies": {"http": random.choice(self.proxies)},
+                                           "proxies": {"https": self.current_proxy},
                                            "headers": {"Connection": "close", "User-Agent": self.ua.chrome,
                                                        "Referer": "https://list.jd.com/list.html?{0}&{1}&page={2}&s={3}&click=1".format(
                                                            en_cate_id, en_name, page - 1, s - 30)}}
-                                rs3 = self.do_request(request)
+                                rs3 = self.do_request(request).text
                                 if rs3:
                                     r3 = self.first_pettern.findall(rs3)
                                     if r3:
@@ -117,20 +116,20 @@ class GetProductId(SpiderManger):
                                             for pid in r3.split(","):
                                                 seed.counter.increase()
                                                 request = {"url": "https://item.jd.com/{}.html".format(pid),
-                                                           "sleep_time": 0.1,
+                                                           "sleep_time": 0.156 + random.random()/10,
                                                            "method": "get",
-                                                           "proxies": {"http": random.choice(self.proxies)},
+                                                           "proxies": {"https": self.current_proxy},
                                                            "headers": {"Connection": "close",
                                                                        "User-Agent": self.ua.chrome,
                                                                        "Referer": "https://list.jd.com/list.html?{0}&{1}&page={2}&s={3}&click=1".format(
                                                                            en_cate_id, en_name, page-1, s-30)}}
-                                                rs4 = self.do_request(request)
+                                                rs4 = self.do_request(request).text
                                                 if rs4:
                                                     r4 = self.skuids_pettern.findall(rs4)
                                                     for skuid in r4:
                                                         buffer.append(
                                                             {"skuid": skuid, "cate_id": cate_id, "_seed": str(seed)})
-                if seed.counter.get_count() > 60*(int(page_strs)-1):
+                if len(buffer) > 0 and seed.counter.get_count() > 60*(int(page_strs)-1):
                     self.write(buffer)
                     seed.ok()
 
@@ -140,7 +139,7 @@ if __name__ == "__main__":
     process_manger.kill_old_process(sys.argv[0])
     import logging
     config = {"job_name": "jdproductid"
-              , "spider_num": 23
+              , "spider_num": 1
               , "complete_timeout": 5*60
               , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jingdong",
                                  "collection": "productid" + current_date}

@@ -39,10 +39,10 @@ class DBManger(object):
                 tmp.append(1)
             filter=dict(zip(out_field,tmp))
             filter.update({"_id":0})
-            result = map(lambda x: tuple([x[field] for field in out_field]),
+            result = map(lambda x: tuple([x.get(field) for field in out_field]),
                         self.collection.find({},filter))
         else:
-            result = map(lambda x: tuple([x[field] for field in out_field]),
+            result = map(lambda x: tuple([x.get(field) for field in out_field]),
                         self.collection.aggregate(pipeline, allowDiskUse=True))
         return result
 

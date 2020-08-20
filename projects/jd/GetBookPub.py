@@ -29,7 +29,7 @@ class GetBrands(SpiderManger):
         format_value = (seed.value, 2, "pub") if cats[0] == '1713' else (seed.value, 1, "brand")
         url = 'http://list.jd.com/list.html?cat={0}&trans=1&md={1}&my=list_{2}'.format(*format_value)
         request = {"url": url,
-                   "method":"get",
+                   "method": "get",
                    "timeout": self.kwargs.get("request_timeout", 10),
                    "proxies": {"http": random.choice(self.proxies)},
                    "headers": {"Connection": "close", "User-Agent": self.ua.chrome}}
@@ -40,11 +40,11 @@ class GetBrands(SpiderManger):
         tuples = self.pattern.findall(content)
         if len(tuples) > 0:
             for item in tuples:
-                result.append({"brand_id": item[0], "name": item[1], "cate_id":seed.value,"_seed": seed.value})
+                result.append({"brand_id": item[0], "name": item[1], "cate_id":seed.value,"_seed": seed.value,"_status":0})
         if result:
             self.write(result)
         else:
-            self.write([{"cate_id":seed.value,"_seed": seed.value}])
+            self.write([{"cate_id":seed.value,"_seed": seed.value, "_status":1}])
         seed.ok()
 
 
@@ -52,6 +52,7 @@ if __name__ == "__main__":
     current_date = timeUtil.current_time()
     process_manger.kill_old_process(sys.argv[0])
     import logging
+    from multiprocess.core import HttpProxy
     config = {"job_name": "jdbrand"
               , "spider_num": 23
               , "retries": 3
@@ -64,6 +65,6 @@ if __name__ == "__main__":
               , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jingdong",
                                  "collection": "brand" + current_date}
               , "log_config": {"level": logging.ERROR, "filename": sys.argv[0] + '.logging', "filemode":'a', "format":'%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
-              }
+              ,"proxies_pool": HttpProxy.getHttpsProxy()}
     p = GetBrands(**config)
     p.main_loop(show_process=True)

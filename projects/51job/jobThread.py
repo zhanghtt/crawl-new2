@@ -242,6 +242,9 @@ class ThreadMonitor(threading.Thread): #进程跟踪线程
                 threading._sleep(end - time.time())
 
 if __name__ == '__main__':
+    import sys
+    from multiprocess.tools import process_manger
+    process_manger.kill_old_process(sys.argv[0])
     #db[jobCol].drop()
     q = producer()
     #q = Queue.Queue()
@@ -259,3 +262,77 @@ if __name__ == '__main__':
         t.start() 
         #break
     q.join() #当所有任务完成后停止
+
+    from mongo import op
+
+    pipeline=[
+        {
+            "$lookup": {
+                "from": "companyALL",
+                "localField": "comId",
+                "foreignField": "_id",
+                "as": "company"
+            }
+        },
+        {
+            "$group": {
+                "_id": {
+                    "jobId": "$jobId",
+                    "comId": "$comId"
+                },
+                "salary": {
+                    "$last": "$salary"
+                },
+                "postdate": {
+                    "$last": "$postdate"
+                },
+                "location": {
+                    "$last": "$location"
+                },
+                "position": {
+                    "$last": "$position"
+                },
+                "backgroud": {
+                    "$last": "$backgroud"
+                },
+                "name": {
+                    "$last": {
+                        "$arrayElemAt": [
+                            "$company.name",
+                            0
+                        ]
+                    }
+                },
+                "industry": {
+                    "$last": {
+                        "$arrayElemAt": [
+                            "$company.industry",
+                            0
+                        ]
+                    }
+                },
+                "compkind": {
+                    "$last": {
+                        "$arrayElemAt": [
+                            "$company.compkind",
+                            0
+                        ]
+                    }
+                },
+                "size": {
+                    "$last": {
+                        "$arrayElemAt": [
+                            "$company.size",
+                            0
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "$out": "{}_clean".format(jobCol)
+        }
+    ]
+
+    with op.DBManger() as m:
+        m.aggregate(db_collect=("51job", jobCol), pipeline=pipeline)
