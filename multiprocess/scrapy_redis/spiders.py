@@ -240,7 +240,7 @@ class ThreadMongoWriter(ThreadWriter):
         try:
             item = eval(item)
         except NameError as e:
-            self.logger.exception(e)
+            #self.logger.exception(e)
             old = item
             item = eval(item.replace("null","None"))
             item = {key: item[key] for key in item if item[key] is not None}
@@ -400,7 +400,12 @@ class Slaver(Cluster):
         thread_monitor.setDaemon(True)
         return thread_monitor
 
+    def check_avaliable_proxiex(self):
+        if self.redis.llen(self.http_proxies_queue_redis_key) < self.spider_num:
+            raise Exception("alivalid proxies {} must be greater than spider_num {}".format(self.redis.llen(self.http_proxies_queue_redis_key), self.spider_num))
+
     def run(self):
+        self.check_avaliable_proxiex()
         #开启监控线程
         self.thread_monitor = self.get_thread_monitor()
         if self.thread_monitor:
@@ -429,12 +434,17 @@ class Master(Cluster):
     def clear_dupefilter_redis(self):
         self.redis.delete(self.dupefilter_redis_key)
 
+    def check_avaliable_proxiex(self):
+        if self.redis.llen(self.http_proxies_queue_redis_key) < self.spider_num:
+            raise Exception("alivalid proxies {} must be greater than spider_num {}".format(self.redis.llen(self.http_proxies_queue_redis_key), self.spider_num))
+
     def init_proxies_queue(self, proxies=getHttpProxy()):
         self.redis.delete(self.http_proxies_queue_redis_key)
         buffer = [str(None)]
         for proxy in proxies:
             buffer.append(str(proxy))
         self.redis.rpush(self.http_proxies_queue_redis_key, *buffer)
+        self.check_avaliable_proxiex()
 
     def init_start_urls(self):
         raise NotImplementedError

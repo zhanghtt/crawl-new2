@@ -12,7 +12,7 @@ import json
 
 class Spider(JiChengSpider):
     """Spider that reads urls from redis queue (myspider:start_urls)."""
-    name = 'jd_skuid2'
+    name = 'jd_skuid3'
     first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
     skuids_pettern = re.compile(r'{.*?"skuId":(\d+).*?}')
     totalpage_perttern = re.compile(r'<div id="J_topPage"[\s\S]*?<b>\d+</b><em>/</em><i>(\d+)</i>')

@@ -55,7 +55,7 @@ class Seed(object):
         self.status = status
 
     def __str__(self):
-        return str((self.value, self.type, self.url, self.headers))
+        return str((self.value, self.type, self.url, self.headers, self.status))
 
     def sleep(self, rest_time):
         self.last_time = time.time()
@@ -73,7 +73,7 @@ class Seed(object):
     @classmethod
     def parse_seed(cls, str_seed):
         tmp = literal_eval(str_seed)
-        return cls(value=tmp[0], type=tmp[1], url=tmp[2], headers=tmp[3])
+        return cls(value=tmp[0], type=tmp[1], url=tmp[2], headers=tmp[3], status=tmp[4])
 
 
 

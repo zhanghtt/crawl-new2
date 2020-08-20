@@ -28,7 +28,7 @@ class Spider(JiChengSpider):
             return Request(url=url, meta={"_seed": str_seed}, priority=0, callback=self.parse)
         elif seed.type == 3:
             str_seed = seed.value
-            request = Request.deserialize(str_seed)
+            request = Request.deserialize(str_seed, self)
             return request
 
     def parse(self, response):
@@ -55,7 +55,7 @@ class FirstMaster(Master):
     def __init__(self, *args, **kwargs):
         super(FirstMaster, self).__init__(*args, **kwargs)
 
-    def init_proxies_queue(self, proxies=getHttpsProxy()):
+    def init_proxies_queue(self, proxies=getHttpProxy()):
         super(FirstMaster, self).init_proxies_queue(proxies=proxies)
 
     def init_start_urls(self):
@@ -98,14 +98,14 @@ class RetryMaster(FirstMaster):
     def __init__(self, *args, **kwargs):
         super(RetryMaster, self).__init__(*args, **kwargs)
         with op.DBManger() as m:
-            self.last_retry_collect = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d(retry\d+)?$"}})
+            self.last_retry_collect = m.get_lasted_collection("jicheng", filter={"name": {"$regex": r"^jdbrand20\d\d\d\d\d\d(retry\d+)?$"}})
             self.new_retry_collect = self.last_retry_collect[:self.last_retry_collect.find("retry") + 5] + str(int(self.last_retry_collect[self.last_retry_collect.find("retry") + 5:]) + 1) if self.last_retry_collect.find("retry") != -1 else self.last_retry_collect+"retry1"
             self.logger.info((self.last_retry_collect, self.new_retry_collect))
 
     def get_thread_writer(self):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*30, buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
-                                          db_collection=("jingdong", self.new_retry_collect), bar_name=self.items_redis_key, distinct_field=None)
+                                          db_collection=("jicheng", self.new_retry_collect), bar_name=self.items_redis_key, distinct_field=None)
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*30, bar_name=self.items_redis_key,
         #                                  out_file="jingdong/result/jdskuid.txt",
         #                                table_header=["_seed","_status","phonenumber", "province", "city", "company"])
@@ -121,7 +121,7 @@ class RetryMaster(FirstMaster):
             pipeline = [
                 {"$match": {"_status": 3}},
             ]
-            data_set = collections.DataSet(m.read_from(db_collect=("jingdong", self.last_retry_collect), out_field=("_seed","_status"), pipeline=pipeline))
+            data_set = collections.DataSet(m.read_from(db_collect=("jicheng", self.last_retry_collect), out_field=("_seed","_status"), pipeline=pipeline))
             for i, (seed, status) in enumerate(data_set.distinct()):
                 seed = Seed(value=seed, type=3)
                 buffer.append(str(seed))

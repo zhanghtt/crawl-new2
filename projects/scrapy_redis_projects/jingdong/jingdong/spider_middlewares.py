@@ -20,7 +20,7 @@ class ExceptionCheckSpider(object):
 
     #捕捉parse代码异常
     def process_spider_exception(self, response, exception, spider):
-        self.logger.debug(exception)
+        self.logger.exception(exception)
         yield {"_seed": response.request.serialize(), "_status": 3}
 
     def process_spider_input(self, response, spider):
