@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 cd `dirname $0`
-source activate jicheng
+source /home/u9000/anaconda3/bin/activate jicheng
 pip install .
-dos2unix projects/*/*.sh
+find . -name "*.sh"|xargs dos2unix

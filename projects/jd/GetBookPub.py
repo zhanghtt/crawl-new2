@@ -15,7 +15,6 @@ from fake_useragent import UserAgent
 class GetBrands(SpiderManger):
     def __init__(self, seeds_file, **kwargs):
         super(GetBrands, self).__init__(**kwargs)
-        self.proxies = list(map(lambda x:("http://u{}:crawl@192.168.0.71:3128".format(x)), range(28)))
         self.ua = UserAgent()
         with open(seeds_file) as infile:
             data_set = collections.DataSet(infile)
@@ -29,9 +28,9 @@ class GetBrands(SpiderManger):
         format_value = (seed.value, 2, "pub") if cats[0] == '1713' else (seed.value, 1, "brand")
         url = 'http://list.jd.com/list.html?cat={0}&trans=1&md={1}&my=list_{2}'.format(*format_value)
         request = {"url": url,
-                   "method": "get",
+                   "method": "get","sleep_time":1,
                    "timeout": self.kwargs.get("request_timeout", 10),
-                   "proxies": {"http": random.choice(self.proxies)},
+                   "proxies": {"http": self.current_proxy},
                    "headers": {"Connection": "close", "User-Agent": self.ua.chrome}}
         return request
 
@@ -54,7 +53,7 @@ if __name__ == "__main__":
     import logging
     from multiprocess.core import HttpProxy
     config = {"job_name": "jdbrand"
-              , "spider_num": 23
+              , "spider_num": 40
               , "retries": 3
               , "request_timeout": 10
               , "complete_timeout": 5*60
@@ -65,6 +64,6 @@ if __name__ == "__main__":
               , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jingdong",
                                  "collection": "brand" + current_date}
               , "log_config": {"level": logging.ERROR, "filename": sys.argv[0] + '.logging', "filemode":'a', "format":'%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
-              ,"proxies_pool": HttpProxy.getHttpsProxy()}
+              ,"proxies_pool": HttpProxy.getHttpProxy()}
     p = GetBrands(**config)
     p.main_loop(show_process=True)

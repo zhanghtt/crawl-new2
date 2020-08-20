@@ -65,7 +65,7 @@ if __name__ == "__main__":
               , "retries": 3
               ,"rest_time":5
               , "complete_timeout": 1*60
-              , "seeds_file": "resource/month202006"
+              , "seeds_file": "resource/month202007"
               , "dateindex": current_date
               , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jicheng",
                                  "collection": "comment" + current_date}

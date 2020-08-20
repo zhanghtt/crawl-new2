@@ -407,11 +407,3 @@ class SpiderManger(object):
         else:
             if self.spider_num == 1:
                 self.run(id=0)
-
-
-
-s=Seed(123)
-s.url="https://baidu"
-s.headers = {"Referer":"https://jd.com"}
-from ast import literal_eval
-print(literal_eval(str(s))[3]["Referer"])

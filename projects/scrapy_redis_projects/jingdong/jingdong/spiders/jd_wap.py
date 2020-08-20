@@ -35,7 +35,7 @@ class Master(Master):
         self.redis.delete(self.items_redis_key)
         buffer = []
         buffer_size = 1024
-        with open("jingdong/resource/month202006") as infile:
+        with open("jingdong/resource/month202007") as infile:
             data_set = collections.DataSet(infile)
             for i, seed in enumerate(data_set.map(lambda line: line.strip('\n').split("\t")[0])
                                              .shuffle(2048)):

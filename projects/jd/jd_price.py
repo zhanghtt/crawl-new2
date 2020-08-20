@@ -111,7 +111,7 @@ if __name__ == "__main__":
               , "sleep_interval": 0.5
               , "rest_time": 5
               , "write_seed" : False
-              , "seeds_file": "resource/month202006"
+              , "seeds_file": "resource/month202007"
               , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jicheng", "collection": "jdprice"+current_date}
               , "log_config": {"level": logging.INFO,  "format":'%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
               ,"proxies_pool": HttpProxy.getHttpProxy()}
