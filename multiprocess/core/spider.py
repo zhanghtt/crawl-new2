@@ -104,7 +104,7 @@ class ThreadMonitor(threading.Thread):
 
 class SpiderManger(object):
     def __init__(self, spider_num, mongo_config, complete_timeout=5*60,
-                 job_name=None, log_config=None, proxies_pool=None, **kwargs):
+                 job_name=None, log_config=None, proxies_pool=None, write_buffer_size=1024, **kwargs):
         self.proxies_pool = Queue()
         for proxy in proxies_pool:
             self.proxies_pool.put(proxy)
@@ -124,7 +124,7 @@ class SpiderManger(object):
         self.db_collect = None
         self.id = None
         self.current_proxy = None
-
+        self.write_buffer_size = write_buffer_size
 
     def fetch_task(self, timeout=None):
         seed = self.seeds_queue.get(timeout=timeout)
@@ -266,6 +266,8 @@ class SpiderManger(object):
             time.sleep(sleep_time)
         #requests参数
         max_retries = request.get("max_retries", 3)
+        if not request.get("method"):
+            request["method"] = 'get'
         s = requests.Session()
         s.mount('http://', HTTPAdapter(max_retries=max_retries))
         s.mount('https://', HTTPAdapter(max_retries=max_retries))
@@ -281,7 +283,6 @@ class SpiderManger(object):
         except Exception as e:
             self.log.exception(e)
             return None
-
 
     def make_request(self, seed):
         pass
@@ -349,12 +350,14 @@ class SpiderManger(object):
         self.log.info((self.id,self.current_proxy))
         client = pymongo.MongoClient(self.mongo_config["addr"])
         self.db_collect = client[self.mongo_config["db"]][self.mongo_config["collection"]]
+        self.write_buffer = []
         while True:
             try:
                 seed = self.fetch_task(self.complete_timeout)
             except Empty as e:
                 self.log.exception(e)
                 self.log.info("fetch task over time {}, spider will shutdown normally!")
+                self.flush()
                 break
             except Exception as e:
                 self.log.exception(e)
@@ -383,13 +386,29 @@ class SpiderManger(object):
                     self.seeds_queue.put(seed)
                     self.progress_decrease()
                 self.log.exception(e)
-        client.close()
+
+    # def write(self, documents, buffer_size=1024):
+    #     if len(self.write_buffer) % buffer_size == 0:
+    #         for doc in  documents:
+    #             if doc.get("_status") is None:
+    #                 doc["_status"] = 0
+    #         self.db_collect.insert_many(documents)
 
     def write(self, documents):
-        for doc in  documents:
-            if doc.get("_status") is None:
-                doc["_status"] = 0
-        self.db_collect.insert_many(documents)
+        if isinstance(documents, list):
+            self.write_buffer.extend(documents)
+        elif isinstance(documents, dict):
+            self.write_buffer.append(documents)
+        if len(self.write_buffer) % self.write_buffer_size == 0:
+            self.flush()
+
+    def flush(self):
+        if self.write_buffer:
+            for doc in self.write_buffer:
+                if doc.get("_status") is None:
+                    doc["_status"] = 0
+            self.db_collect.insert_many(self.write_buffer)
+            self.write_buffer = []
 
     def main_loop(self, show_process=True):
         if show_process:

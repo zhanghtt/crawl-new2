@@ -42,14 +42,18 @@ class SecooMonthJob(SpiderManger):
         url = 'https://las.secoo.com/api/comment/show_product_comment?filter=0&page=1' \
               '&pageSize=10&productBrandId=&productCategoryId=&productId={0}&type=0&callback=jsonp1'.format(seed.value[0])
         request = {"url": url,
-                   "sleep_time": 1,
+                   "sleep_time": 0,
                    "timeout": 20,
-                   "mothed": "get",
+                   "method": "get",
                    "proxies": {"http": self.current_proxy},
                    "headers": {"Connection": "close", "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'}}
         return request
 
     def parse_item(self, content, seed):
+        if content.find('"retCode":"0"') == -1:
+            self.write([{"_status":3, "_seed":seed.value}])
+            seed.ok()
+            return
         pid, price = seed.value
         page = self.page_pattern.findall(content)
         if len(page) > 0:
@@ -61,15 +65,15 @@ class SecooMonthJob(SpiderManger):
             else:
                 pagecount = temp
         else:
-            pagecount = 1
+            return
         result = []
         for pageid in range(1, pagecount + 1):
             url = 'https://las.secoo.com/api/comment/show_product_comment?filter=0&page={0}' \
                   '&pageSize=10&productBrandId=&productCategoryId=&productId={1}&type=0&callback=jsonp1'.format(pageid,pid)
             request = {"url": url,
-                       "sleep_time": 1,
+                       "sleep_time": 0,
                        "timeout": 20,
-                       "mothed": "get",
+                       "method": "get",
                        "proxies": {"http": self.current_proxy},
                        "headers": {"Connection": "close",
                                    "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134'}}
@@ -117,8 +121,13 @@ class SecooMonthJob(SpiderManger):
                     device = 'NA'
                 if datestr != 'NoDate':
                     if (self.bench <= datestr):
-                        result.append({"cid": cid, "pid_rel": pid_rel, "user": user, "device": device,
-                                       "price": price, "date": datestr, "_date": self.current_date,"_status":0})
+                        result.append({"cid": cid, "pid_rel": pid_rel, "pid":pid, "user": user, "device": device,
+                                       "price": price, "date": datestr, "_date": self.current_date, "_status":0})
+                    else:
+                        if result:
+                            self.write(result)
+                            seed.ok()
+                            return
         if result:
             self.write(result)
             seed.ok()
@@ -129,10 +138,10 @@ if __name__ == "__main__":
     process_manger.kill_old_process(sys.argv[0])
     import logging
     config = {"job_name": "secoo_month_job"
-              , "spider_num": 40
+              , "spider_num": 1
               , "retries": 3
-              , "rest_time": 15
-              , "complete_timeout": 1*60
+              , "rest_time": 1
+              , "complete_timeout": 3*60
               , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "secoo", "collection": "secoComment" + current_date}
               , "log_config": {"level": logging.ERROR, "filename": sys.argv[0] + '.logging', "filemode":'a',"format":'%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
               , "proxies_pool": HttpProxy.getHttpProxy()
