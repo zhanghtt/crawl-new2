@@ -13,7 +13,7 @@ class ShouJiMaster(Master):
         self.redis.delete(self.items_redis_key)
         buffer = []
         buffer_size = 1024
-        for i, seed in enumerate(open("shoujiguishudi/resource/buyer_phone")):
+        for i, seed in enumerate(open("shoujiguishudi/resource/buyer_phone.3")):
             seed = Seed(value=seed.strip(), type=0)
             buffer.append(str(seed))
             if len(buffer) % buffer_size == 0:
@@ -23,12 +23,13 @@ class ShouJiMaster(Master):
             self.redis.sadd(self.start_urls_redis_key, *buffer)
 
     def get_thread_writer(self):
-        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*1,
-                                          out_mongo_url="mongodb://192.168.0.13:27017",
-                                          db_collection=("jicheng","shoujiguishudi"), bar_name=self.items_redis_key)
-        # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, bar_name=self.items_redis_key,
-        #                                  out_file="shoujiguishudi/result/shoujiguishudi.txt",
-        #                                table_header=["_seed","_status","phonenumber", "province", "city", "company"])
+        # thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*1,
+        #                                   out_mongo_url="mongodb://192.168.0.13:27017",
+        #                                   db_collection=("jicheng","shoujiguishudi"), bar_name=self.items_redis_key)
+        thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, bar_name=self.items_redis_key,
+                                         out_file="shoujiguishudi/result/shoujiguishudi.txt",
+                                       table_header=["_seed","_status","phonenumber", "province", "city", "company"],
+                                         buffer_size=1, distinct_field="phonenumber")
         thread_writer.setDaemon(False)
         return thread_writer
 
@@ -41,5 +42,5 @@ class ShouJiMaster(Master):
 
 
 if __name__ == '__main__':
-    master = ShouJiMaster(spider_name="shoujiguishudi", spider_num=16, write_asyn=True)
+    master = ShouJiMaster(spider_name="shoujiguishudi", spider_num=2, write_asyn=True)
     master.run()

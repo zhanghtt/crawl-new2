@@ -394,12 +394,12 @@ class SpiderManger(object):
     #                 doc["_status"] = 0
     #         self.db_collect.insert_many(documents)
 
-    def write(self, documents):
+    def write(self, documents, immdeately=False):
         if isinstance(documents, list):
             self.write_buffer.extend(documents)
         elif isinstance(documents, dict):
             self.write_buffer.append(documents)
-        if len(self.write_buffer) % self.write_buffer_size == 0:
+        if immdeately or len(self.write_buffer) % self.write_buffer_size == 0:
             self.flush()
 
     def flush(self):

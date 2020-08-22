@@ -81,7 +81,7 @@ request = {"url": "https://chat1.jd.com/api/checkChat?pidList=100000002686,2,100
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
 
-request = {"url": "https://las.secoo.com/api/comment/show_product_comment?filter=0&page=1&pageSize=10&productBrandId=&productCategoryId=&productId=31966301&type=0&callback=jsonp1",
+request = {"url": "https://haoma.baidu.com/phoneSearch?search=13963063094",
            "headers": {
                'Connection': 'close',
                #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
@@ -99,6 +99,7 @@ skuids_pettern = re.compile(r'{.*?"skuId":(\d+).*?}')
 shop_name_pettern = re.compile(r'target="_blank" title="(\S*?)" clstag="shangpin')
 ziying_pettern = re.compile(r'<div class="contact fr clearfix">[\s]*?<div class="name goodshop EDropdown">[\s]*?<em class="u-jd">[\s]*?(\S*?)[\s]*?</em>[\s]*?</div>')
 cat_pettern = re.compile(r'cat: \[([,\d]*)\],')
+phonenum=re.compile(r'<div class="locate_text">[\s]*?<div class="upper_text">(.*?) (.*?)</div>[\s]*?<div class="upper_text">手机号码: (\d.*?)</div>[\s]*?</div>')
 print(shopid_pettern.findall(src))
 print(venderid_pettern.findall(src))
 print(brand_pettern.findall(src))
@@ -107,11 +108,9 @@ print(shop_name_pettern.findall(src))
 print(ziying_pettern.findall(src))
 print(cat_pettern.findall(src))
 print(first_pettern.findall(src))
+print(phonenum.findall(src))
 
-import json
-jsonr = json.loads(re.compile(r"(\[.*?\])").findall(src)[0])
-for item in jsonr:
-    print(item)
+
 import time
 # toc = time.time()
 # for i in range(0, 10000, 100):
