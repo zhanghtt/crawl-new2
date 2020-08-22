@@ -149,11 +149,11 @@ class ThreadWriter(threading.Thread):
 
 
 class ThreadFileWriter(ThreadWriter):
-    def __init__(self, redis_key, out_file, table_header, stop_epoch=12*1, bar_name=None, buffer_size=32, distinct_field=None, encoding="utf-8"):
+    def __init__(self, redis_key, out_file, table_header, stop_epoch=12*1, bar_name=None, buffer_size=32, distinct_field=None, encoding="utf-8",file_mode="w"):
         super(ThreadFileWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch,
                                                bar_name=bar_name, buffer_size=buffer_size,distinct_field=distinct_field)
         self.out_file = out_file
-        self.out = open(self.out_file, "w", encoding=encoding)
+        self.out = open(self.out_file, file_mode, encoding=encoding)
         self.table_header = table_header
         self.out.write("\t".join(self.table_header) + "\n")
         self.buffer = []
@@ -207,6 +207,7 @@ class ThreadFileWriter(ThreadWriter):
                 if value:
                     values.append(value)
             self.out.write("\n".join(values) + "\n")
+            self.buffer = []
             self.counter = 0
 
     def cleanup(self):
@@ -214,8 +215,13 @@ class ThreadFileWriter(ThreadWriter):
 
 
 class ThreadMongoWriter(ThreadWriter):
-    def __init__(self, redis_key, out_mongo_url, db_collection, stop_epoch=12*1, bar_name=None, buffer_size=512, distinct_field=None):
+    def __init__(self, redis_key, db_collection, out_mongo_url=None, stop_epoch=12*1, bar_name=None, buffer_size=512, distinct_field=None):
         super(ThreadMongoWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch, bar_name=bar_name, buffer_size=buffer_size, distinct_field=distinct_field)
+        if out_mongo_url is None:
+            self.setting = get_project_settings()
+            out_mongo_url = self.setting.get("MONGO_URL")
+        if out_mongo_url is None:
+            raise Exception("out_mongo_url must be setted!")
         self.db = pymongo.MongoClient(out_mongo_url)
         self.out = self.db[db_collection[0]][db_collection[1]]
         self.buffer = []

@@ -12,8 +12,7 @@ from multiprocess.tools.collections import city2prov
 class ShoujiSpider(JiChengSpider):
     """Spider that reads urls from redis queue (myspider:start_urls)."""
     name = 'shoujiguishudi'
-    pattern = re.compile(
-        r'<div class="locate_text">[\s]*?<div class="upper_text">(.*?) (.*?)</div>[\s]*?<div class="upper_text">手机号码: (\d.*?)</div>[\s]*?</div>')
+    pattern = re.compile(r'<div class="locate_text">[\s]*?<div class="upper_text">(.*?) (.*?)</div>[\s]*?<div class="upper_text">手机号码: (\d.*?)</div>[\s]*?</div>')
     pro_city_pattern = re.compile(r'<dd><span>号码归属地：</span>(.*?) (.*?)</dd>')
     telcompany_pattern = re.compile(r'<dd><span>手机卡类型：</span>(.*?)</dd>')
 
@@ -35,7 +34,7 @@ class ShoujiSpider(JiChengSpider):
         res = self.pattern.findall(response.text)
         if res:
             city, company, phonenumber = res[0]
-            yield {"phonenumber": phonenumber, "province": city2prov(city).strip("省"),
+            yield {"phonenumber": phonenumber, "province": city2prov(city),
                    "city": city,
                    "company": company}
         else:

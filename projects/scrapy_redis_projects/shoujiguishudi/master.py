@@ -26,10 +26,10 @@ class ShouJiMaster(Master):
         # thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*1,
         #                                   out_mongo_url="mongodb://192.168.0.13:27017",
         #                                   db_collection=("jicheng","shoujiguishudi"), bar_name=self.items_redis_key)
-        thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, bar_name=self.items_redis_key,
-                                         out_file="shoujiguishudi/result/shoujiguishudi.txt",
-                                       table_header=["_seed","_status","phonenumber", "province", "city", "company"],
-                                         buffer_size=1, distinct_field="phonenumber")
+        thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, bar_name=self.items_redis_key, stop_epoch=12*1,
+                                         out_file="shoujiguishudi/result/shoujiguishudi.txt",buffer_size=1,
+                                            table_header=["_seed","_status","phonenumber", "province", "city", "company"]
+                                         )
         thread_writer.setDaemon(False)
         return thread_writer
 

@@ -9,22 +9,22 @@ import time
 from scrapy import signals
 from scrapy.exceptions import NotConfigured
 logger = logging.getLogger(__name__)
+from scrapy_redis.connection import get_redis_from_settings
 
 
 class RedisSpiderClosedExensions(object):
 
-    def __init__(self, idle_number, crawler):
+    def __init__(self, crawler):
         self.crawler = crawler
-        self.idle_number = idle_number
+        # IDLE_NUMBER目前被被设定为等待时间，IDLE一个时间片5秒，所以setting.py中设置的时间除以5就是时间片的数量
+        self.idle_number = crawler.settings.getint('IDLE_TIME', 600) // 5
         self.idle_list = []
         self.idle_count = 0
+        self.settings = crawler.settings
 
     @classmethod
     def from_crawler(cls, crawler):
-        # IDLE_NUMBER目前被被设定为等待时间，IDLE一个时间片5秒，所以setting.py中设置的时间除以5就是时间片的数量
-        idle_number = crawler.settings.getint('IDLE_TIME', 600) // 5
-        ext = cls(idle_number, crawler)
-
+        ext = cls(crawler)
         crawler.signals.connect(ext.spider_opened, signal=signals.spider_opened)
         crawler.signals.connect(ext.spider_closed, signal=signals.spider_closed)
         crawler.signals.connect(ext.spider_idle, signal=signals.spider_idle)
@@ -33,6 +33,8 @@ class RedisSpiderClosedExensions(object):
 
     def spider_opened(self, spider):
         logger.info("opened spider %s redis spider Idle, Continuous idle limit： %d", spider.name, self.idle_number)
+        self.redis = get_redis_from_settings(self.settings)
+        self.redis_key = self.settings.get('RESULT_ITEMS_REDIS_KEY', '%(name)s:items') % {"name": spider.name}
 
     def spider_closed(self, spider):
         logger.info("closed spider %s, idle count %d , Continuous idle count %d",

@@ -122,7 +122,10 @@ def city2prov(city):
         city = city + "市"
     else:
         city = city.strip("市")
-    return city2prov_dict.get(city)
+    result = city2prov_dict.get(city)
+    if result:
+        result =  result.strip("省")
+    return result
 
 
 if __name__ == "__main__":
