@@ -81,17 +81,16 @@ request = {"url": "https://chat1.jd.com/api/checkChat?pidList=100000002686,2,100
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
 
-request = {"url": " https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98&productId=70706265670&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1",
+request = {"url": "https://las.secoo.com/api/comment/show_product_comment?filter=0&page=1&pageSize=10&productBrandId=&productCategoryId=&productId=31966301&type=0&callback=jsonp1",
            "headers": {
                'Connection': 'close',
                #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
-               "Referer":"https://item.jd.com/70706265670.html",
+               "Referer":"https://www.secoo.com",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
 
-src=requests.get(**request)
-print(src.status_code)
-print(src.text)
+src=requests.get(**request).text
+print(src)
 first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
 shopid_pettern = re.compile(r'shopId:\'(\d*)\',')
 venderid_pettern = re.compile(r'venderId:(\d*),')
