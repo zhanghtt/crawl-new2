@@ -76,6 +76,7 @@ class Spider(JiChengSpider):
             yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids), callback=self.parse3, meta={"_seed": response.meta["_seed"]})
 
     def parse1(self, response):
+        print(response.meta["_seed"])
         seed = Seed.parse_seed(response.meta["_seed"])
         cate_id, brand_id, page, s = seed.value
         r1 = self.first_pettern.findall(response.text)
@@ -119,6 +120,7 @@ class Spider(JiChengSpider):
                     url = 'https://list.jd.com/list.html?{0}&page={1}&s={2}&psort=4&click=1'.format(en_cate_id, page, s)
                     refer = "https://www.jd.com/" if i == 1 else 'https://list.jd.com/list.html?{0}&page={1}&s={2}&psort=4&click=1'.format(
                         en_cate_id, 2 * (i - 1) - 1, 60 * (i - 2) + 1)
+                print(str(Seed((cate_id, brand_id, page, s), type=1)))
                 yield Request(url=url, callback=self.parse1, meta={"_seed": str(Seed((cate_id, brand_id, page, s), type=1)), "headers": {"Connection": "close", "Referer": refer}}, priority=1)
 
 
@@ -154,7 +156,7 @@ class FirstMaster(Master):
             #     if not (cate_id == "737,794,798" and brand_id == "8557"):
             #         continue
 
-            for i, seed in enumerate([("14065,14141,14142", "387314")]):#18374,8557
+            for i, seed in enumerate([("1713,3289,3842", "311696")]):#18374,8557
                 seed = Seed(value=seed, type=0)
                 buffer.append(str(seed))
                 if len(buffer) % buffer_size == 0:
@@ -164,12 +166,15 @@ class FirstMaster(Master):
                 self.redis.sadd(self.start_urls_redis_key, *buffer)
 
     def get_thread_writer(self):
+        # "skuid": item.get("pid"), "cate_id": cate_id, "brand_id": brand_id, "shopid": item.get("shopId"),
+        # "venderid": item.get("venderId", None), "shop_name": item.get("seller"),
+        # "ziying": 1 if item.get("seller") and item.get("seller").find("京东自营") != -1 else 0}
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*3000,buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
                                           db_collection=("jingdong","jdskuid{0}".format(current_date)), bar_name=self.items_redis_key, distinct_field="skuid")
-        # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*30, bar_name=self.items_redis_key,
-        #                                  out_file="jingdong/result/jdskuid.txt",
-        #                                table_header=["_seed","_status","phonenumber", "province", "city", "company"])
+        # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*3000, bar_name=self.items_redis_key,
+        #                                  out_file="jingdong/result/jdskuid{0}".format(current_date),
+        #                                table_header=["_seed","_status","skuid", "cate_id", "brand_id", "shopid","venderid","shop_name","ziying"])
         thread_writer.setDaemon(True)
         return thread_writer
 

@@ -35,13 +35,14 @@ class Spider(JiChengSpider):
     def make_request_from_data(self, data):
         str_seed = bytes_to_str(data, self.redis_encoding)
         seed = Seed.parse_seed(str_seed)
-        if seed.status == 0:
+        if seed.type == 0:
             cats = re.split(',', seed.value)
             format_value = (seed.value, 2, "pub") if cats[0] == '1713' else (seed.value, 1, "brand")
             url = 'https://list.jd.com/list.html?cat={0}&trans=1&md={1}&my=list_{2}'.format(*format_value)
             return Request(url=url, meta={"_seed": str_seed}, priority=0, callback=self.parse, headers={"Referer": "https://www.jd.com/"})
-        elif seed.status == 3:
+        elif seed.type == 3:
             str_seed = seed.value
+            print(str_seed)
             request = Request.deserialize(str_seed, self)
             return request
 
@@ -50,34 +51,35 @@ class Spider(JiChengSpider):
         if response.text.find("""<span class="result">抱歉，没有找到与“<em></em>”相关的商品</span>""") != -1:
             # 不存在的分类
             yield {"cate_id": seed.value, "_seed": seed.value, "_status": -1}
-        tuples = self.pattern.findall(response.text)
-        if len(tuples) > 0:
-            for item in tuples:
+        else:
+            tuples = self.pattern.findall(response.text)
+            if len(tuples) > 0:
+                for item in tuples:
+                    cate_id = seed.value
+                    brand_id = item[0]
+                    brand_name = item[1]
+                    seed = Seed(value=(cate_id, brand_id, brand_name))
+                    cate_id, brand_id, _ = seed.value
+                    cid1, cid2, cid3 = re.split(',', cate_id)
+                    if cid1 == "1713":
+                        en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
+                            {"ev": "expublishers_" + brand_id})
+                    else:
+                        en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
+                            {"ev": "exbrand_" + brand_id})
+                    url = 'https://list.jd.com/list.html?{0}&{1}&cid3={2}&psort=4&click=1'.format(en_cate_id, en_brand_id,
+                                                                                                  cid3)
+                    yield Request(url=url, meta={"_seed": str(seed), "headers": {"Referer": "https://www.jd.com/"}},
+                                   priority=0, callback=self.parse1)
+            else:
+                #没有品牌的分类
                 cate_id = seed.value
-                brand_id = item[0]
-                brand_name = item[1]
+                brand_id = None
+                brand_name = None
                 seed = Seed(value=(cate_id, brand_id, brand_name))
-                cate_id, brand_id, _ = seed.value
-                cid1, cid2, cid3 = re.split(',', cate_id)
-                if cid1 == "1713":
-                    en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
-                        {"ev": "expublishers_" + brand_id})
-                else:
-                    en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
-                        {"ev": "exbrand_" + brand_id})
-                url = 'https://list.jd.com/list.html?{0}&{1}&cid3={2}&psort=4&click=1'.format(en_cate_id, en_brand_id,
-                                                                                              cid3)
+                url = 'https://list.jd.com/list.html?{0}&psort=4&click=1'.format(urllib.parse.urlencode({"cat": cate_id}))
                 yield Request(url=url, meta={"_seed": str(seed), "headers": {"Referer": "https://www.jd.com/"}},
                                priority=0, callback=self.parse1)
-        else:
-            #没有品牌的分类
-            cate_id = seed.value
-            brand_id = None
-            brand_name = None
-            seed = Seed(value=(cate_id, brand_id, brand_name))
-            url = 'https://list.jd.com/list.html?{0}&psort=4&click=1'.format(urllib.parse.urlencode({"cat": cate_id}))
-            yield Request(url=url, meta={"_seed": str(seed), "headers": {"Referer": "https://www.jd.com/"}},
-                           priority=0, callback=self.parse1)
 
     def parse5(self, response):
         count = self.allcnt_pattern.findall(response.text)
@@ -98,10 +100,6 @@ class Spider(JiChengSpider):
                 data = {"pid": item.get("pid"), "cate_id": cate_id, "brand_id": brand_id, "shopid": item.get("shopId"),
                        "venderid": item.get("venderId", None), "shop_name": item.get("seller"),
                        "ziying": 1 if item.get("seller") and item.get("seller").find("京东自营") != -1 else 0 }
-                print(Request(url="https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98" \
-                      "&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(data["pid"])
-                              , callback=self.parse5, meta={"_seed": response.meta["_seed"], "data":data}, priority=5,
-                              headers={"Referer": "https://item.jd.com/{0}.html".format(data["pid"])}))
                 yield Request(url="https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98" \
                       "&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(data["pid"])
                               , callback=self.parse5, meta={"_seed": response.meta["_seed"], "data":data}, priority=5,
@@ -116,7 +114,6 @@ class Spider(JiChengSpider):
                 callback=self.parse4, meta={"_seed": response.meta["_seed"]}, priority=4)
         else:
             r1 = self.first_pettern.findall(response.text)
-            print(r1)
             if r1:
                 r1 = r1[0]
                 if r1:
@@ -125,7 +122,6 @@ class Spider(JiChengSpider):
     def parse2(self, response):
         seed = Seed.parse_seed(response.meta["_seed"])
         cate_id, brand_id, page, s, brand_name = seed.value
-        print(seed.value)
         r1 = self.first_pettern.findall(response.text)
         if r1:
             r1 = r1[0]
@@ -193,8 +189,8 @@ class FirstMaster(Master):
                 data_set = collections.DataSet(infile)
                 # for i, seed in enumerate(data_set.map(lambda line: line.strip('\n').split("\t")[0].replace('-', ','))
                 #                                  .shuffle(1024)):
-                for i , seed in enumerate(["4051,4059,4140"]):
-                    seed = Seed(value=seed, status=0)
+                for i , seed in enumerate(["1713,3289,3842"]):
+                    seed = Seed(value=seed, type=0)
                     buffer.append(str(seed))
                     if len(buffer) % buffer_size == 0:
                         self.redis.sadd(self.start_urls_redis_key, *buffer)
@@ -229,7 +225,7 @@ class RetryMaster(FirstMaster):
             self.logger.info((self.last_retry_collect, self.new_retry_collect))
 
     def get_thread_writer(self):
-        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*30, buffer_size=2048,
+        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*300, buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
                                           db_collection=("jingdong", self.new_retry_collect), bar_name=self.items_redis_key, distinct_field="pid")
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*30, bar_name=self.items_redis_key,
@@ -249,7 +245,7 @@ class RetryMaster(FirstMaster):
             ]
             data_set = collections.DataSet(m.read_from(db_collect=("jingdong", self.last_retry_collect), out_field=("_seed","_status"), pipeline=pipeline))
             for i, (seed, status) in enumerate(data_set.distinct()):
-                seed = Seed(value=seed, status=status)
+                seed = Seed(value=seed, type=3)
                 buffer.append(str(seed))
                 if len(buffer) % buffer_size == 0:
                     self.redis.sadd(self.start_urls_redis_key, *buffer)

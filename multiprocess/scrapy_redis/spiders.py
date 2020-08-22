@@ -149,11 +149,11 @@ class ThreadWriter(threading.Thread):
 
 
 class ThreadFileWriter(ThreadWriter):
-    def __init__(self, redis_key, out_file, table_header, stop_epoch=12*1, bar_name=None, buffer_size=32, distinct_field=None):
+    def __init__(self, redis_key, out_file, table_header, stop_epoch=12*1, bar_name=None, buffer_size=32, distinct_field=None, encoding="utf-8"):
         super(ThreadFileWriter, self).__init__(redis_key=redis_key, stop_epoch=stop_epoch,
                                                bar_name=bar_name, buffer_size=buffer_size,distinct_field=distinct_field)
         self.out_file = out_file
-        self.out = open(self.out_file, "w")
+        self.out = open(self.out_file, "w", encoding=encoding)
         self.table_header = table_header
         self.out.write("\t".join(self.table_header) + "\n")
         self.buffer = []
