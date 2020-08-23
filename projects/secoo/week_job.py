@@ -103,9 +103,9 @@ class SecooWeekJob(SpiderManger):
                 else:
                     price = 'NA'
 
-                results.append({"_seed":seed.value,"code": 0, "pid": pid, "name": name, "lo": lo, "self": ziying,"price":price,"_date":self.current_date})
+                results.append({"_seed":seed.value,"code": 0, "pid": pid, "name": name, "lo": lo, "self": ziying,"price": price,"_date":self.current_date})
         except:
-            results.append({"code": 1,"_seed":seed.value,"_status":1})
+            results.append({"code": 1,"_seed":seed.value,"_status": 1})
         if results:
             self.write(results)
             seed.ok()
@@ -122,13 +122,16 @@ class SecooWeekJob(SpiderManger):
             m.drop_db_collect(db_collect=("secoo", "CleanListOld"))
             m.rename_collection(old_db_collection=("secoo", "CleanListNew"),
                                 new_db_collection=("secoo", "CleanListOld"))
-            for pid, price in m.read_from(db_collect=("secoo", "CleanListOld"), out_field=("pid", "price")):
-                dic.update({pid: price})
-            for pid, price in m.read_from(db_collect=("secoo", "List" + self.current_date), out_field=("pid", "price"),
+            for pid, price, self1 in m.read_from(db_collect=("secoo", "CleanListOld"), out_field=("pid", "price","self")):
+                dic.update({pid: (price, self1)})
+            for pid, price, self1 in m.read_from(db_collect=("secoo", "List" + self.current_date), out_field=("pid", "price","self"),
                                           pipeline=pipeline):
-                dic.update({pid: price})
-            m.date_tuple_to_db(date_tuple_list=dic.items(), db_collect=("secoo", "CleanListNew"),
-                               fields_tupe=("pid", "price"), buffer_size=128, attach_dict={"_date": self.current_date},
+                dic.update({pid: (price, self1)})
+            date_tuple_list = []
+            for k,(p,s) in dic.items():
+                date_tuple_list.append((k,k,p,s))
+            m.date_tuple_to_db(date_tuple_list=date_tuple_list, db_collect=("secoo", "CleanListNew"),
+                               fields_tupe=("_id", "pid", "price","self"), buffer_size=128, attach_dict={"_date": self.current_date},
                                show_pbar=True, pbar_name="clean_price")
 
     def init_clean_price(self):
@@ -143,10 +146,13 @@ class SecooWeekJob(SpiderManger):
             dic = {}
             m.drop_db_collect(db_collect=("secoo", "CleanListNew"))
             for collection in tqdm(m.list_tables("secoo", filter={"name": {"$regex": r"List20\d\d\d\d\d\d"}}),desc="init_clean_price"):
-                for pid, price in m.read_from(db_collect=("secoo", collection), out_field=("pid", "price"), pipeline=pipeline):
-                    dic.update({pid: price})
-            m.date_tuple_to_db(date_tuple_list=dic.items(),db_collect=("secoo", "CleanListNew"),
-                               fields_tupe=("pid","price"), buffer_size=128, attach_dict={"_date": self.current_date})
+                for pid, price, self1 in m.read_from(db_collect=("secoo", collection), out_field=("pid", "price", "self"), pipeline=pipeline):
+                    dic.update({pid: (price, self1)})
+            date_tuple_list = []
+            for k, (p, s) in dic.items():
+                date_tuple_list.append((k, k, p, s))
+            m.date_tuple_to_db(date_tuple_list=date_tuple_list,db_collect=("secoo", "CleanListNew"),
+                               fields_tupe=("_id", "pid","price","self"), buffer_size=1024, attach_dict={"_date": self.current_date})
 
 
 if __name__ == "__main__":

@@ -31,19 +31,26 @@ class DBManger(object):
     def close(self):
         self.client.close()
 
-    def read_from(self, db_collect, out_field, pipeline=None):
+    def read_from(self, db_collect, out_field=None, pipeline=None):
         self.switch_db_collection(db_collect)
         if pipeline is None:
-            tmp = []
-            for key in out_field:
-                tmp.append(1)
-            filter=dict(zip(out_field,tmp))
-            filter.update({"_id":0})
-            result = map(lambda x: tuple([x.get(field) for field in out_field]),
-                        self.collection.find({},filter))
+            if out_field is None:
+                result = self.collection.find({})
+                return result
+            else:
+                tmp = []
+                for key in out_field:
+                    tmp.append(1)
+                filter=dict(zip(out_field,tmp))
+                filter.update({"_id":0})
+                result = map(lambda x: tuple([x.get(field) for field in out_field]),
+                            self.collection.find({}, filter))
         else:
-            result = map(lambda x: tuple([x.get(field) for field in out_field]),
-                        self.collection.aggregate(pipeline, allowDiskUse=True))
+            if out_field:
+                result = map(lambda x: tuple([x.get(field) for field in out_field]),
+                             self.collection.aggregate(pipeline, allowDiskUse=True))
+            else:
+                result = self.collection.aggregate(pipeline, allowDiskUse=True)
         return result
 
     def aggregate(self, db_collect, pipeline):

@@ -73,7 +73,7 @@ request = {"url": "https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exb
                "Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
-request = {"url": "https://chat1.jd.com/api/checkChat?pidList=100000002686,2,100013116298,1999899692,72276507174,19999997645,1999899692,100000002015,100000002686,200134637813&callback=jQuery8117083",
+request = {"url": "https://chat1.jd.com/api/checkChat?pidList=3156378,2943748,2945972,2876568,3855084,5663935,6063936,100014192638,100014326294,100008089595,100005693560,100005899974,3091780,6063587,100007968193,100011902728,100008327287,2888073,7123121,100014903422,4292753,3091814,2931140,2919299,2919746,3150766,68012933714,10020004950122,31212656947,31212656945,66651939364,31212656946,52033329733,2931126,10020004950123,2888067,3108270,8852093,2883765,10105981375,52608838148,52608838149,55336246960,56386108827,52608838150,52608838151,56079949080,55336246959,52583295839,52581155056,56079949081,56079949082,2931154,2919115,29502686556,29502686555,29502686554,64631911079,28281911385,68313568514&callback=jQuery8117083",
            "headers": {
                'Connection': 'close',
                #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
@@ -81,13 +81,6 @@ request = {"url": "https://chat1.jd.com/api/checkChat?pidList=100000002686,2,100
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
 
-request = {"url": "https://haoma.baidu.com/phoneSearch?search=13963063094",
-           "headers": {
-               'Connection': 'close',
-               #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
-               "Referer":"https://www.secoo.com",
-               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
-           }}
 
 src=requests.get(**request).text
 print(src)
