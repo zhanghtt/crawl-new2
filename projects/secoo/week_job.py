@@ -114,7 +114,7 @@ class SecooWeekJob(SpiderManger):
         from mongo import op
         pipeline = [
             {"$match":
-                 {"pid": {"$ne": "null"}}
+                 {"pid": {"$ne": None}}
              }
         ]
         with op.DBManger() as m:
