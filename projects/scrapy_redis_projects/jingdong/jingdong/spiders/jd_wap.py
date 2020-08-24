@@ -7,15 +7,15 @@ from multiprocess.scrapy_redis.spiders import JiChengSpider
 
 class Spider(JiChengSpider):
     """Spider that reads urls from redis queue (myspider:start_urls)."""
-    name = 'jd_comment'
+    name = 'jd_comment2'
     allcnt_pattern = re.compile(r'"commentCount":(\d+),')
 
     def parse(self, response):
         count = self.allcnt_pattern.findall(response.text)
         if not count:
-            yield {"skuid": response.meta["_seed"], "comment": "0", }
+            yield {"skuid": response.meta["_seed"], "comment": 0, }
         else:
-            yield {"skuid": response.meta["_seed"], "comment": str(count[0])}
+            yield {"skuid": response.meta["_seed"], "comment": int(count[0])}
 
 from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor,Master,Slaver,ThreadMongoWriter
 from multiprocess.tools import collections, timeUtil
