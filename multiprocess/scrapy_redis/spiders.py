@@ -446,7 +446,7 @@ class Master(Cluster):
 
     def init_proxies_queue(self, proxies=getHttpProxy()):
         self.redis.delete(self.http_proxies_queue_redis_key)
-        buffer = [str(None)]
+        buffer = []
         for proxy in proxies:
             buffer.append(str(proxy))
         self.redis.rpush(self.http_proxies_queue_redis_key, *buffer)

@@ -127,7 +127,7 @@ class RetryMiddleware(object):
         if request.meta.get('dont_retry', False):
             response._status = 0
             return response
-        if response.status in self.retry_http_codes:
+        if response.status in self.retry_http_codes or (response.status == 0 and not response.text):
             reason = response_status_message(response.status)
             ret = self._retry(request, reason, spider)
             if ret:
