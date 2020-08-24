@@ -139,7 +139,7 @@ class SecooMonthJob(SpiderManger):
         last_1_month, last_2_month, last_3_month = timeUtil.get_month(-1, current_month), timeUtil.get_month(-2,current_month), timeUtil.get_month(-3, current_month),
         comment_table = "secoComment{}".format(current_date)
         with op.DBManger() as m:
-            for month in [last_1_month]:
+            for month in [last_1_month,last_2_month,last_3_month]:
                 # 合并属于一个月的List
                 m.drop_db_collect(db_collect=("secoo", "List{}".format(month)))
                 dic = {}
