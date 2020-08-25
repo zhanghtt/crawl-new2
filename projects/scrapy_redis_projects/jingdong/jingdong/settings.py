@@ -72,7 +72,7 @@ DOWNLOADER_MIDDLEWARES = {
         #"jingdong.downloader_middlewares.RetryMiddleware": 550,
         "jingdong.downloader_middlewares.RetryMiddleware": 550,
         'jingdong.downloader_middlewares.ProcessAllExceptionMiddleware': 549,
-        #'jingdong.downloader_middlewares.RandomDelayMiddleware': 551,
+        'jingdong.downloader_middlewares.RandomDelayMiddleware': 999,
         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
         'scrapy.downloadermiddlewares.stats.DownloaderStats': None,
         "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware": 350,
@@ -86,8 +86,8 @@ ITEM_PIPELINES = {
 #CONCURRENT_REQUESTS_PER_DOMAIN = 10
 #CONCURRENT_REQUESTS_PER_IP = 10
 
-RANDOM_DELAY = 0.1
-DOWNLOAD_DELAY = 0.25
+RANDOM_DELAY = 0
+DOWNLOAD_DELAY = 1
 DOWNLOAD_TIMEOUT = 30
 
 RETRY_ENABLED=True

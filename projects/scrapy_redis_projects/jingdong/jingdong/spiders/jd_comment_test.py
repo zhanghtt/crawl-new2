@@ -12,7 +12,7 @@ import json
 
 class Spider(JiChengSpider):
     """Spider that reads urls from redis queue (myspider:start_urls)."""
-    name = 'jd_comment'
+    name = 'jd_comment_test'
     allcnt_pattern = re.compile(r'"commentCount":(\d+),')
 
     @classmethod
@@ -28,7 +28,7 @@ class Spider(JiChengSpider):
             url = "https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98" \
                   "&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(skuid)
             return Request(url=url, meta={"_seed": str_seed,
-                                          "headers": {"Connection":"close", "Referer": "https://item.jd.com/{0}.html".format(skuid)}},
+                                          "headers": {"Connection":"close","Referer": "https://item.jd.com/{0}.html".format(skuid)}},
                            priority=0, callback=self.parse)
         elif seed.type == 3:
             str_seed = seed.value
@@ -41,6 +41,7 @@ class Spider(JiChengSpider):
         count = self.allcnt_pattern.findall(response.text)
         if count:
             yield {"skuid": skuid, "comment": int(count[0])}
+
 
 from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor,Master,Slaver,ThreadMongoWriter
 from multiprocess.tools import collections, timeUtil
@@ -74,6 +75,7 @@ class FirstMaster(Master):
                         "skuid": "$skuid",
                     }
                 },
+                {"$limit": 10}
             ]
             for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^{}retry\d*$".format(prefix)}}):
                 print(table)
@@ -92,7 +94,7 @@ class FirstMaster(Master):
     def get_thread_writer(self):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*3000,buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
-                                          db_collection=("jingdong","jdcomment{0}retry0".format(current_date)), bar_name=self.items_redis_key, distinct_field="skuid")
+                                          db_collection=("jingdong","jdcommenttest{0}retry0".format(current_date)), bar_name=self.items_redis_key, distinct_field="skuid")
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*3000, bar_name=self.items_redis_key,
         #                                  out_file="jingdong/result/jdskuid{0}".format(current_date),
         #                                table_header=["_seed","_status","skuid", "cate_id", "brand_id", "shopid","venderid","shop_name","ziying"])

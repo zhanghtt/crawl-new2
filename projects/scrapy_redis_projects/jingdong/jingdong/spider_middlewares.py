@@ -24,17 +24,31 @@ class ExceptionCheckSpider(object):
         yield {"_seed": response.request.serialize(), "_status": 3}
 
     def process_spider_input(self, response, spider):
-        if response._status == 0 and response.text:
+        if response._status == 0 :
             return None
+        elif response._status == 1:
+            raise Exception("retry times reached!")
         else:
-            raise Exception("failed task!")
+            raise Exception("task failed! request.status is {} request._status is {}".format(response.status, response._status))
 
     def process_spider_output(self, response, result, spider):
+        sucess = False
         for r in result:
+            sucess = True
             if isinstance(r, (dict, Item)):
                 r.update({"_status": response._status})
             yield r
 
+        if not sucess and response.status == 200 and not response.text:
+            request = response.request.copy()
+            request.dont_filter = True
+            if not hasattr(request, "_text_retry"):
+                response.request._text_retry = 0
+            if response.request._text_retry > 100:
+                yield {"_seed": response.request.serialize(), "_status": 3}
+            else:
+                response.request._text_retry = response.request._text_retry + 1
+                yield request
     @property
     def logger(self):
         logger = logging.getLogger(__name__)
