@@ -48,6 +48,7 @@ from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, Th
 from multiprocess.tools import collections, timeUtil
 from multiprocess.core.HttpProxy import getHttpProxy,getHttpsProxy
 current_date = timeUtil.current_time()
+import random
 
 
 class FirstMaster(Master):
@@ -60,8 +61,6 @@ class FirstMaster(Master):
     def init_start_urls(self):
         self.redis.delete(self.start_urls_redis_key)
         self.redis.delete(self.items_redis_key)
-        buffer = []
-        buffer_size = 1024
         with op.DBManger() as m:
             prefix = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}})[:15]
             skuid_set = set()
@@ -81,14 +80,17 @@ class FirstMaster(Master):
                 print(table)
                 for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
                     skuid_set.add(item[0])
-
+            buffer = []
+            buffer_size = 10000
             for i, seed in enumerate(skuid_set):
                 seed = Seed(value=seed, type=0)
                 buffer.append(str(seed))
                 if len(buffer) % buffer_size == 0:
+                    random.shuffle(buffer)
                     self.redis.sadd(self.start_urls_redis_key, *buffer)
                     buffer = []
             if buffer:
+                random.shuffle(buffer)
                 self.redis.sadd(self.start_urls_redis_key, *buffer)
 
     def get_thread_writer(self):
@@ -130,20 +132,22 @@ class RetryMaster(FirstMaster):
     def init_start_urls(self):
         self.redis.delete(self.start_urls_redis_key)
         self.redis.delete(self.items_redis_key)
-        buffer = []
-        buffer_size = 1024
         with op.DBManger() as m:
             pipeline = [
                 {"$match": {"_status": 3}},
             ]
             data_set = collections.DataSet(m.read_from(db_collect=("jingdong", self.last_retry_collect), out_field=("_seed","_status"), pipeline=pipeline))
+            buffer = []
+            buffer_size = 10000
             for i, (seed, status) in enumerate(data_set.distinct()):
                 seed = Seed(value=seed, type=3)
                 buffer.append(str(seed))
                 if len(buffer) % buffer_size == 0:
+                    random.shuffle(buffer)
                     self.redis.sadd(self.start_urls_redis_key, *buffer)
                     buffer = []
             if buffer:
+                random.shuffle(buffer)
                 self.redis.sadd(self.start_urls_redis_key, *buffer)
 
 
