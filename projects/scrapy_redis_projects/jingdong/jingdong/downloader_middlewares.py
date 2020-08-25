@@ -19,6 +19,7 @@ class CustomHeadersDownLoadMiddleware(object):
         self.spider_name = self.spider.name
         self.http_proxies_queue_redis_key = self.setting.get("HTTP_PROXIES_QUEUE_REDIS_KEY",
                                                              "%(name)s:http_proxies_queue") % {"name": self.spider_name}
+        self.http_proxies_enabled = self.setting.getbool("HTTP_PROXIES_ENABELD", True)
         self.logger.info(self.http_proxies_queue_redis_key)
         self.user_agent = UserAgent()
         self.redis = get_redis_from_settings(self.setting)
@@ -48,11 +49,12 @@ class CustomHeadersDownLoadMiddleware(object):
         if request.meta.get("headers"):
             for k in request.meta.get("headers"):
                 request.headers[k] = request.meta.get("headers")[k]
-        if request.meta.get("need_switch_proxy"):
-            old = self.current_proxy
-            self.current_proxy = self.get_new_proxy()
-            print("switch new proxy from {} to {}".format(old, self.current_proxy))
-        request.meta['proxy'] = self.current_proxy
+        if self.http_proxies_enabled:
+            if request.meta.get("need_switch_proxy"):
+                old = self.current_proxy
+                self.current_proxy = self.get_new_proxy()
+                print("switch new proxy from {} to {}".format(old, self.current_proxy))
+            request.meta['proxy'] = self.current_proxy
 
     @property
     def logger(self):
@@ -127,13 +129,23 @@ class RetryMiddleware(object):
         if request.meta.get('dont_retry', False):
             response._status = 0
             return response
-        if response.status in self.retry_http_codes or (response.status == 0 and not response.text):
+        if response.status in self.retry_http_codes:
             reason = response_status_message(response.status)
             ret = self._retry(request, reason, spider)
             if ret:
                 return ret
             else:
                 #重试次数达到状态
+                response._status = 1
+                return response
+        elif response.status == 200 and not response.text:
+            self.logger.info("because: response.text is {}".format(response.text))
+            reason = response_status_message(response.status)
+            ret = self._retry(request, reason, spider)
+            if ret:
+                return ret
+            else:
+                # 重试次数达到状态
                 response._status = 1
                 return response
         response._status = 0

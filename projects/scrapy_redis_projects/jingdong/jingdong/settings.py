@@ -21,6 +21,8 @@ SCHEDULER_QUEUE_CLASS = "scrapy_redis.queue.SpiderPriorityQueue"
 COOKIES_ENABLED = False
 
 
+
+
 # Introduce an artifical delay to make use of parallelism. to speed up the
 # crawl.
 
@@ -72,7 +74,7 @@ DOWNLOADER_MIDDLEWARES = {
         #"jingdong.downloader_middlewares.RetryMiddleware": 550,
         "jingdong.downloader_middlewares.RetryMiddleware": 550,
         'jingdong.downloader_middlewares.ProcessAllExceptionMiddleware': 549,
-        'jingdong.downloader_middlewares.RandomDelayMiddleware': 999,
+        #'jingdong.downloader_middlewares.RandomDelayMiddleware': 999,
         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
         'scrapy.downloadermiddlewares.stats.DownloaderStats': None,
         "scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware": 350,
@@ -87,11 +89,11 @@ ITEM_PIPELINES = {
 #CONCURRENT_REQUESTS_PER_IP = 10
 
 RANDOM_DELAY = 0
-DOWNLOAD_DELAY = 1
-DOWNLOAD_TIMEOUT = 30
+DOWNLOAD_DELAY = 0
+DOWNLOAD_TIMEOUT = 50
 
 RETRY_ENABLED=True
-RETRY_TIMES = 10
+RETRY_TIMES = 50
 RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408]
 RETRY_PRIORITY_ADJUST = -1
 NEED_SWICH_PROXY=False
@@ -118,6 +120,7 @@ START_URLS_KEY = '%(name)s:start_urls'
 START_URLS_NUM_KEY = "%(name)s:start_urls_num"
 RESULT_ITEMS_REDIS_KEY = '%(name)s:items'
 HTTP_PROXIES_QUEUE_REDIS_KEY="%(name)s:http_proxies_queue"
+HTTP_PROXIES_ENABELD=False
 
 
 
