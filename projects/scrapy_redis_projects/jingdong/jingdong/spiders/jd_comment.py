@@ -28,7 +28,7 @@ class Spider(JiChengSpider):
             url = "https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98" \
                   "&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(skuid)
             return Request(url=url, meta={"_seed": str_seed,
-                                          "headers": {"Referer": "https://item.jd.com/{0}.html".format(skuid)}},
+                                          "headers": {"Connection":"close", "Referer": "https://item.jd.com/{0}.html".format(skuid)}},
                            priority=0, callback=self.parse)
         elif seed.type == 3:
             str_seed = seed.value
@@ -39,10 +39,11 @@ class Spider(JiChengSpider):
         seed = Seed.parse_seed(response.meta["_seed"])
         skuid = seed.value
         count = self.allcnt_pattern.findall(response.text)
-        if not count:
-            yield {"skuid": skuid, "comment": 0, }
-        else:
+        if count:
             yield {"skuid": skuid, "comment": int(count[0])}
+        else:
+            self.logger.info(response.text)
+
 
 from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor,Master,Slaver,ThreadMongoWriter
 from multiprocess.tools import collections, timeUtil
@@ -55,7 +56,7 @@ class FirstMaster(Master):
     def __init__(self, *args, **kwargs):
         super(FirstMaster, self).__init__(*args, **kwargs)
 
-    def init_proxies_queue(self, proxies=getHttpsProxy()):
+    def init_proxies_queue(self, proxies=getHttpProxy()):
         super(FirstMaster, self).init_proxies_queue(proxies=proxies)
 
     def init_start_urls(self):
@@ -75,6 +76,7 @@ class FirstMaster(Master):
                         "skuid": "$skuid",
                     }
                 },
+                {"$limit": 40}
             ]
             for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^{}retry\d*$".format(prefix)}}):
                 print(table)

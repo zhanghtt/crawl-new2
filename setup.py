@@ -8,5 +8,5 @@ setup(name="jichengspider",
       author="jicheng",
       author_email="421798321@qq.com",
       url="https://github.com/dongjicheng/crawl",
-      packages=find_packages(exclude=["immomo", "bin", "test"])
+      packages=find_packages(include=('mongo',"multiprocess","scrapy_redis"),exclude=["immomo", "bin", "test","projects"])
       )

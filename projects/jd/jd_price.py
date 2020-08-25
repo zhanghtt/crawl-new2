@@ -46,56 +46,59 @@ class JDPrice(SpiderManger):
                    "timeout": self.kwargs.get("request_timeout", 10),
                    "method":"get",
                    "sleep_time": 0.5,
-                   "proxies": None,
+                   "proxies": {"http": self.current_proxy},
                    "headers": {"Connection":"keep-alive", "User-Agent": self.ua.chrome}}
         return request
 
     def parse_item(self, content, seed):
-        items = json.loads(content)
-        if items:
-            for item in items:
-                if item.get("id"):
-                    item["id"] = item["id"][2:]
-            self.write(items)
-        else:
-            self.write([{"_seed": seed.value}])
-        seed.ok()
+        try:
+            items = json.loads(content)
+            if items:
+                for item in items:
+                    if item.get("id"):
+                        item["id"] = item["id"][2:]
+                self.write(items)
+            else:
+                self.write([{"_seed": seed.value}])
+            seed.ok()
+        except:
+            self.log.info(content,items)
 
-    def parse_item1(self, content, seed):
-        items = json.loads(content)
-        print(items)
-        blocks = self.block_pattern.findall(content)
-        result = []
-        for i in blocks:
-            print(i)
-            #p1s = self.p1.findall(i)
-            p1s = [i]
-            print(p1s[0])
-            if len(p1s) > 0:
-                lines = re.split(',', p1s[0])
-                if len(lines) >= 2:
-                    print(lines)
-                    id1 = self.id_pattern.findall(lines[0])[0]
-                    info = id1
-                    for j in lines:
-                        up = self.up_pattern.findall(j)
-                        if up != []:
-                            sale = [-1]
-                        else:
-                            sale = self.p2_pattern.findall(j)
-
-                            if sale == []:
-                                sale = self.p_pattern.findall(j)
-                        info = str(info) + '\t' + str(sale[0])
-                    info = info.lstrip("\t")
-                    result.append({"values": info})
-        print(result)
-        if result:
-            self.write(result)
-        else:
-            self.write([{"_seed": seed.value}])
-        print(result)
-        seed.ok()
+    # def parse_item1(self, content, seed):
+    #     items = json.loads(content)
+    #     print(items)
+    #     blocks = self.block_pattern.findall(content)
+    #     result = []
+    #     for i in blocks:
+    #         print(i)
+    #         #p1s = self.p1.findall(i)
+    #         p1s = [i]
+    #         print(p1s[0])
+    #         if len(p1s) > 0:
+    #             lines = re.split(',', p1s[0])
+    #             if len(lines) >= 2:
+    #                 print(lines)
+    #                 id1 = self.id_pattern.findall(lines[0])[0]
+    #                 info = id1
+    #                 for j in lines:
+    #                     up = self.up_pattern.findall(j)
+    #                     if up != []:
+    #                         sale = [-1]
+    #                     else:
+    #                         sale = self.p2_pattern.findall(j)
+    #
+    #                         if sale == []:
+    #                             sale = self.p_pattern.findall(j)
+    #                     info = str(info) + '\t' + str(sale[0])
+    #                 info = info.lstrip("\t")
+    #                 result.append({"values": info})
+    #     print(result)
+    #     if result:
+    #         self.write(result)
+    #     else:
+    #         self.write([{"_seed": seed.value}])
+    #     print(result)
+    #     seed.ok()
 
 
 if __name__ == "__main__":
@@ -104,7 +107,7 @@ if __name__ == "__main__":
     import logging
     from multiprocess.core import HttpProxy
     config = {"job_name": "jdprice"
-              , "spider_num": 40
+              , "spider_num": 1
               , "retries": 3
               , "request_timeout": 10
               , "complete_timeout": 5*60
@@ -112,8 +115,8 @@ if __name__ == "__main__":
               , "rest_time": 5
               , "write_seed" : False
               , "seeds_file": "resource/month202007"
-              , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jicheng", "collection": "jdprice"+current_date}
-              , "log_config": {"level": logging.INFO,  "format":'%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
+              , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jingdong", "collection": "jdprice"+current_date}
+              , "log_config": {"level": logging.INFO, "filename": sys.argv[0] + '.logging', "format":'%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
               ,"proxies_pool": HttpProxy.getHttpProxy()}
     p = JDPrice(**config)
     p.main_loop(show_process=True)
