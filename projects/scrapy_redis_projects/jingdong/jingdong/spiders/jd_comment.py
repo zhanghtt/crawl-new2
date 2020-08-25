@@ -36,7 +36,8 @@ class Spider(JiChengSpider):
             return request
 
     def parse(self, response):
-        seed = Seed.parse_seed(response.meta["_seed"])
+        seed = Seed.parse_seed(response.meta["_s"
+                                             "eed"])
         skuid = seed.value
         count = self.allcnt_pattern.findall(response.text)
         if count:
