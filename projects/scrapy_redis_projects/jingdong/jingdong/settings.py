@@ -59,8 +59,8 @@ EXTENSIONS = {
 MONGO_URL="mongodb://192.168.0.13:27017"
 
 LOG_ENABLED = True #是否启动日志记录，默认True
-#LOG_FILE = 'log.txt'
-LOG_LEVEL = 'DEBUG'
+LOG_FILE = 'log.txt'
+LOG_LEVEL = 'INFO'
 LOG_ENCODING = 'UTF-8'
 LOG_DATEFORMAT="%y%y-%m-%d %H:%M:%S"
 LOG_FORMAT='%(asctime)s - %(filename)s -[process:%(processName)s,threadid:%(thread)d]- [line:%(lineno)d] - %(levelname)s: %(message)s'
@@ -89,11 +89,11 @@ ITEM_PIPELINES = {
 #CONCURRENT_REQUESTS_PER_IP = 10
 
 RANDOM_DELAY = 0
-DOWNLOAD_DELAY = 0
+DOWNLOAD_DELAY = 2.5
 DOWNLOAD_TIMEOUT = 50
 
 RETRY_ENABLED=True
-RETRY_TIMES = 50
+RETRY_TIMES = 5
 RETRY_HTTP_CODES = [500, 502, 503, 504, 522, 524, 408]
 RETRY_PRIORITY_ADJUST = -1
 NEED_SWICH_PROXY=False
@@ -120,7 +120,7 @@ START_URLS_KEY = '%(name)s:start_urls'
 START_URLS_NUM_KEY = "%(name)s:start_urls_num"
 RESULT_ITEMS_REDIS_KEY = '%(name)s:items'
 HTTP_PROXIES_QUEUE_REDIS_KEY="%(name)s:http_proxies_queue"
-HTTP_PROXIES_ENABELD=False
+HTTP_PROXIES_ENABELD=True
 
 
 
