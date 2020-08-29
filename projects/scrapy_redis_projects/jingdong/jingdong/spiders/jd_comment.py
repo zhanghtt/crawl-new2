@@ -165,3 +165,8 @@ def run_master(retry=False, spider_name=Spider.name, spider_num=1, write_asyn=Tr
 def run_slaver(spider_name=Spider.name, spider_num=1):
     slaver = Slaver(spider_name=spider_name, spider_num=spider_num)
     slaver.run()
+
+
+def run_writer(spider_name=Spider.name):
+    master = Master(spider_name=spider_name, spider_num=0)
+    master.process_items()

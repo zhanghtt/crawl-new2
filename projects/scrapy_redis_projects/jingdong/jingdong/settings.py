@@ -66,7 +66,7 @@ LOG_DATEFORMAT="%y%y-%m-%d %H:%M:%S"
 LOG_FORMAT='%(asctime)s - %(filename)s -[process:%(processName)s,threadid:%(thread)d]- [line:%(lineno)d] - %(levelname)s: %(message)s'
 
 SPIDER_MIDDLEWARES={
-    "jingdong.spider_middlewares.ExceptionCheckSpider":501,
+    #"jingdong.spider_middlewares.ExceptionCheckSpider":501,
                     }
 DOWNLOADER_MIDDLEWARES = {
         "jingdong.downloader_middlewares.CustomHeadersDownLoadMiddleware": 400,

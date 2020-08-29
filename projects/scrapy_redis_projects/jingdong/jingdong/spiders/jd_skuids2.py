@@ -144,6 +144,7 @@ class FirstMaster(Master):
             last_brand_collect = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^brand20\d\d\d\d\d\d$"}})
             pipeline = [
                 {"$match": {"cate_id": {"$ne": None}}},
+                {"$limit":2}
             ]
             data_set = collections.DataSet(m.read_from(db_collect=("jingdong", last_brand_collect), out_field=("cate_id", "brand_id"), pipeline=pipeline))
             for i, seed in enumerate(data_set.distinct()):

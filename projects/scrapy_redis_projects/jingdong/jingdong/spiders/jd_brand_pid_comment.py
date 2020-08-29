@@ -58,8 +58,8 @@ class Spider(JiChengSpider):
                     cate_id = seed.value
                     brand_id = item[0]
                     brand_name = item[1]
-                    seed = Seed(value=(cate_id, brand_id, brand_name))
-                    cate_id, brand_id, _ = seed.value
+                    seed1 = Seed(value=(cate_id, brand_id, brand_name))
+                    cate_id, brand_id, _ = seed1.value
                     cid1, cid2, cid3 = re.split(',', cate_id)
                     if cid1 == "1713":
                         en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
@@ -69,7 +69,7 @@ class Spider(JiChengSpider):
                             {"ev": "exbrand_" + brand_id})
                     url = 'https://list.jd.com/list.html?{0}&{1}&cid3={2}&psort=4&click=1'.format(en_cate_id, en_brand_id,
                                                                                                   cid3)
-                    yield Request(url=url, meta={"_seed": str(seed), "headers": {"Referer": "https://www.jd.com/"}},
+                    yield Request(url=url, meta={"_seed": str(seed1), "headers": {"Referer": "https://www.jd.com/"}},
                                    priority=0, callback=self.parse1)
             else:
                 #没有品牌的分类
@@ -102,7 +102,7 @@ class Spider(JiChengSpider):
                        "ziying": 1 if item.get("seller") and item.get("seller").find("京东自营") != -1 else 0 }
                 yield Request(url="https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98" \
                       "&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(data["pid"])
-                              , callback=self.parse5, meta={"_seed": response.meta["_seed"], "data":data}, priority=5,
+                              , callback=self.parse5, meta={"_seed": response.meta["_seed"], "data":data}, priority=4,
                               headers={"Referer": "https://item.jd.com/{0}.html".format(data["pid"])})
 
     def parse3(self, response):
@@ -189,7 +189,7 @@ class FirstMaster(Master):
                 data_set = collections.DataSet(infile)
                 # for i, seed in enumerate(data_set.map(lambda line: line.strip('\n').split("\t")[0].replace('-', ','))
                 #                                  .shuffle(1024)):
-                for i , seed in enumerate(["1713,3289,3842"]):
+                for i , seed in enumerate(["14065,15332,15333"]):
                     seed = Seed(value=seed, type=0)
                     buffer.append(str(seed))
                     if len(buffer) % buffer_size == 0:

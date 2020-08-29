@@ -222,9 +222,12 @@ class ThreadMongoWriter(ThreadWriter):
             out_mongo_url = self.setting.get("MONGO_URL")
         if out_mongo_url is None:
             raise Exception("out_mongo_url must be setted!")
+        self.out_mongo_url = out_mongo_url
+        self.db_collection = db_collection
         self.db = pymongo.MongoClient(out_mongo_url)
         self.out = self.db[db_collection[0]][db_collection[1]]
         self.buffer = []
+        self.error_sleep_time = 10
 
     def stop(self):
         self.stop = True
@@ -262,9 +265,20 @@ class ThreadMongoWriter(ThreadWriter):
 
     def flush(self):
         if self.buffer:
-            self.out.insert_many(self.buffer)
-            self.buffer = []
-            self.counter = 0
+            self.retry_write()
+
+    def retry_write(self):
+        while True:
+            try:
+                self.out.insert_many(self.buffer)
+                self.buffer = []
+                self.counter = 0
+                self.error_sleep_time = 10
+                break
+            except pymongo.errors.ServerSelectionTimeoutError as e:
+                # 中途可能mong异常，比如重启之类的，
+                time.sleep(self.error_sleep_time)
+                self.error_sleep_time = self.error_sleep_time * 2
 
     def cleanup(self):
         self.db.close()
@@ -454,6 +468,11 @@ class Master(Cluster):
 
     def init_start_urls(self):
         raise NotImplementedError
+
+    def process_items(self):
+        thread_writer = self.get_thread_writer()
+        thread_writer.setDaemon(False)
+        thread_writer.start()
 
     def run(self):
         if self.spider_num == 0 and not self.write_asyn:
