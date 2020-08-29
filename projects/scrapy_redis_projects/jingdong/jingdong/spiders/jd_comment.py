@@ -28,7 +28,7 @@ class Spider(JiChengSpider):
             url = "https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98" \
                   "&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(skuid)
             return Request(url=url, meta={"_seed": str_seed,
-                                          "headers": {"Connection":"close", "Referer": "https://item.jd.com/{0}.html".format(skuid)}},
+                                          "headers": {"Connection": "close", "Referer": "https://item.jd.com/{0}.html".format(skuid)}},
                            priority=0, callback=self.parse)
         elif seed.type == 3:
             str_seed = seed.value
@@ -76,7 +76,7 @@ class FirstMaster(Master):
                         "skuid": "$skuid",
                     }
                 },
-                {"$limit": 40}
+                # {"$limit": 40}
             ]
             for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^{}retry\d*$".format(prefix)}}):
                 print(table)
