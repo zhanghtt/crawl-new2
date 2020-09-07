@@ -82,6 +82,11 @@ class FirstMaster(Master):
                 print(table)
                 for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
                     skuid_set.add(item[0])
+            #skuids in last result
+            last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^summary_201905_20\d\d\d\d$"}})
+            for item in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid",)):
+                if item not in skuid_set:
+                    skuid_set.add(item[0])
             buffer = []
             buffer_size = 10000
             for i, seed in enumerate(skuid_set):
@@ -104,6 +109,14 @@ class FirstMaster(Master):
         #                                table_header=["_seed","_status","skuid", "cate_id", "brand_id", "shopid","venderid","shop_name","ziying"])
         thread_writer.setDaemon(True)
         return thread_writer
+
+    def process_items(self):
+        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12 * 3000, buffer_size=2048,
+                                          out_mongo_url="mongodb://192.168.0.13:27017",
+                                          db_collection=("jingdong", "jdcomment20200826retry0"),
+                                          bar_name=self.items_redis_key, distinct_field="skuid")
+        thread_writer.setDaemon(False)
+        thread_writer.start()
 
     def get_thread_monitor(self):
         thread_monitor = ThreadMonitor(redis_key=self.start_urls_redis_key,
@@ -168,5 +181,5 @@ def run_slaver(spider_name=Spider.name, spider_num=1):
 
 
 def run_writer(spider_name=Spider.name):
-    master = Master(spider_name=spider_name, spider_num=0)
+    master = FirstMaster(spider_name=spider_name, spider_num=0)
     master.process_items()

@@ -1,0 +1,13 @@
+chardet
+fake-useragent
+ipython
+ipython-genutils
+lxml
+pycurl
+pymongo
+redis
+requests
+six
+tqdm
+psutil
+scrapy

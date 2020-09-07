@@ -276,7 +276,9 @@ class ThreadMongoWriter(ThreadWriter):
                 self.error_sleep_time = 10
                 break
             except pymongo.errors.ServerSelectionTimeoutError as e:
+                self.logger.exception(e)
                 # 中途可能mong异常，比如重启之类的，
+                self.logger.info("please check your mongodb server be started! writer will be sleep {}s".format(self.error_sleep_time))
                 time.sleep(self.error_sleep_time)
                 self.error_sleep_time = self.error_sleep_time * 2
 

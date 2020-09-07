@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 import ctypes
-import pycurl
 import random
 import threading
 import time

@@ -11,6 +11,7 @@ from lxml import etree
 import re
 import threading
 import Queue
+import StringIO
 
 db = pymongo.MongoClient('mongodb://127.0.0.1')['51job']
 
@@ -24,7 +25,7 @@ def download(request):
     headers = ["User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"]
     while True:
         c = pycurl.Curl()
-        body = BytesIO()
+        body = StringIO.StringIO()
         c.setopt(pycurl.TIMEOUT, 5)
         #c.setopt(pycurl.CONNECTTIMEOUT, 1)
         c.setopt(pycurl.URL, request['comURL'])

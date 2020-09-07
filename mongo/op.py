@@ -101,7 +101,7 @@ class DBManger(object):
                     tmp_line.append(line[item_index])
                 line = tmp_line
             date = dict(zip(fields_tupe, line))
-            if safe_attach_dict:
+            if attach_dict and safe_attach_dict:
                 date.update(safe_attach_dict)
             cache.append(date)
             if len(cache) == buffer_size:
