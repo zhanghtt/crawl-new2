@@ -63,7 +63,8 @@ class FirstMaster(Master):
         self.redis.delete(self.start_urls_redis_key)
         self.redis.delete(self.items_redis_key)
         with op.DBManger() as m:
-            prefix = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}})[:15]
+            #创建临时表本月任务的分界线
+            m.create_db_collection(db_collection=("jingdong","jdcomment{0}_sep".format(current_date)))
             skuid_set = set()
             pipeline = [
                 {
@@ -78,15 +79,17 @@ class FirstMaster(Master):
                 },
                 # {"$limit": 40}
             ]
-            for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^{}retry\d*$".format(prefix)}}):
-                print(table)
-                for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
-                    skuid_set.add(item[0])
+            last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep$"}})
+            for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}}):
+                if not last_sep or table > last_sep:
+                    self.logger.info("valid table : {}".format(table))
+                    for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
+                        skuid_set.add(item[0])
             #skuids in last result
             last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^summary_201905_20\d\d\d\d$"}})
             for item in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid",)):
                 if item not in skuid_set:
-                    skuid_set.add(item[0])
+                    skuid_set.add(int(item[0]))
             buffer = []
             buffer_size = 10000
             for i, seed in enumerate(skuid_set):
@@ -104,6 +107,85 @@ class FirstMaster(Master):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*3000,buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
                                           db_collection=("jingdong","jdcomment{0}retry0".format(current_date)), bar_name=self.items_redis_key, distinct_field="skuid")
+        # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*3000, bar_name=self.items_redis_key,
+        #                                  out_file="jingdong/result/jdskuid{0}".format(current_date),
+        #                                table_header=["_seed","_status","skuid", "cate_id", "brand_id", "shopid","venderid","shop_name","ziying"])
+        thread_writer.setDaemon(True)
+        return thread_writer
+
+    def process_items(self):
+        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12 * 3000, buffer_size=2048,
+                                          out_mongo_url="mongodb://192.168.0.13:27017",
+                                          db_collection=("jingdong", "jdcomment20200826retry0"),
+                                          bar_name=self.items_redis_key, distinct_field="skuid")
+        thread_writer.setDaemon(False)
+        thread_writer.start()
+
+    def get_thread_monitor(self):
+        thread_monitor = ThreadMonitor(redis_key=self.start_urls_redis_key,
+                                       start_urls_num_redis_key=self.start_urls_num_redis_key,
+                                       bar_name=self.start_urls_redis_key)
+        thread_monitor.setDaemon(True)
+        return thread_monitor
+
+
+class TmpMaster(Master):
+    def __init__(self, *args, **kwargs):
+        super(TmpMaster, self).__init__(*args, **kwargs)
+
+    def init_proxies_queue(self, proxies=getHttpProxy()):
+        super(TmpMaster, self).init_proxies_queue(proxies=proxies)
+
+    def init_start_urls(self):
+        self.redis.delete(self.start_urls_redis_key)
+        self.redis.delete(self.items_redis_key)
+        with op.DBManger() as m:
+            prefix = m.get_lasted_collection("jingdong",
+                                             filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}})[:15]
+            skuid_set = set()
+            pipeline = [
+                {
+                    "$match": {
+                        "$and": [{"_status": 0}, {"skuid": {"$ne": None}}]
+                    }
+                },
+                {
+                    "$project": {
+                        "skuid": "$skuid",
+                    }
+                },
+                # {"$limit": 40}
+            ]
+            for table in m.list_tables(dbname="jingdong", filter={"name": {"$regex": r"^{}retry\d*$".format(prefix)}}):
+                print(table)
+                for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
+                    skuid_set.add(item[0])
+            # skuids in last result
+            skuid_set2 = set()
+            last_result = m.get_lasted_collection("jingdong",
+                                                  filter={"name": {"$regex": r"^summary_201905_20\d\d\d\d$"}})
+            for item in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid",)):
+                skuid_set2.add(int(item[0]))
+            skuid_set1 = skuid_set2 - skuid_set
+            print(len(skuid_set),len(skuid_set2),len(skuid_set1))
+            buffer = []
+            buffer_size = 10000
+            for i, seed in enumerate(skuid_set1):
+                seed = Seed(value=seed, type=0)
+                buffer.append(str(seed))
+                if len(buffer) % buffer_size == 0:
+                    random.shuffle(buffer)
+                    self.redis.sadd(self.start_urls_redis_key, *buffer)
+                    buffer = []
+            if buffer:
+                random.shuffle(buffer)
+                self.redis.sadd(self.start_urls_redis_key, *buffer)
+
+    def get_thread_writer(self):
+        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12 * 3000, buffer_size=2048,
+                                          out_mongo_url="mongodb://192.168.0.13:27017",
+                                          db_collection=("jingdong", "jdcomment20200826retry0"),
+                                          bar_name=self.items_redis_key, distinct_field="skuid")
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*3000, bar_name=self.items_redis_key,
         #                                  out_file="jingdong/result/jdskuid{0}".format(current_date),
         #                                table_header=["_seed","_status","skuid", "cate_id", "brand_id", "shopid","venderid","shop_name","ziying"])
@@ -183,3 +265,8 @@ def run_slaver(spider_name=Spider.name, spider_num=1):
 def run_writer(spider_name=Spider.name):
     master = FirstMaster(spider_name=spider_name, spider_num=0)
     master.process_items()
+
+
+def run_tmp_master(spider_name=Spider.name, spider_num=1, write_asyn=True):
+    master = TmpMaster(spider_name=spider_name, spider_num=spider_num, write_asyn=write_asyn)
+    master.run()

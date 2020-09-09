@@ -141,13 +141,18 @@ class FirstMaster(Master):
         buffer = []
         buffer_size = 1024
         with op.DBManger() as m:
-            last_brand_collect = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^brand20\d\d\d\d\d\d$"}})
-            pipeline = [
-                {"$match": {"cate_id": {"$ne": None}}},
-                {"$limit":2}
-            ]
-            data_set = collections.DataSet(m.read_from(db_collect=("jingdong", last_brand_collect), out_field=("cate_id", "brand_id"), pipeline=pipeline))
-            for i, seed in enumerate(data_set.distinct()):
+            m.create_db_collection(db_collection=("jingdong", "jdskuid{0}_sep".format(current_date)))
+            last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdbrand20\d\d\d\d\d\d_sep$"}})
+            seed_set = set()
+            for table in  m.list_tables("jingdong", filter={"name": {"$regex": r"^jdbrand20\d\d\d\d\d\dretry\d*$"}}):
+                if not last_sep or table > last_sep:
+                    self.logger.info("valid table : {}".format(table))
+                    pipeline = [
+                        {"$match": {"cate_id": {"$ne": None}}},
+                    ]
+                    for seed in m.read_from(db_collect=("jingdong", table), out_field=("cate_id", "brand_id"), pipeline=pipeline):
+                        seed_set.add(seed)
+            for i, seed in enumerate(seed_set):
                 seed = Seed(value=seed, type=0)
                 buffer.append(str(seed))
                 if len(buffer) % buffer_size == 0:
