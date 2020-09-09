@@ -10,12 +10,18 @@ class DBManger(object):
     def __init__(self, mongo_addr=default_config.config["mongo_config"]["addr"]
                  , db_collection=("jicheng","tmp")):
         self.client = pymongo.MongoClient(mongo_addr)
+        self.db = self.client[db_collection[0]]
         self.collection = self.client[db_collection[0]][db_collection[1]]
 
     def get_client(self):
         return self.client
 
+    def create_db_collection(self, db_collection):
+        self.switch_db_collection(db_collection)
+        self.db.create_collection(db_collection[1])
+
     def switch_db_collection(self, db_collection):
+        self.db = self.client[db_collection[0]]
         self.collection = self.client[db_collection[0]][db_collection[1]]
 
     def list_tables(self, dbname, filter=None):
@@ -26,7 +32,10 @@ class DBManger(object):
     def get_lasted_collection(self, dbname, filter):
         # filter = {"name": {"$regex": r"^(?!system\\.)"}}
         collect_list = self.list_tables(dbname, filter)
-        return sorted(collect_list)[-1]
+        if collect_list:
+            return sorted(collect_list)[-1]
+        else:
+            return None
 
     def close(self):
         self.client.close()

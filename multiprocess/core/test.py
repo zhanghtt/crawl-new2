@@ -73,17 +73,24 @@ request = {"url": "https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exb
                "Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
-request = {"url": "https://api03.6bqb.com/jd/goods/comment?apikey=11187001536",
+request1 = {"url": "https://api03.6bqb.com/jd/goods/comment?apikey=11187001536",
            "headers": {
                'Connection': 'close',
                #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
                "Referer":"https://www.jd.com",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
-
+request = {"url": "https://item.jd.com/30398562.html",
+           "headers": {
+               'Connection': 'close',
+               #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
+               "Referer": "https://www.jd.com",
+               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
+           }}
+cate_pattern = re.compile(r'cat: \[([\d,]+)\],')
 
 src=requests.get(**request).text
-print(src)
+#print(src)
 first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
 shopid_pettern = re.compile(r'shopId:\'(\d*)\',')
 venderid_pettern = re.compile(r'venderId:(\d*),')
@@ -95,7 +102,7 @@ cat_pettern = re.compile(r'cat: \[([,\d]*)\],')
 phonenum=re.compile(r'<div class="locate_text">[\s]*?<div class="upper_text">(.*?) (.*?)</div>[\s]*?<div class="upper_text">手机号码: (\d.*?)</div>[\s]*?</div>')
 print(shopid_pettern.findall(src))
 print(venderid_pettern.findall(src))
-print(brand_pettern.findall(src))
+print("brand:" + brand_pettern.findall(src)[0])
 print(skuids_pettern.findall(src))
 print(shop_name_pettern.findall(src))
 print(ziying_pettern.findall(src))

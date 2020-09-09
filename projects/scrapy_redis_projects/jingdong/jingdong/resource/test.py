@@ -2,16 +2,127 @@
 # -*- coding: utf-8 -*-
 from tqdm import tqdm
 from collections import OrderedDict
+from mongo import op
+from tqdm import tqdm
+pipeline = [
+    {
+        "$lookup": {
+            "from": "companyALL_2",
+            "localField": "formdata.ecompIds",
+            "foreignField": "_id",
+            "as": "company"
+        }
+    },
+    {
+        "$unwind": "$data.list"
+    },
+    {
+        "$project": {
+            "_id": 0,
+            "ecompIds": "$formdata.ecompIds",
+            "name": {
+                "$arrayElemAt": [
+                    "$company.name",
+                    0
+                ]
+            },
+            "dq": {
+                "$arrayElemAt": [
+                    "$company.dq",
+                    0
+                ]
+            },
+            "industry": {
+                "$arrayElemAt": [
+                    "$company.industry",
+                    0
+                ]
+            },
+            "e_kind": {
+                "$arrayElemAt": [
+                    "$company.e_kind",
+                    0
+                ]
+            },
+            "salary": "$data.list.salary",
+            "city": "$data.list.city",
+            "title": "$data.list.title",
+            "refreshTime": "$data.list.refreshTime",
+            "ejobId": "$data.list.ejobId",
+            "dept": "$data.list.dept",
+            "hot": "$data.list.hot",
+            "citySEOUrl": "$data.list.citySEOUrl",
+            "time": "$data.list.time",
+            "workYear": "$data.list.workYear",
+            "feedbackPeriod": "$data.list.feedbackPeriod",
+            "eduLevel": "$data.list.eduLevel"
+        }
+    },
+    {
+        "$group": {
+            "_id": {
+                "ecompIds": "$ecompIds",
+                "ejobId": "$ejobId"
+            },
+            "name": {
+                "$first": "$name"
+            },
+            "dq": {
+                "$first": "$dq"
+            },
+            "industry": {
+                "$first": "$industry"
+            },
+            "e_kind": {
+                "$first": "$e_kind"
+            },
+            "salary": {
+                "$first": "$salary"
+            },
+            "city": {
+                "$first": "$city"
+            },
+            "title": {
+                "$first": "$title"
+            },
+            "refreshTime": {
+                "$first": "$refreshTime"
+            },
+            "dept": {
+                "$first": "$dept"
+            },
+            "hot": {
+                "$first": "$hot"
+            },
+            "citySEOUrl": {
+                "$first": "$citySEOUrl"
+            },
+            "time": {
+                "$first": "$time"
+            },
+            "workYear": {
+                "$first": "$workYear"
+            },
+            "feedbackPeriod": {
+                "$first": "$feedbackPeriod"
+            },
+            "eduLevel": {
+                "$first": "$eduLevel"
+            }
+        }
+    },
+    {
+        "$out": "job_20200602_clean"
+    }
+]
 
-total = 1000000 #总迭代次数
-loss = total
-with tqdm(total=total, desc="进度") as pbar:
-    for i  in range(total):
-        loss -= 1
-#        pbar.set_postfix(OrderedDict(loss='{0:1.5f}'.format(loss)))
-        pbar.set_postfix({'loss' : '{0:1.5f}'.format(loss)}) #输入一个字典，显示实验指标
-        if i > 500000:
-            pbar.update(-1)
-        else:
-            pbar.update(1)
-
+with op.DBManger() as m:
+    # last = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdcomment20\d\d\d\d\d\d$"}})
+    # for table in m.list_tables(dbname="jingdong", filter={"name": {"$regex": r"^jdcomment(20\d\d\d\d\d\d)retry\d*$"}}):
+    #     if not last or table > last:
+    #         print(table)
+    last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdbrand20\d\d\d\d\d\d_sep$"}})
+    seed_set = set()
+    for table in m.list_tables("jingdong", filter={"name": {"$regex": r"^jdbrand20\d\d\d\d\d\dretry\d*$"}}):
+        if not last_sep or table > last_sep:
+            print(table)

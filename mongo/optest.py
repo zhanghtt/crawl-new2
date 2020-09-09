@@ -115,10 +115,9 @@ pipeline = [
 ]
 
 with op.DBManger() as m:
-    #print(m.get_lasted_collection("51job",filter={"name": {"$regex": r"company_20\d\d\d\d\d\d"}}))
-    #print(m.aggregate(("jingdong","job_20200602"), pipeline=pipeline))
-    prefix = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}})[:15]
-    print(m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^{}retry\d*$".format(prefix)}}))
-    # for k in dic:
-    #         print(k,dic[k])
+    # last = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdcomment20\d\d\d\d\d\d$"}})
+    # for table in m.list_tables(dbname="jingdong", filter={"name": {"$regex": r"^jdcomment(20\d\d\d\d\d\d)retry\d*$"}}):
+    #     if not last or table > last:
+    #         print(table)
+    m.create_db_collection(db_collection=("jicheng","nihao"))
 
