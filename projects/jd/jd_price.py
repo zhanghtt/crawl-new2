@@ -9,23 +9,28 @@ import random
 from multiprocess.tools import timeUtil
 from fake_useragent import UserAgent
 import json
+from mongo import op
 
 
 class JDPrice(SpiderManger):
-    def __init__(self, seeds_file, **kwargs):
+    def __init__(self, **kwargs):
         super(JDPrice, self).__init__(**kwargs)
         self.ua = UserAgent()
-        with open(seeds_file) as infile:
-            for i, seed in enumerate(infile):
-                current = seed.strip('\n').split("\t")[0]
+        with op.DBManger() as m:
+            table = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^summary_201905_20\d\d\d\d$"}})
+            skuid_set = set()
+            for item in m.read_from(db_collect=("jingdong",table), out_field=("skuid",)):
+                skuid_set.add(item[0])
+            for i, seed in enumerate(skuid_set):
+                current = seed.strip()
                 if i % 60 == 0:
                     if i != 0:
                         self.seeds_queue.put(Seed(strr, kwargs["retries"]))
                     strr = current
                 else:
                     strr = strr + '%2CJ_' + current
-        if strr:
-            self.seeds_queue.put(Seed(strr, kwargs["retries"]))
+            if strr:
+                self.seeds_queue.put(Seed(strr, kwargs["retries"]))
 
         self.block_pattern = re.compile(r'{.*?}')
         self.innerid_pattern = re.compile(r'\d+')
@@ -39,16 +44,38 @@ class JDPrice(SpiderManger):
         self.rid = random.randint(100000000, 999999999)
         self.usrid = str(self.rid)
         self.up_pattern = re.compile('"up":"tpp"')
+        self.price_pattern = re.compile(r'^\d+\.\d\d$')
 
     def make_request(self, seed):
         price_address = "http://p.3.cn/prices/mgets?&type=1&skuIds=J_" + seed.value + '&pduid=' + self.usrid
         request = {"url": price_address,
                    "timeout": self.kwargs.get("request_timeout", 10),
                    "method":"get",
-                   "sleep_time": 0.5,
+                   "sleep_time": 1,
                    "proxies": {"http": self.current_proxy},
                    "headers": {"Connection":"keep-alive", "User-Agent": self.ua.chrome}}
         return request
+
+    def clean_price(self, item):
+        price = 0
+        k = 0
+        if 'l' in item and 'm' in item:
+            if item['l'] < item['m']:
+                for key in item:
+                    str_price_list = self.price_pattern.findall(item[key])
+                    if key != 'l' and key != 'm' and str_price_list:
+                        price = price + float(str_price_list[0])
+                        k = k + 1
+            else:
+                for key in item:
+                    str_price_list = self.price_pattern.findall(item[key])
+                    if key != 'l' and str_price_list:
+                        price = price + float(str_price_list[0])
+                        k = k + 1
+        if price == 0:
+            price = 79.90
+            k = 1
+        return round(price/k, 2)
 
     def parse_item(self, content, seed):
         try:
@@ -57,12 +84,13 @@ class JDPrice(SpiderManger):
                 for item in items:
                     if item.get("id"):
                         item["id"] = item["id"][2:]
+                        #item['clean_price'] = self.clean_price(item)
                 self.write(items)
             else:
                 self.write([{"_seed": seed.value}])
             seed.ok()
         except:
-            self.log.info(content,items)
+            self.log.info((content, items, seed.value))
 
     # def parse_item1(self, content, seed):
     #     items = json.loads(content)
@@ -107,14 +135,13 @@ if __name__ == "__main__":
     import logging
     from multiprocess.core import HttpProxy
     config = {"job_name": "jdprice"
-              , "spider_num": 1
-              , "retries": 3
+              , "spider_num": 40
+              , "retries": 10
               , "request_timeout": 10
               , "complete_timeout": 5*60
-              , "sleep_interval": 0.5
+              , "sleep_interval": 1
               , "rest_time": 5
-              , "write_seed" : False
-              , "seeds_file": "resource/month202007"
+              , "write_seed": False
               , "mongo_config": {"addr": "mongodb://192.168.0.13:27017", "db": "jingdong", "collection": "jdprice"+current_date}
               , "log_config": {"level": logging.INFO, "filename": sys.argv[0] + '.logging', "format":'%(asctime)s - %(filename)s - %(processName)s - [line:%(lineno)d] - %(levelname)s: %(message)s'}
               ,"proxies_pool": HttpProxy.getHttpProxy()}
