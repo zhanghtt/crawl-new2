@@ -62,6 +62,7 @@ import random
 class FirstMaster(Master):
     def __init__(self, *args, **kwargs):
         super(FirstMaster, self).__init__(*args, **kwargs)
+        self.out_table = "jdnewcatid{0}retry0".format(current_date)
 
     def init_proxies_queue(self, proxies=getHttpProxy()):
         super(FirstMaster, self).init_proxies_queue(proxies=proxies)
@@ -113,7 +114,7 @@ class FirstMaster(Master):
     def get_thread_writer(self):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*3000,buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
-                                          db_collection=("jingdong","jdnewcatid{0}retry0".format(current_date)), bar_name=self.items_redis_key)
+                                          db_collection=("jingdong", self.out_table), bar_name=self.items_redis_key)
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*3000, bar_name=self.items_redis_key,
         #                                  out_file="jingdong/result/jdskuid{0}".format(current_date),
         #                                table_header=["_seed","_status","skuid", "cate_id", "brand_id", "shopid","venderid","shop_name","ziying"])
@@ -127,6 +128,35 @@ class FirstMaster(Master):
         thread_monitor.setDaemon(True)
         return thread_monitor
 
+    def cleanup(self):
+        pipeline = [
+            {
+                "$match": {
+                    "$and": [{"_status": 0}, {"new_cate_id": {"$ne": None}}]
+                }
+            },
+            {
+                "$project": {
+                    "new_cate_id": "$new_cate_id",
+                }
+            },
+        ]
+        with op.DBManger() as m:
+            cate_id_old = set()
+            for item in m.read_from(db_collect=("jingdong", "newCateName"), out_field=("cate_id",)):
+                cate_id_old.add(item[0])
+            # skuids in last result
+                cate_id_new = set()
+            for item in m.read_from(db_collect=("jingdong", self.out_table), out_field=("new_cate_id",),pipeline=pipeline):
+                cate_id_new.add(item[0])
+            differ = cate_id_new - cate_id_old
+            self.logger.info("total new cat_id is: {}".format(len(differ)))
+            buffer = []
+            for cat_id in differ:
+                buffer.append((cat_id,cat_id))
+            if buffer:
+                m.insert_many_tupe(db_collect=("jicheng","newCateName"), data_tupe_list=buffer,fields=("_id","cate_id"))
+
 
 class RetryMaster(FirstMaster):
     def __init__(self, *args, **kwargs):
@@ -135,11 +165,12 @@ class RetryMaster(FirstMaster):
             self.last_retry_collect = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdnewcatid20\d\d\d\d\d\dretry\d+$"}})
             self.new_retry_collect = self.last_retry_collect[:self.last_retry_collect.find("retry") + 5] + str(int(self.last_retry_collect[self.last_retry_collect.find("retry") + 5:]) + 1) if self.last_retry_collect.find("retry") != -1 else self.last_retry_collect+"retry1"
             self.logger.info((self.last_retry_collect, self.new_retry_collect))
+        self.out_table = self.new_retry_collect
 
     def get_thread_writer(self):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*30, buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
-                                          db_collection=("jingdong", self.new_retry_collect), bar_name=self.items_redis_key)
+                                          db_collection=("jingdong", self.out_table), bar_name=self.items_redis_key)
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*30, bar_name=self.items_redis_key,
         #                                  out_file="jingdong/result/jdskuid.txt",
         #                                table_header=["_seed","_status","phonenumber", "province", "city", "company"])

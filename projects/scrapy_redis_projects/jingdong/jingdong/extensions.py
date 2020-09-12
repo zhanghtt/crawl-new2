@@ -22,7 +22,7 @@ class RedisSpiderClosedExensions(object):
     @classmethod
     def from_crawler(cls, crawler):
         # IDLE_NUMBER目前被被设定为等待时间，IDLE一个时间片5秒，所以setting.py中设置的时间除以5就是时间片的数量
-        idle_number = crawler.settings.getint('IDLE_TIME', 600) // 5
+        idle_number = crawler.settings.getint('IDLE_TIME', 1800) // 5
         ext = cls(idle_number, crawler)
 
         crawler.signals.connect(ext.spider_opened, signal=signals.spider_opened)

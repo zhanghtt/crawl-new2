@@ -447,6 +447,14 @@ class Master(Cluster):
         super(Master, self).__init__(*args, **kwargs)
         self.write_asyn = write_asyn
 
+    def setup(self):
+        # what to do before spider run!
+        pass
+
+    def cleanup(self):
+        #what to do after spider is closed!
+        pass
+
     def get_thread_writer(self):
         return NotImplementedError
 
@@ -477,6 +485,7 @@ class Master(Cluster):
         thread_writer.start()
 
     def run(self):
+        self.setup()
         if self.spider_num == 0 and not self.write_asyn:
             return
         self.clear_dupefilter_redis()
@@ -518,4 +527,5 @@ class Master(Cluster):
                 self.thread_writer.start()
                 self.logger.info("start writer success !")
                 #self.thread_writer.join()
+        self.cleanup()
 

@@ -119,5 +119,17 @@ with op.DBManger() as m:
     # for table in m.list_tables(dbname="jingdong", filter={"name": {"$regex": r"^jdcomment(20\d\d\d\d\d\d)retry\d*$"}}):
     #     if not last or table > last:
     #         print(table)
-    m.create_db_collection(db_collection=("jicheng","nihao"))
+    import time
+    pipeline=[{"$limit":100000}]
+    start = time.time()
+    for i in m.read_from(db_collect=("jingdong","jdprice20200814"),out_field=("skuid",),pipeline=pipeline):
+        pass
+    end = time.time()
+    print(end-start)
+
+    start = time.time()
+    for i in m.read_from_yield(db_collect=("jingdong", "jdprice20200814"),out_field=("skuid",), pipeline=pipeline):
+        pass
+    end = time.time()
+    print(end - start)
 

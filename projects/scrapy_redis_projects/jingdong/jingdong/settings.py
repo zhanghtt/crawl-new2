@@ -43,15 +43,11 @@ REDIS_START_URLS_AS_SET = True
 
 #是否启用扩展，启用扩展为 True， 不启用为 False
 MYEXT_ENABLED=True      # 开启扩展
-#关闭爬虫的持续空闲次数，持续空闲次数超过IDLE_NUMBER，爬虫会被关闭。默认为 360 ，也就是30分钟，一分钟12个时间单位
-IDLE_NUMBER=36         # 配置空闲持续时间单位为 360个 ，一个时间单位为5s
-
-# redis 空跑时间 秒
 IDLE_TIME=30
 
 # 同时扩展里面加入这个
 EXTENSIONS = {
-    #'jingdong.extensions.RedisSpiderClosedExensions': 500,
+    'jingdong.extensions.RedisSpiderClosedExensions': 500,
     'scrapy.telnet.TelnetConsole': None
 }
 #CLOSESPIDER_TIMEOUT=60

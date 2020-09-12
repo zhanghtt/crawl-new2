@@ -115,14 +115,6 @@ pipeline = [
         "$out": "job_20200602_clean"
     }
 ]
-
-with op.DBManger() as m:
-    # last = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdcomment20\d\d\d\d\d\d$"}})
-    # for table in m.list_tables(dbname="jingdong", filter={"name": {"$regex": r"^jdcomment(20\d\d\d\d\d\d)retry\d*$"}}):
-    #     if not last or table > last:
-    #         print(table)
-    last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdbrand20\d\d\d\d\d\d_sep$"}})
-    seed_set = set()
-    for table in m.list_tables("jingdong", filter={"name": {"$regex": r"^jdbrand20\d\d\d\d\d\dretry\d*$"}}):
-        if not last_sep or table > last_sep:
-            print(table)
+import re
+price_pattern = re.compile(r'^\d+\.\d\d$')
+print(price_pattern.findall("192.34"))

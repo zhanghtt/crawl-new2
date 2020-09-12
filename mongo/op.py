@@ -62,6 +62,23 @@ class DBManger(object):
                 result = self.collection.aggregate(pipeline, allowDiskUse=True)
         return result
 
+    def read_from_yield(self, db_collect, out_field, pipeline=None):
+        self.switch_db_collection(db_collect)
+        if pipeline is None:
+            tmp = []
+            for key in out_field:
+                tmp.append(1)
+            filter=dict(zip(out_field,tmp))
+            filter.update({"_id":0})
+            result = map(lambda x: tuple([x.get(field) for field in out_field]),
+                        self.collection.find({}, filter))
+            for x in self.collection.find({}, filter):
+                yield tuple([x.get(field) for field in out_field])
+        else:
+            for x in self.collection.aggregate(pipeline, allowDiskUse=True):
+                yield tuple([x.get(field) for field in out_field])
+        return result
+
     def aggregate(self, db_collect, pipeline):
         self.switch_db_collection(db_collect)
         return self.collection.aggregate(pipeline, allowDiskUse=True)
