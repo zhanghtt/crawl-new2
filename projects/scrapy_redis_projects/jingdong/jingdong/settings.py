@@ -43,7 +43,7 @@ REDIS_START_URLS_AS_SET = True
 
 #是否启用扩展，启用扩展为 True， 不启用为 False
 MYEXT_ENABLED=True      # 开启扩展
-IDLE_TIME=30
+IDLE_TIME=1800
 
 # 同时扩展里面加入这个
 EXTENSIONS = {
