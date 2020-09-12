@@ -43,6 +43,7 @@ class Spider(JiChengSpider):
             yield {"skuid": skuid, "comment": int(count[0])}
         else:
             self.logger.info(response.text)
+            raise Exception("unknow Response!")
 
 
 from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor,Master,Slaver,ThreadMongoWriter
