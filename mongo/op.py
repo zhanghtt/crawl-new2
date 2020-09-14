@@ -18,7 +18,11 @@ class DBManger(object):
 
     def create_db_collection(self, db_collection):
         self.switch_db_collection(db_collection)
-        self.db.create_collection(db_collection[1])
+        try:
+            self.db.create_collection(db_collection[1])
+            return True
+        except pymongo.errors.CollectionInvalid as e:
+            return False
 
     def switch_db_collection(self, db_collection):
         self.db = self.client[db_collection[0]]

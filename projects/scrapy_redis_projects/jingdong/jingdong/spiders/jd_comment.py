@@ -155,12 +155,14 @@ class TmpMaster(Master):
                         "skuid": "$skuid",
                     }
                 },
-                # {"$limit": 40}
             ]
-            for table in m.list_tables(dbname="jingdong", filter={"name": {"$regex": r"^{}retry\d*$".format(prefix)}}):
-                print(table)
-                for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
-                    skuid_set.add(item[0])
+            last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep$"}})
+            for table in m.list_tables(dbname="jingdong",
+                                       filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}}):
+                if not last_sep or table > last_sep:
+                    self.logger.info("valid table : {}".format(table))
+                    for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
+                        skuid_set.add(item[0])
             # skuids in last result
             skuid_set2 = set()
             last_result = m.get_lasted_collection("jingdong",

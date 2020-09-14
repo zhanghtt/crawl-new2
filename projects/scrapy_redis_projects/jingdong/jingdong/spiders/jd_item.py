@@ -14,7 +14,7 @@ from ..Tools import format_cat_id
 class Spider(JiChengSpider):
     """Spider that reads urls from redis queue (myspider:start_urls)."""
     name = 'jd_item'
-    cat_pettern = re.compile(r'cat: \[([,\d]*)\],')
+    cate_pattern = re.compile(r'cat: \[([,\d]*)\],')
     brand_pettern = re.compile(r'brand: (\d*),')
 
 
@@ -40,7 +40,7 @@ class Spider(JiChengSpider):
     def parse(self, response):
         seed = Seed.parse_seed(response.meta["_seed"])
         sku_id = seed.value
-        cate = self.cate_pattern1.findall(response.text)
+        cate = self.cate_pattern.findall(response.text)
         brand_id = self.brand_pettern.findall(response.text)
         if cate and brand_id:
             yield {"new_cate_id": cate[0], "new_brand_id": brand_id[0], "skuid": sku_id}
@@ -75,7 +75,7 @@ class FirstMaster(Master):
             pipeline = [
                 {
                     "$match": {
-                        "$and": [{"_status": 0}, {"comment": {"$ne": 0}}]
+                        "$and": [{"_status": 0}, {"comment": {"$gt": 0}}]
                     }
                 },
                 {
