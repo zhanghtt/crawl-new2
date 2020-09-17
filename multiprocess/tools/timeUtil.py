@@ -30,4 +30,4 @@ def get_month(deltamonth, current_month, format="%Y%m"):
 
 if __name__ == "__main__":
     print(getdate(2,"20200823"))
-    print(get_month(-8, "202008"))
+    print(get_month(4, "202008"))
