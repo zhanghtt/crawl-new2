@@ -146,7 +146,7 @@ class FirstMaster(Master):
             for item in m.read_from(db_collect=("jingdong", "newCateName"), out_field=("cate_id",)):
                 cate_id_old.add(item[0])
             # skuids in last result
-                cate_id_new = set()
+            cate_id_new = set()
             for item in m.read_from(db_collect=("jingdong", self.out_table), out_field=("new_cate_id",),pipeline=pipeline):
                 cate_id_new.add(item[0])
             differ = cate_id_new - cate_id_old
@@ -155,7 +155,7 @@ class FirstMaster(Master):
             for cat_id in differ:
                 buffer.append((cat_id,cat_id))
             if buffer:
-                m.insert_many_tupe(db_collect=("jicheng","newCateName"), data_tupe_list=buffer,fields=("_id","cate_id"))
+                m.insert_many_tupe(db_collect=("jingdong","newCateName"), data_tupe_list=buffer,fields=("_id","cate_id"))
 
 
 class RetryMaster(FirstMaster):
