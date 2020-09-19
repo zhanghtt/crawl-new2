@@ -101,19 +101,19 @@ with op.DBManger() as m:
                     if int(skuid) in price_dic:
                         price_item = result_dic[int(skuid)]
                         price_item["clean_price"] = sum(price_item["prices"])/len(price_item["prices"]) if len(price_item["prices"]) > 0 else 79.90
-                        price_item["comments":int(comments)]
+                        price_item["comments"]=int(comments)
                         price_item["type"]=0
                     elif int(skuid) in last_month_skuids:
                         last_month_price_item = last_month_skuids[int(skuid)]
                         price_item = result_dic[int(skuid)]
                         price_item["clean_price"] = last_month_price_item["clean_price"]
-                        price_item["comments":int(comments)]
+                        price_item["comments"]=int(comments)
                         price_item["type"] = 1
                     else:
                         result_dic[int(skuid)] = {}
                         price_item = result_dic[int(skuid)]
                         price_item["clean_price"] = 79.90
-                        price_item["comments":int(comments)]
+                        price_item["comments"]=int(comments)
                         price_item["type"] = 2
                     skuid_sukid_item = skuid_sukid_dict[int(skuid)]
                     price_item["cate_id"] = skuid_sukid_item["cate_id"]
@@ -123,19 +123,19 @@ with op.DBManger() as m:
                     if int(skuid) in price_dic:
                         price_item = result_dic[int(skuid)]
                         price_item["clean_price"] = sum(price_item["prices"])/len(price_item["prices"]) if len(price_item["prices"]) > 0 else 79.90
-                        price_item["comments":int(comments)]
+                        price_item["comments"]=int(comments)
                         price_item["type"] = 3
                     elif int(skuid) in last_month_skuids:
                         last_month_price_item = last_month_skuids[int(skuid)]
                         price_item = result_dic[int(skuid)]
                         price_item["clean_price"] = last_month_price_item["clean_price"]
-                        price_item["comments":int(comments)]
+                        price_item["comments"]=int(comments)
                         price_item["type"] = 4
                     else:
                         result_dic[int(skuid)] = {}
                         price_item = result_dic[int(skuid)]
                         price_item["clean_price"] = 79.90
-                        price_item["comments":int(comments)]
+                        price_item["comments"]=int(comments)
                         price_item["type"] = 5
                     last_month_skuids_item = last_month_skuids[int(skuid)]
                     price_item["cate_id"] = last_month_skuids_item["cate_id"]
@@ -145,7 +145,7 @@ with op.DBManger() as m:
                     result_dic[int(skuid)] = {}
                     price_item = result_dic[int(skuid)]
                     price_item["clean_price"] = 79.90
-                    price_item["comments":int(comments)]
+                    price_item["comments"]=int(comments)
                     price_item["cate_id"] = "0,0,0"
                     price_item["brand_id"] = "0"
                     price_item["ziying"] = "-1"
