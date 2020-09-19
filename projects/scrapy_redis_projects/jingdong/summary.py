@@ -6,6 +6,8 @@ logger = logging.getLogger(__name__)
 import re
 price_pattern = re.compile(r'^\d+\.\d\d$')
 from multiprocess.tools import timeUtil
+from .jingdong.Tools import format_cat_id
+current_date = timeUtil.current_time()
 
 
 def clean_price(item):
@@ -71,7 +73,7 @@ def run_result():
         print("step 2: processing {}".format(last_result))
         last_month = last_result.split("_")[-1]
         for skuid, comments, price,cate_id,brand_id,ziying in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid","comment_{}".format(last_month),"price","cate_id","brand_id","ziying")):
-            last_month_skuids[int(skuid)] = {"clean_price":price,"comments":comments, "cate_id":cate_id,"brand_id":brand_id,"ziying":ziying}
+            last_month_skuids[int(skuid)] = {"clean_price":price,"comments":comments, "cate_id":format_cat_id(cate_id),"brand_id":brand_id,"ziying":ziying}
 
         skuid_sukid_dict = {}
         last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep"}})
@@ -193,6 +195,7 @@ def run_result():
         if buffer:
             m.insert_many_dict(db_collect=("jingdong", out_table),
                                data_dict_list=buffer)
+        m.create_db_collection(db_collection=("jingdong", "jdprice{0}_sep".format(current_date)))
 
 
 if __name__ == "__main__":
