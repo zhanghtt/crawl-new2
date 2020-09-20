@@ -17,10 +17,10 @@ class JDPrice(SpiderManger):
         super(JDPrice, self).__init__(**kwargs)
         self.ua = UserAgent()
         with op.DBManger() as m:
-            table = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^summary_201905_20\d\d\d\d$"}})
+            table = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^month20\d\d\d\d$"}})
             skuid_set = set()
             for item in m.read_from(db_collect=("jingdong",table), out_field=("skuid",)):
-                skuid_set.add(item[0])
+                skuid_set.add(str(item[0]))
             for i, seed in enumerate(skuid_set):
                 current = seed.strip()
                 if i % 60 == 0:
