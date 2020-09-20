@@ -71,7 +71,7 @@ def run_result():
         last_month_skuids = {}
         last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^month20\d\d\d\d$"}})
         print("step 2: processing {}".format(last_result))
-        last_month = last_result.split("_")[-1]
+        last_month = last_result[-6:]
         for skuid, comments, price,cate_id,brand_id,ziying in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid","comment_{}".format(last_month),"price","cate_id","brand_id","ziying")):
             last_month_skuids[int(skuid)] = {"clean_price":price,"comments":comments, "cate_id":format_cat_id(cate_id),"brand_id":brand_id,"ziying":ziying}
 
