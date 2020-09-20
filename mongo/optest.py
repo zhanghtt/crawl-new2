@@ -120,16 +120,22 @@ with op.DBManger() as m:
     #     if not last or table > last:
     #         print(table)
     import time
-    pipeline=[{"$limit":100000}]
-    start = time.time()
-    for i in m.read_from(db_collect=("jingdong","jdprice20200814"),out_field=("skuid",),pipeline=pipeline):
-        pass
-    end = time.time()
-    print(end-start)
 
-    start = time.time()
-    for i in m.read_from_yield(db_collect=("jingdong", "jdprice20200814"),out_field=("skuid",), pipeline=pipeline):
-        pass
-    end = time.time()
-    print(end - start)
+    pipeline = [ {
+        "$project": {
+            "_id": 0,
+            "cate_id": "$cate_id",
+        }
+    },]
+    s1 = set()
+    for i in m.read_from_yield(db_collect=("jingdong", "jdbrand20200920retry0"),out_field=("cate_id",), pipeline=pipeline):
+        s1.add(i[0])
+
+    s2 = set()
+    for i in m.read_from_yield(db_collect=("jingdong", "newCateName"),out_field=("cate_id",), pipeline=pipeline):
+        s2.add(i[0])
+    s3 = s2 - s1
+    print(len(s3))
+    for i in s3:
+        print(i)
 

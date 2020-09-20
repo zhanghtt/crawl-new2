@@ -148,7 +148,10 @@ class FirstMaster(Master):
                 if not last_sep or table > last_sep:
                     self.logger.info("valid table : {}".format(table))
                     pipeline = [
-                        {"$match": {"cate_id": {"$ne": None}}},
+                        {"$match": {
+                            "$and": [{"_status": 0}, {"$or": [{"status": 0}, {"status": -1}]}]
+                            }
+                        }
                     ]
                     for seed in m.read_from(db_collect=("jingdong", table), out_field=("cate_id", "brand_id"), pipeline=pipeline):
                         seed_set.add(seed)

@@ -33,7 +33,7 @@ class ExceptionCheckSpider(object):
 
     def process_spider_output(self, response, result, spider):
         for r in result:
-            if isinstance(r, (dict, Item)):
+            if isinstance(r, (dict, Item)) and "_status" not in r:
                 r.update({"_status": response._status})
             yield r
 
