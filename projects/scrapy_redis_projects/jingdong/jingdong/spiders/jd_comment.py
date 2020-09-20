@@ -239,7 +239,9 @@ class RetryMaster(FirstMaster):
             data_set = collections.DataSet(m.read_from(db_collect=("jingdong", self.last_retry_collect), out_field=("_seed","_status"), pipeline=pipeline))
             buffer = []
             buffer_size = 10000
+            should_exit = True
             for i, (seed, status) in enumerate(data_set.distinct()):
+                should_exit = False
                 seed = Seed(value=seed, type=3)
                 buffer.append(str(seed))
                 if len(buffer) % buffer_size == 0:
@@ -249,6 +251,9 @@ class RetryMaster(FirstMaster):
             if buffer:
                 random.shuffle(buffer)
                 self.redis.sadd(self.start_urls_redis_key, *buffer)
+            if should_exit:
+                import sys
+                sys.exit(0)
 
 
 def run_master(retry=False, spider_name=Spider.name, spider_num=1, write_asyn=True):

@@ -100,7 +100,9 @@ class FirstMaster(Master):
             self.logger.info("total new skuid of comment larger than 0 is: {}".format(len(skuid_set)))
             buffer = []
             buffer_size = 10000
+            should_exit = True
             for i, seed in enumerate(skuid_set):
+                should_exit = False
                 seed = Seed(value=seed, type=0)
                 buffer.append(str(seed))
                 if len(buffer) % buffer_size == 0:
@@ -110,6 +112,9 @@ class FirstMaster(Master):
             if buffer:
                 random.shuffle(buffer)
                 self.redis.sadd(self.start_urls_redis_key, *buffer)
+            if should_exit:
+                import sys
+                sys.exit(0)
 
     def get_thread_writer(self):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*3000,buffer_size=2048,
