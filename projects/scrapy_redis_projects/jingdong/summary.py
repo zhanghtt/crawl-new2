@@ -61,10 +61,14 @@ def run_result():
                 print("step 1: processing {}".format(table))
                 for item in m.read_from(db_collect=("jingdong", table), pipeline=pipeline):
                     if item["id"] in price_dic:
-                        price_dic[int(item["id"])]["prices"].append(clean_price(item))
+                        tmp = price_dic[int(item["id"])]
+                        tmp["prices"] = (tmp["prices"][0]+1, tmp["prices"][1]+clean_price(item))
                     else:
-                        price_dic[int(item["id"])] = {"prices": [clean_price(item)]}
-
+                        price_dic[int(item["id"])] = {"prices": (1, clean_price(item))}
+        for skuid in price_dic:
+            tmp = price_dic[skuid]
+            tmp["clean_price"] = round(tmp["prices"][1]/tmp["prices"][0], 2)
+            tmp.pop("prices")
         result_dic = price_dic.copy()
 
         #skuids in last result
@@ -117,7 +121,7 @@ def run_result():
                     if int(skuid) in skuid_sukid_dict:
                         if int(skuid) in price_dic:
                             price_item = result_dic[int(skuid)]
-                            price_item["clean_price"] = sum(price_item["prices"])/len(price_item["prices"]) if len(price_item["prices"]) > 0 else 79.90
+                            price_item["clean_price"] = price_dic[int(skuid)]["clean_price"]
                             price_item["comments"]=int(comments)
                             price_item["type"]=0
                         elif int(skuid) in last_month_skuids:
@@ -139,7 +143,7 @@ def run_result():
                     elif int(skuid) in last_month_skuids:
                         if int(skuid) in price_dic:
                             price_item = result_dic[int(skuid)]
-                            price_item["clean_price"] = sum(price_item["prices"])/len(price_item["prices"]) if len(price_item["prices"]) > 0 else 79.90
+                            price_item["clean_price"] = price_dic[int(skuid)]["clean_price"]
                             price_item["comments"]=int(comments)
                             price_item["type"] = 3
                         elif int(skuid) in last_month_skuids:
