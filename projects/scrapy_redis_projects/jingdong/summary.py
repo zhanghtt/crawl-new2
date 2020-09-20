@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 import re
 price_pattern = re.compile(r'^\d+\.\d\d$')
 from multiprocess.tools import timeUtil
-from .jingdong.Tools import format_cat_id
+from jingdong.Tools import format_cat_id
 current_date = timeUtil.current_time()
 
 
