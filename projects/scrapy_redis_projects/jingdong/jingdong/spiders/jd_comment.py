@@ -114,10 +114,10 @@ class FirstMaster(Master):
         thread_writer.setDaemon(True)
         return thread_writer
 
-    def process_items(self):
+    def process_items(self, tablename="jdcomment20200826retry0"):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12 * 3000, buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
-                                          db_collection=("jingdong", "jdcomment20200826retry0"),
+                                          db_collection=("jingdong", tablename),
                                           bar_name=self.items_redis_key, distinct_field="skuid")
         thread_writer.setDaemon(False)
         thread_writer.start()
@@ -278,3 +278,8 @@ def run_writer(spider_name=Spider.name):
 def run_tmp_master(spider_name=Spider.name, spider_num=1, write_asyn=True):
     master = TmpMaster(spider_name=spider_name, spider_num=spider_num, write_asyn=write_asyn)
     master.run()
+
+
+def run_init_proxies(spider_name=Spider.name):
+    master = FirstMaster(spider_name=spider_name, spider_num=0, write_asyn=True)
+    master.init_proxies_queue()
