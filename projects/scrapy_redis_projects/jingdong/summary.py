@@ -76,8 +76,9 @@ def run_result():
         last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^month20\d\d\d\d$"}})
         print("step 2: processing {}".format(last_result))
         last_month = last_result[-6:]
-        for skuid, comments, price,cate_id,brand_id,ziying in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid","comment_{}".format(last_month),"price","cate_id","brand_id","ziying")):
-            last_month_skuids[int(skuid)] = {"clean_price":price,"comments":comments, "cate_id":format_cat_id(cate_id),"brand_id":brand_id,"ziying":ziying}
+        for skuid, comments, price,cate_id,brand_id,ziying in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid","comments","clean_price","cate_id","brand_id","ziying")):
+            if cate_id:
+                last_month_skuids[int(skuid)] = {"clean_price":price,"comments":comments, "cate_id":format_cat_id(cate_id),"brand_id":brand_id,"ziying":ziying}
 
         skuid_sukid_dict = {}
         last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep"}})
@@ -192,7 +193,8 @@ def run_result():
             if "prices" in result_dic[k]:
                 result_dic[k].pop("prices")
             result_dic[k]["month"] = this_month
-            buffer.append(result_dic[k])
+            if "cate_id" in result_dic[k]:
+                buffer.append(result_dic[k])
             if i % buffer_size == 0:
                 m.insert_many_dict(db_collect=("jingdong",out_table), data_dict_list=buffer)
                 buffer = []
