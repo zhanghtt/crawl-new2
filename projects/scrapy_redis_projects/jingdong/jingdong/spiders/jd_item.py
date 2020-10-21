@@ -93,7 +93,7 @@ class FirstMaster(Master):
                         skuid_set.add(int(item[0]))
             #skuids in last result
             skuid_set1 = set()
-            last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^summary_201905_20\d\d\d\d$"}})
+            last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^month20\d\d\d\d$"}})
             for item in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid",)):
                 skuid_set1.add(int(item[0]))
             skuid_set = skuid_set - skuid_set1
