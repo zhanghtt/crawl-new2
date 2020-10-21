@@ -48,7 +48,6 @@ def clean_price(item):
 
 def run_result():
     with op.DBManger() as m:
-        print("step 1: processing jdprice")
         pipeline = [
             {
                 "$match": {"_status": 0},
@@ -58,7 +57,7 @@ def run_result():
         last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdprice20\d\d\d\d\d\d_sep"}})
         for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdprice(20\d\d\d\d\d\d)$"}}):
             if not last_sep or table > last_sep:
-                print("step 1: processing {}".format(table))
+                print("step 1: processing {}".format(table), flush=True)
                 for item in m.read_from(db_collect=("jingdong", table), pipeline=pipeline):
                     if item["id"] in price_dic:
                         tmp = price_dic[int(item["id"])]
@@ -74,7 +73,7 @@ def run_result():
         #skuids in last result
         last_month_skuids = {}
         last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^month20\d\d\d\d$"}})
-        print("step 2: processing {}".format(last_result))
+        print("step 2: processing {}".format(last_result), flush=True)
         last_month = last_result[-6:]
         for skuid, comments, price,cate_id,brand_id,ziying in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid","comments","clean_price","cate_id","brand_id","ziying")):
             if cate_id:
@@ -84,7 +83,7 @@ def run_result():
         last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep"}})
         for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}}):
             if not last_sep or table > last_sep:
-                print("step 3: processing {}".format(table))
+                print("step 3: processing {}".format(table), flush=True)
                 pipeline = [
                     {
                         "$match": {"_status": 0}
@@ -104,7 +103,7 @@ def run_result():
         last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdcomment20\d\d\d\d\d\d_sep"}})
         for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdcomment(20\d\d\d\d\d\d)retry\d*$"}}):
             if not last_sep or table > last_sep:
-                print("step 4: processing {}".format(table))
+                print("step 4: processing {}".format(table), flush=True)
                 pipeline = [
                     {
                         "$match": {
@@ -172,7 +171,7 @@ def run_result():
                         price_item["brand_id"] = "0"
                         price_item["ziying"] = "-1"
                         price_item["type"] = 6
-        print("step 5: processing skuid in last_month_skuids but not in result_dic")
+        print("step 5: processing skuid in last_month_skuids but not in result_dic", flush=True)
         for skuid in last_month_skuids:
             if skuid not in result_dic:
                 result_dic[int(skuid)] = {}
@@ -185,7 +184,7 @@ def run_result():
                 price_item["type"] = 7
         this_month = timeUtil.get_month(deltamonth=1,current_month=last_month)
         out_table = "month" + this_month
-        print("step 6: processing writing result to {}".format(out_table))
+        print("step 6: processing writing result to {}".format(out_table), flush=True)
         buffer = []
         buffer_size = 5000
         for i, k in enumerate(result_dic):
