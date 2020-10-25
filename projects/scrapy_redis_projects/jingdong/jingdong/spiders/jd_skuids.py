@@ -58,6 +58,7 @@ class Spider(JiChengSpider):
         cate_id, brand_id, page, s = seed.value
         for item in json.loads(self.json_pettern.findall(response.text)[0]):
             if item:
+                print(item)
                 yield {"skuid": item.get("pid"), "cate_id": cate_id, "brand_id": brand_id, "shopid": item.get("shopId"),
                        "venderid": item.get("venderId", None), "shop_name": item.get("seller"),
                        "ziying": 1 if item.get("seller") and item.get("seller").find("京东自营") != -1 else 0 }
@@ -71,6 +72,11 @@ class Spider(JiChengSpider):
             r1 = r1[0]
             if r1:
                 yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids + "," + r1), callback=self.parse3, meta={"_seed": response.meta["_seed"]})
+            else:
+                # 说明没有下半页"https://chat1.jd.com/api/checkChat?pidList=10020242230938,1999899692,72276507174,19999997645,1999899692,100000002015,100000002686,200134637813&callback=jQuery8117083"
+                yield Request(
+                    url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids),
+                    callback=self.parse3, meta={"_seed": response.meta["_seed"]})
         else:
             #说明没有下半页"https://chat1.jd.com/api/checkChat?pidList=10020242230938,1999899692,72276507174,19999997645,1999899692,100000002015,100000002686,200134637813&callback=jQuery8117083"
             yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids), callback=self.parse3, meta={"_seed": response.meta["_seed"]})
@@ -82,7 +88,7 @@ class Spider(JiChengSpider):
         if r1:
             r1 = r1[0]
             if r1:
-                cate_id, brand_id, page, s, items = cate_id, brand_id, page, s + 30, r1
+                cate_id, brand_id, page, s, items = cate_id, brand_id, page + 1, s + 30, r1
                 if brand_id:
                     en_cate_id, en_brand_id = urllib.parse.urlencode(
                         {"cat": cate_id}), urllib.parse.urlencode({"ev": "exbrand_" + brand_id})
