@@ -37,12 +37,12 @@ class Spider(JiChengSpider):
             cate_id, brand_id = seed.value
             if brand_id:
                 cid1, cid2, cid3 = re.split(',', cate_id)
-                if cid1 == "1713":
-                    en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
-                        {"ev": "expublishers_" + brand_id})
-                else:
-                    en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
-                        {"ev": "exbrand_" + brand_id})
+                # if cid1 == "1713":
+                #     en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
+                #         {"ev": "expublishers_" + brand_id})
+                # else:
+                en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode(
+                    {"ev": "exbrand_" + brand_id})
                 url = 'https://list.jd.com/list.html?{0}&{1}&cid3={2}&psort=4&click=1'.format(en_cate_id, en_brand_id,
                                                                                               cid3)
             else:
@@ -82,7 +82,7 @@ class Spider(JiChengSpider):
         if r1:
             r1 = r1[0]
             if r1:
-                cate_id, brand_id, page, s, items = cate_id, brand_id, page + 1, s + 30, r1
+                cate_id, brand_id, page, s, items = cate_id, brand_id, page, s + 30, r1
                 if brand_id:
                     en_cate_id, en_brand_id = urllib.parse.urlencode(
                         {"cat": cate_id}), urllib.parse.urlencode({"ev": "exbrand_" + brand_id})
