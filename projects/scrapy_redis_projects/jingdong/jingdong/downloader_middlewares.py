@@ -44,7 +44,7 @@ class CustomHeadersDownLoadMiddleware(object):
             return str_proxy
 
     def process_request(self, request, spider):
-        request.headers['user-agent'] = self.user_agent.chrome
+        request.headers['user-agent'] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
         request.headers['Connection'] = "keep-alive"
         if request.meta.get("headers"):
             for k in request.meta.get("headers"):
@@ -54,6 +54,7 @@ class CustomHeadersDownLoadMiddleware(object):
                 old = self.current_proxy
                 self.current_proxy = self.get_new_proxy()
                 print("switch new proxy from {} to {}".format(old, self.current_proxy))
+            print(self.current_proxy)
             request.meta['proxy'] = self.current_proxy
 
     @property
@@ -140,6 +141,7 @@ class RetryMiddleware(object):
                 return response
         elif response.status == 200 and not response.text:
             self.logger.info("because: response.text is {}".format(response.text))
+            time.sleep(19*60)
             reason = response_status_message(response.status)
             ret = self._retry(request, reason, spider)
             if ret:
@@ -167,7 +169,18 @@ class RetryMiddleware(object):
             if isinstance(exception, (TunnelError, defer.TimeoutError, TimeoutError)):
                 if self.need_switch_proxy:
                     request.meta["need_switch_proxy"] = True
-            return self._retry(request, exception, spider)
+            ret = self._retry(request, exception, spider)
+            if ret:
+                return ret
+            else:
+                # 重试次数达到状态
+                response = HtmlResponse(url='', request=request)
+                response._status = 1
+                if isinstance(exception, Exception):
+                    reason = global_object_name(exception.__class__)
+                self.logger.debug("max retries had reached because of {}!".format(reason))
+                return response
+            #return self._retry(request, exception, spider)
 
     def _retry(self, request, reason, spider):
         retries = request.meta.get('retry_times', 0) + 1

@@ -1,10 +1,39 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import random
+import heapq
 
 class Dict(dict):
     __setattr__ = dict.__setitem__
     __getattr__ = dict.__getitem__
+
+
+class TopK:
+
+    def __init__(self, k):
+        self.minheap = []
+        self.capacity = k
+
+    def push(self, val):
+        if len(self.minheap) >= self.capacity:
+            min_val = self.minheap[0]
+            if val < min_val:
+                pass
+            else:
+                heapq.heapreplace(self.minheap, val)
+        else:
+            heapq.heappush(self.minheap, val)
+
+    def get_topk(self):
+        return self.minheap
+
+
+def test():
+    import random
+    i = list(range(1000))
+    random.shuffle(i)
+    _ = TopK(i, 10)
+    print(_.get_topk())
 
 
 def dict_to_object(dictObj):
@@ -146,3 +175,4 @@ if __name__ == "__main__":
     }
     res = dict_to_object(dict_obj)
     print(res.xcc)
+    test()

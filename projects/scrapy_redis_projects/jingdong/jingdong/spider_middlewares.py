@@ -12,7 +12,8 @@ from scrapy.item import Item
 from multiprocess.core.spider import Seed
 from scrapy.http import Response
 from multiprocess.scrapy_redis.spiders import Request
-
+import re
+comments_pattern = re.compile(r'"comments":[\s\S]*?(\[[\s\S]*\])')
 class ExceptionCheckSpider(object):
 
     def __init__(self, settings):

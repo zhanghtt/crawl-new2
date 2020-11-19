@@ -98,7 +98,7 @@ def run_result():
                     },
                 ]
                 for skuid, cate_id, brand_id, ziying in m.read_from(db_collect=("jingdong", table), out_field=("skuid","cate_id","brand_id","ziying"), pipeline=pipeline):
-                    skuid_sukid_dict[int(skuid)]={"cate_id":cate_id,"brand_id":brand_id,"ziying":ziying}
+                    skuid_sukid_dict[int(skuid)]={"cate_id":cate_id,"brand_id": "0" if brand_id is None else brand_id,"ziying":ziying}
 
         last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdcomment20\d\d\d\d\d\d_sep"}})
         for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdcomment(20\d\d\d\d\d\d)retry\d*$"}}):

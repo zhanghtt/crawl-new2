@@ -55,8 +55,8 @@ EXTENSIONS = {
 MONGO_URL="mongodb://192.168.0.13:27017"
 
 LOG_ENABLED = True #是否启动日志记录，默认True
-LOG_FILE = 'log.txt'
-LOG_LEVEL = 'INFO'
+#LOG_FILE = 'log.txt'
+LOG_LEVEL = 'DEBUG'
 LOG_ENCODING = 'UTF-8'
 LOG_DATEFORMAT="%y%y-%m-%d %H:%M:%S"
 LOG_FORMAT='%(asctime)s - %(filename)s -[process:%(processName)s,threadid:%(thread)d]- [line:%(lineno)d] - %(levelname)s: %(message)s'
@@ -69,7 +69,7 @@ DOWNLOADER_MIDDLEWARES = {
         #"jingdong.downloader_middlewares.ExceptionMiddleware": 999,
         #"jingdong.downloader_middlewares.RetryMiddleware": 550,
         "jingdong.downloader_middlewares.RetryMiddleware": 550,
-        'jingdong.downloader_middlewares.ProcessAllExceptionMiddleware': 549,
+        'jingdong.downloader_middlewares.ProcessAllExceptionMiddleware': 551,
         #'jingdong.downloader_middlewares.RandomDelayMiddleware': 999,
         'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
         'scrapy.downloadermiddlewares.stats.DownloaderStats': None,
@@ -86,7 +86,7 @@ ITEM_PIPELINES = {
 
 RANDOM_DELAY = 0
 DOWNLOAD_DELAY = 2.5
-DOWNLOAD_TIMEOUT = 50
+DOWNLOAD_TIMEOUT = 180
 
 RETRY_ENABLED=True
 RETRY_TIMES = 5
