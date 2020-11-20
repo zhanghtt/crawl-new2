@@ -157,7 +157,7 @@ class ContinueMaster(Master):
             #创建临时表本月任务的分界线
             m.create_db_collection(db_collection=("jingdong","jdcommentdetail{0}_sep".format(current_date)))
             skuid_set = {}
-            top1000w = TopK(100000)
+            top1000w = TopK(1000000)
             #skuids in last result
             last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^summary_201905_20\d\d\d\d$"}})
             pipeline = [
@@ -173,7 +173,21 @@ class ContinueMaster(Master):
                 if int(item) not in skuid_set:
                     top1000w.push(int(comments))
                     skuid_set[int(item)] = int(comments)
-            for item in m.read_from(db_collect=("jingdong", "jdcommentdetail20201113retry0"), out_field=("referenceId",),pipeline=pipeline):
+            pipeline = [
+                {
+                    "$group": {
+                            "_id": {
+                                "referenceId": "$referenceId",
+                            },
+                    },
+                },
+                {
+                    "$project": {
+                        "referenceId": "$_id.referenceId",
+                    }
+                }
+            ]
+            for item in m.read_from(db_collect=("jingdong", "jdcommentdetail20201118retry0"), out_field=("referenceId",),pipeline=pipeline):
                 if item[0] and int(item[0]) in skuid_set:
                     skuid_set.pop(int(item[0]))
             top1000w = set(top1000w.get_topk())
@@ -194,7 +208,7 @@ class ContinueMaster(Master):
     def get_thread_writer(self):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*3000,buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
-                                          db_collection=("jingdong","jdcommentdetail{0}retry0".format(current_date)), bar_name=self.items_redis_key, distinct_field=None)
+                                          db_collection=("jingdong","jdcommentdetail{0}retry0".format("20201118")), bar_name=self.items_redis_key, distinct_field=None)
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*3000, bar_name=self.items_redis_key,
         #                                  out_file="jingdong/result/jdskuid{0}".format(current_date),
         #                                table_header=["_seed","_status","skuid", "cate_id", "brand_id", "shopid","venderid","shop_name","ziying"])
