@@ -12,7 +12,7 @@ import json
 
 class Spider(JiChengSpider):
     """Spider that reads urls from redis queue (myspider:start_urls)."""
-    name = 'jd_skuid'
+    name = 'jd_skuid_v2'
     first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
     skuids_pettern = re.compile(r'{.*?"skuId":(\d+).*?}')
     totalpage_perttern = re.compile(r'<div id="J_topPage"[\s\S]*?<b>\d+</b><em>/</em><i>(\d+)</i>')
@@ -24,6 +24,8 @@ class Spider(JiChengSpider):
     ziying_pettern = re.compile(r'<div class="contact fr clearfix">[\s]*?<div class="name goodshop EDropdown">[\s]*?<em class="u-jd">[\s]*?(\S*?)[\s]*?</em>[\s]*?</div>')
     cat_pettern = re.compile(r'cat: \[([,\d]*)\],')
     json_pettern = re.compile(r"jQuery8117083\((\[.*?\])\)")
+    sku_pattern1 = re.compile(
+        r'<li data-sku="(\d+)"[\s\S]*?class="gl-item">[\s\S]*?<em>([^￥][\s\S]*?)</em>[\s\S]*?</li>')
 
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
@@ -56,58 +58,90 @@ class Spider(JiChengSpider):
     def parse3(self, response):
         seed = Seed.parse_seed(response.meta["_seed"])
         cate_id, brand_id, page, s = seed.value
-        for item in json.loads(self.json_pettern.findall(response.text)[0]):
-            if item:
-                print(item)
-                yield {"skuid": item.get("pid"), "cate_id": cate_id, "brand_id": brand_id, "shopid": item.get("shopId"),
-                       "venderid": item.get("venderId", None), "shop_name": item.get("seller"),
-                       "ziying": 1 if item.get("seller") and item.get("seller").find("自营") != -1 else 0 }
-            else:
-                print(item)
+        r = json.loads(self.json_pettern.findall(response.text)[0])
+        if r:
+            for item in r:
+                if item:
+                    self.logger.info("jd_skuids 1")
+                    yield {"skuid": item.get("pid"), "cate_id": cate_id, "brand_id": brand_id, "shopid": item.get("shopId"),
+                           "venderid": item.get("venderId", None), "shop_name": item.get("seller"),
+                           "ziying": 1 if item.get("seller") and item.get("seller").find("自营") != -1 else 0,
+                           "title":response.meta["sku2title"][str(item.get("pid"))],"chaoshi":1 if "京东超市" in response.meta["sku2title"][str(item.get("pid"))] else 0}
+                else:
+                    self.logger.info("jd_skuids 2")
+        else:
+            raise Exception(response.request.url)
 
     def parse2(self, response):
         last_page_pids = response.meta["last_page_pids"]
         r1 = self.first_pettern.findall(response.text)
-        print(response.request.url)
         if r1:
             r1 = r1[0]
             if r1:
-                yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids + "," + r1), callback=self.parse3, meta={"_seed": response.meta["_seed"]})
+                sku2title = {}
+                for sku in self.sku_pattern1.findall(response.text):
+                    sku2title[sku[0]] = re.sub("<[\s\S]*?>|\t|\n", "", sku[1])
+                response.meta["sku2title"].update(sku2title)
+                self.logger.info("jd_skuids 3")
+                yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids + "," + r1), callback=self.parse3, meta=response.meta)
             else:
+                self.logger.info(response.request.url)
                 # 说明没有下半页"https://chat1.jd.com/api/checkChat?pidList=10020242230938,1999899692,72276507174,19999997645,1999899692,100000002015,100000002686,200134637813&callback=jQuery8117083"
                 yield Request(
                     url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids),
-                    callback=self.parse3, meta={"_seed": response.meta["_seed"]})
+                    callback=self.parse3, meta=response.meta)
         else:
-            #说明没有下半页"https://chat1.jd.com/api/checkChat?pidList=10020242230938,1999899692,72276507174,19999997645,1999899692,100000002015,100000002686,200134637813&callback=jQuery8117083"
-            yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids), callback=self.parse3, meta={"_seed": response.meta["_seed"]})
+            if response.meta["currentpage"] <= 2*response.meta["totalpage"]-1:
+                self.logger.info(response.request.url)
+                raise Exception(response.request.url)
+            else:
+                self.logger.info(response.request.url)
+                #说明没有下半页"https://chat1.jd.com/api/checkChat?pidList=10020242230938,1999899692,72276507174,19999997645,1999899692,100000002015,100000002686,200134637813&callback=jQuery8117083"
+                yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(last_page_pids), callback=self.parse3, meta=response.meta)
 
     def parse1(self, response):
         seed = Seed.parse_seed(response.meta["_seed"])
         cate_id, brand_id, page, s = seed.value
+        sku2title = {}
+        for sku in self.sku_pattern1.findall(response.text):
+            sku2title[sku[0]] = re.sub("<[\s\S]*?>|\t|\n", "", sku[1])
         r1 = self.first_pettern.findall(response.text)
         if r1:
             r1 = r1[0]
             if r1:
-                cate_id, brand_id, page, s, items = cate_id, brand_id, page + 1, s + 30, r1
-                if brand_id:
-                    en_cate_id, en_brand_id = urllib.parse.urlencode(
-                        {"cat": cate_id}), urllib.parse.urlencode({"ev": "exbrand_" + brand_id})
-                    url = 'https://list.jd.com/list.html?{0}&{1}&psort=4&page={2}&s={3}&scrolling=y&log_id=1596108547754.6591&tpl=1_M&isList=1&show_items={4}'.format(
-                        en_cate_id, en_brand_id, page, s, items)
-                    request = Request(url=url, callback=self.parse2, priority=2)
-                    request.headers["Referer"] = "https://list.jd.com/list.html?{0}&{1}&page={2}&s={3}&psort=4&click=1".format(
-                        en_cate_id, en_brand_id, page-1, s-30)
+                if len(r1.split(",")) == 30:
+                    cate_id, brand_id, page, s, items = cate_id, brand_id, page + 1, s + 30, r1
+                    if brand_id:
+                        en_cate_id, en_brand_id = urllib.parse.urlencode(
+                            {"cat": cate_id}), urllib.parse.urlencode({"ev": "exbrand_" + brand_id})
+                        url = 'https://list.jd.com/list.html?{0}&{1}&psort=4&page={2}&s={3}&scrolling=y&log_id=1596108547754.6591&tpl=1_M&isList=1&show_items={4}'.format(
+                            en_cate_id, en_brand_id, page, s, items)
+                        request = Request(url=url, callback=self.parse2, priority=2)
+                        request.headers["Referer"] = "https://list.jd.com/list.html?{0}&{1}&page={2}&s={3}&psort=4&click=1".format(
+                            en_cate_id, en_brand_id, page-1, s-30)
+                        self.logger.info("jd_skuids 6")
+                    else:
+                        en_cate_id = urllib.parse.urlencode({"cat": cate_id})
+                        url = 'https://list.jd.com/list.html?{0}&psort=4&page={1}&s={2}&log_id=1596108547754.6591&tpl=1_M&isList=1&show_items={3}'.format(
+                            en_cate_id, page, s, items)
+                        request = Request(url=url, callback=self.parse2, priority=2)
+                        request.headers["Referer"] = "https://list.jd.com/list.html?{0}&page={1}&s={2}&psort=4&click=1".format(
+                            en_cate_id, page - 1, s - 30)
+                        self.logger.info("jd_skuids 7")
+                    request.meta["_seed"] = str(Seed((cate_id, brand_id, page, s), type=2))
+                    request.meta["last_page_pids"] = r1
+                    request.meta["sku2title"] = sku2title
+                    request.meta["totalpage"] = response.meta["totalpage"]
+                    request.meta["currentpage"] = page - 1
+                    yield request
                 else:
-                    en_cate_id = urllib.parse.urlencode({"cat": cate_id})
-                    url = 'https://list.jd.com/list.html?{0}&psort=4&page={1}&s={2}&log_id=1596108547754.6591&tpl=1_M&isList=1&show_items={3}'.format(
-                        en_cate_id, page, s, items)
-                    request = Request(url=url, callback=self.parse2, priority=2)
-                    request.headers["Referer"] = "https://list.jd.com/list.html?{0}&page={1}&s={2}&psort=4&click=1".format(
-                        en_cate_id, page - 1, s - 30)
-                request.meta["_seed"] = str(Seed((cate_id, brand_id, page, s), type=2))
-                request.meta["last_page_pids"] = r1
-                yield request
+                    # 说明没有下半页"https://chat1.jd.com/api/checkChat?pidList=10020242230938,1999899692,72276507174,19999997645,1999899692,100000002015,100000002686,200134637813&callback=jQuery8117083"
+                    yield Request(url="https://chat1.jd.com/api/checkChat?pidList={0}&callback=jQuery8117083".format(
+                        r1), callback=self.parse3, meta=response.meta)
+            else:
+                raise Exception(response.request.url)
+        else:
+            raise Exception(response.request.url)
 
     def parse(self, response):
         seed = Seed.parse_seed(response.meta["_seed"])
@@ -121,12 +155,16 @@ class Spider(JiChengSpider):
                     en_cate_id, en_brand_id = urllib.parse.urlencode({"cat": cate_id}), urllib.parse.urlencode({"ev": "exbrand_" + brand_id})
                     url = 'https://list.jd.com/list.html?{0}&{1}&page={2}&s={3}&psort=4&click=1'.format(en_cate_id, en_brand_id, page, s)
                     refer = "https://www.jd.com/" if i == 1 else 'https://list.jd.com/list.html?{0}&{1}&page={2}&s={3}&psort=4&click=1'.format(en_cate_id, en_brand_id, 2 * (i-1) - 1, 60 * (i - 2) + 1)
+                    self.logger.info("jd_skuids 10")
                 else:
                     en_cate_id = urllib.parse.urlencode({"cat": cate_id})
                     url = 'https://list.jd.com/list.html?{0}&page={1}&s={2}&psort=4&click=1'.format(en_cate_id, page, s)
                     refer = "https://www.jd.com/" if i == 1 else 'https://list.jd.com/list.html?{0}&page={1}&s={2}&psort=4&click=1'.format(
                         en_cate_id, 2 * (i - 1) - 1, 60 * (i - 2) + 1)
-                yield Request(url=url, callback=self.parse1, meta={"_seed": str(Seed((cate_id, brand_id, page, s), type=1)), "headers": {"Connection": "close", "Referer": refer}}, priority=1)
+                    self.logger.info("jd_skuids 11")
+                yield Request(url=url, callback=self.parse1, meta={"totalpage":int(page_strs),"currentpage":page,"_seed": str(Seed((cate_id, brand_id, page, s), type=1)), "headers": {"Connection": "close", "Referer": refer}}, priority=1)
+        else:
+            raise Exception(response.request.url)
 
 
 from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor,Master,Slaver,ThreadMongoWriter
@@ -188,6 +226,14 @@ class FirstMaster(Master):
         thread_monitor.setDaemon(True)
         return thread_monitor
 
+    def process_items(self, tablename):
+        thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12 * 3000, buffer_size=2048,
+                                          out_mongo_url="mongodb://192.168.0.13:27017",
+                                          db_collection=("jingdong", tablename),
+                                          bar_name=self.items_redis_key, distinct_field="skuid")
+        thread_writer.setDaemon(False)
+        thread_writer.start()
+
 
 class RetryMaster(FirstMaster):
     def __init__(self, *args, **kwargs):
@@ -244,3 +290,8 @@ def run_master(retry=False, spider_name=Spider.name, spider_num=1, write_asyn=Tr
 def run_slaver(spider_name=Spider.name, spider_num=1):
     slaver = Slaver(spider_name=spider_name, spider_num=spider_num)
     slaver.run()
+
+
+def run_writer(tablename, spider_name=Spider.name):
+    master = FirstMaster(spider_name=spider_name, spider_num=0)
+    master.process_items(tablename=tablename)

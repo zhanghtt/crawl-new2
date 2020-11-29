@@ -183,7 +183,7 @@ class ThreadFileWriter(ThreadWriter):
             old = item
             item = eval(item.replace("null","None"))
             item = {key: item[key] for key in item if item[key] is not None}
-            self.logger.warning("replace item: {} to {}".format(str(old),str(item)))
+            self.logger.debug("replace item: {} to {}".format(str(old),str(item)))
         if self.is_already_write(item):
             return
         self.counter = self.counter + 1
@@ -250,11 +250,12 @@ class ThreadMongoWriter(ThreadWriter):
         try:
             item = eval(item)
         except NameError as e:
+            print(item)
             #self.logger.exception(e)
             old = item
             item = eval(item.replace("null","None"))
             item = {key: item[key] for key in item if item[key] is not None}
-            self.logger.warning("replace item: {} to {}".format(str(old),str(item)))
+            self.logger.debug("replace item: {} to {}".format(str(old),str(item)))
 
         if self.is_already_write(item):
             return

@@ -292,6 +292,7 @@ class SpiderManger(object):
     def process(self, seed):
         request = self.make_request(seed)
         respone = self.do_request(request)
+        print(respone.text)
         if respone and respone.status_code == requests.codes.ok:
             if respone.text:
                 self.parse_item(respone.text, seed)

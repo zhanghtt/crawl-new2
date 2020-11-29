@@ -80,17 +80,49 @@ request1 = {"url": "https://api03.6bqb.com/jd/goods/comment?apikey=11187001536",
                "Referer":"https://www.jd.com",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
-request = {"url": "https://chat1.jd.com/api/checkChat?pidList=12312141421&callback=jQuery8117083",
+request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku=100010330714&sorttype=6&page=0",
            "headers": {
                'Connection': 'close',
                #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
-               "Referer": "https://www.jd.com",
+               "Referer": "https://item.m.jd.com/100000006005.html",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
-cate_pattern = totalpage_perttern = re.compile(r'<div id="J_topPage"[\s\S]*?<b>\d+</b><em>/</em><i>(\d+)</i>')
-
-src=requests.get(**request).text
-print(src)
+cate_pattern = re.compile(r'navThird[1-9]: (\[.*\])')
+cate_pattern1 = re.compile(r'<li data-sku="(\d+)"[\s\S]*?class="gl-item">[\s\S]*?<em>([^￥][\s\S]*?)</em>[\s\S]*?</li>')
+first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
+comments_pattern = re.compile(r'"comments":[\s\S]*?(\[[\s\S]*\])')
+allcnt_pattern = re.compile(r'"CommentCount": \"(\d+)\",')
+import json
+import time
+from ast import literal_eval
+for i in range(1000000):
+    print(i)
+    time.sleep(0.1)
+    src = requests.get(**request,proxies={"http": "http://u1:crawl@192.168.0.77:3128"}).text
+    #print(comments_pattern.findall(src)[0])
+    print(src)
+    print(allcnt_pattern.findall(src))
+    print(comments_pattern.findall(src)[0].replace("\t","").replace("\n","").replace(",}","}").replace("false",'False').replace("true",'True').replace('False,','"False",').replace('True,','"True",'))
+    for item in literal_eval(comments_pattern.findall(src)[0].replace("\t","").replace("\n","").replace(",}","}")):
+         print(item)
+# first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
+# shopid_pettern = re.compile(r'shopId:\'(\d*)\',')
+# venderid_pettern = re.compile(r'venderId:(\d*),')
+# brand_pettern = re.compile(r'brand: (\d*),')
+# skuids_pettern = re.compile(r'{.*?"skuId":(\d+).*?}')
+# shop_name_pettern = re.compile(r'target="_blank" title="(\S*?)" clstag="shangpin')
+# ziying_pettern = re.compile(r'<div class="contact fr clearfix">[\s]*?<div class="name goodshop EDropdown">[\s]*?<em class="u-jd">[\s]*?(\S*?)[\s]*?</em>[\s]*?</div>')
+# cat_pettern = re.compile(r'cat: \[([,\d]*)\],')
+# phonenum=re.compile(r'<div class="locate_text">[\s]*?<div class="upper_text">(.*?) (.*?)</div>[\s]*?<div class="upper_text">手机号码: (\d.*?)</div>[\s]*?</div>')
+# print(shopid_pettern.findall(src))
+# print(venderid_pettern.findall(src))
+# print("brand:" + brand_pettern.findall(src)[0])
+# print(skuids_pettern.findall(src))
+# print(shop_name_pettern.findall(src))
+# print(ziying_pettern.findall(src))
+# print(cat_pettern.findall(src))
+# print(first_pettern.findall(src))
+# print(phonenum.findall(src))
 
 
 import time
@@ -135,6 +167,3 @@ class Manger:
 
 # m = Manger(8)
 # m.run()
-
-import numpy as np
-np.array
