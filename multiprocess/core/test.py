@@ -80,9 +80,16 @@ request1 = {"url": "https://api03.6bqb.com/jd/goods/comment?apikey=11187001536",
                "Referer":"https://www.jd.com",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
-request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku=100010330714&sorttype=6&page=0",
+request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku=100001550349&sorttype=6&page=51",
            "headers": {
                'Connection': 'close',
+               #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
+               "Referer": "https://item.m.jd.com/100000006005.html",
+               'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
+           }}
+request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku=57160888695&sorttype=6&page=90",
+           "headers": {
+               'Connection': 'keep-alive',
                #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
                "Referer": "https://item.m.jd.com/100000006005.html",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
@@ -91,20 +98,19 @@ cate_pattern = re.compile(r'navThird[1-9]: (\[.*\])')
 cate_pattern1 = re.compile(r'<li data-sku="(\d+)"[\s\S]*?class="gl-item">[\s\S]*?<em>([^￥][\s\S]*?)</em>[\s\S]*?</li>')
 first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
 comments_pattern = re.compile(r'"comments":[\s\S]*?(\[[\s\S]*\])')
-allcnt_pattern = re.compile(r'"CommentCount": \"(\d+)\",')
+allcnt_pattern = re.compile(r'"commentCount":(\d+),')
 import json
 import time
 from ast import literal_eval
-for i in range(1000000):
+import json
+for i in range(1000):
     print(i)
-    time.sleep(0.1)
-    src = requests.get(**request,proxies={"http": "http://u1:crawl@192.168.0.77:3128"}).text
-    #print(comments_pattern.findall(src)[0])
-    print(src)
-    print(allcnt_pattern.findall(src))
-    print(comments_pattern.findall(src)[0].replace("\t","").replace("\n","").replace(",}","}").replace("false",'False').replace("true",'True').replace('False,','"False",').replace('True,','"True",'))
-    for item in literal_eval(comments_pattern.findall(src)[0].replace("\t","").replace("\n","").replace(",}","}")):
-         print(item)
+    time.sleep(2)
+    src = requests.get(**request,proxies={"http": "http://u8:crawl@192.168.0.77:3128"}).text
+    print(allcnt_pattern.findall(src)[0])
+    #r = comments_pattern.findall(src)[0].replace("\t","").replace("\n","").replace(",}","}").replace("false",'False').replace("true",'True').replace('False,','"False",').replace('True,','"True",')
+    for item in json.loads(comments_pattern.findall(src)[0]):
+        print(item)
 # first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
 # shopid_pettern = re.compile(r'shopId:\'(\d*)\',')
 # venderid_pettern = re.compile(r'venderId:(\d*),')

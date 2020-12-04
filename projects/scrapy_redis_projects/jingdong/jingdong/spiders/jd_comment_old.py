@@ -8,13 +8,12 @@ from mongo import op
 from multiprocess.core.spider import Seed
 from scrapy_redis.utils import bytes_to_str
 import json
-from ast import literal_eval
+
 
 class Spider(JiChengSpider):
     """Spider that reads urls from redis queue (myspider:start_urls)."""
-    name = 'jd_comment'
-    allcnt_pattern = re.compile(r'"CommentCount": \"(\d+)\",')
-    comments_pattern = re.compile(r'"comments":[\s\S]*?(\[[\s\S]*\])')
+    name = 'jd_comment_old'
+    allcnt_pattern = re.compile(r'"commentCount":(\d+),')
 
     @classmethod
     def from_crawler(cls, crawler, *args, **kwargs):
@@ -26,7 +25,8 @@ class Spider(JiChengSpider):
         seed = Seed.parse_seed(str_seed)
         if seed.type == 0:
             skuid = seed.value
-            url = "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku={0}&sorttype=6&page=0".format(skuid)
+            url = "https://club.jd.com/comment/skuProductPageComments.action?callback=fetchJSON_comment98" \
+                  "&productId={0}&score=0&sortType=5&page=0&pageSize=10&isShadowSku=0&fold=1".format(skuid)
             return Request(url=url, meta={"_seed": str_seed,
                                           "headers": {"Connection": "close", "Referer": "https://item.m.jd.com/{0}.html".format(skuid)}},
                            priority=0, callback=self.parse)
@@ -39,7 +39,8 @@ class Spider(JiChengSpider):
         seed = Seed.parse_seed(response.meta["_seed"])
         skuid = seed.value
         count = self.allcnt_pattern.findall(response.text)
-        yield {"skuid":skuid,"comment":count[0]}
+        yield {"skuid": skuid, "comment": int(count[0])}
+
 
 from multiprocess.scrapy_redis.spiders import ClusterRunner,ThreadFileWriter, ThreadMonitor,Master,Slaver,ThreadMongoWriter
 from multiprocess.tools import collections, timeUtil
@@ -73,22 +74,19 @@ class FirstMaster(Master):
                         "skuid": "$skuid",
                     }
                 },
-                #{"$limit": 40}
+                # {"$limit": 40}
             ]
-            # last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep$"}})
-            # for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}}):
-            last_sep = m.get_lasted_collection("jingdong",
-                                               filter={"name": {"$regex": r"^jdskuid20200920_sep$"}})
-            for table in m.list_tables(dbname="jingdong",
-                                       filter={"name": {"$regex": r"^jdskuid20200920retry\d*$"}}):
+            last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep$"}})
+            for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}}):
                 if not last_sep or table > last_sep:
                     self.logger.info("valid table : {}".format(table))
                     for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
-                        skuid_set.add(int(item[0]))
+                        skuid_set.add(item[0])
             #skuids in last result
             last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^summary_201905_20\d\d\d\d$"}})
             for item in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid",)):
-                skuid_set.add(int(item[0]))
+                if item not in skuid_set:
+                    skuid_set.add(int(item[0]))
             buffer = []
             buffer_size = 10000
             for i, seed in enumerate(skuid_set):
