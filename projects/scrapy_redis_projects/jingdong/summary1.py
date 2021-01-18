@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from mongo import op
 import logging
@@ -8,18 +7,40 @@ price_pattern = re.compile(r'^\d+\.\d\d$')
 from multiprocess.tools import timeUtil
 from jingdong.Tools import format_cat_id
 current_date = timeUtil.current_time()
-price_pattern = re.compile(r'^\d+\.\d\d$')
+
 
 def clean_price(item):
-    price_tmp = []
-    for key in item:
-        current_value = str(item[key])
-        str_price_list = price_pattern.findall(current_value)
-        if str_price_list and str_price_list[0] != "-1.00":
-            price_tmp.append(float(str_price_list[0]))
-    if price_tmp:
-        price = min(price_tmp)
-    else:
+    price = 0
+    k = 0
+    if 'l' in item and 'm' in item:
+        if item['l'] < item['m']:
+            for key in item:
+                current_value = str(item[key])
+                str_price_list = price_pattern.findall(current_value)
+                if key != 'l' and key != 'm' and str_price_list and str_price_list[0] != "-1.00":
+                    price = price + float(str_price_list[0])
+                    k = k + 1
+        else:
+            for key in item:
+                current_value = str(item[key])
+                str_price_list = price_pattern.findall(current_value)
+                if key != 'l' and str_price_list and str_price_list[0] != "-1.00":
+                    price = price + float(str_price_list[0])
+                    k = k + 1
+        price = round(price / k, 2)
+    if price == 0:
+        if "p" in item and item.get("p") != "-1.00":
+            price = float(item.get("p"))
+    if price == 0:
+        prices = []
+        for key in item:
+            current_value = str(item[key])
+            str_price_list = price_pattern.findall(current_value)
+            if str_price_list and str_price_list[0] != "-1.00":
+                prices.append(float(str_price_list[0]))
+        if prices:
+            price = min(prices)
+    if price == 0:
         price = 79.90
     return price
 
@@ -37,16 +58,16 @@ def run_result():
             if not last_sep or table > last_sep:
                 print("step 1: processing {}".format(table), flush=True)
                 for item in m.read_from(db_collect=("jingdong", table), pipeline=pipeline):
-                    if int(item["id"]) in price_dic:
+                    if item["id"] in price_dic:
                         tmp = price_dic[int(item["id"])]
                         tmp["prices"] = (tmp["prices"][0]+1, tmp["prices"][1]+clean_price(item))
                     else:
                         price_dic[int(item["id"])] = {"prices": (1, clean_price(item))}
         for skuid in price_dic:
-            tmp = price_dic[int(skuid)]
+            tmp = price_dic[skuid]
             tmp["clean_price"] = round(tmp["prices"][1]/tmp["prices"][0], 2)
             tmp.pop("prices")
-        result_dic = price_dic
+        result_dic = price_dic.copy()
 
         #skuids in last result
         last_month_skuids = {}
@@ -85,8 +106,7 @@ def run_result():
                 pipeline = [
                     {
                         "$match": {
-                            #"$and": [{"_status": 0}, {"comment": {"$gt": 0}}]
-                            "$and": [{"_status": 0}, {"comment": {"$gt": "0"}}]
+                            "$and": [{"_status": 0}, {"comment": {"$gt": 0}}]
                         }
                     },
                     {
@@ -152,7 +172,7 @@ def run_result():
                         price_item["type"] = 6
         print("step 5: processing skuid in last_month_skuids but not in result_dic", flush=True)
         for skuid in last_month_skuids:
-            if int(skuid) not in result_dic:
+            if skuid not in result_dic:
                 result_dic[int(skuid)] = {}
                 price_item = result_dic[int(skuid)]
                 price_item["clean_price"] = last_month_skuids[skuid]["clean_price"]
@@ -173,7 +193,7 @@ def run_result():
             result_dic[k]["month"] = this_month
             if "cate_id" in result_dic[k]:
                 buffer.append(result_dic[k])
-            if i % buffer_size == 0 and buffer:
+            if i % buffer_size == 0:
                 m.insert_many_dict(db_collect=("jingdong",out_table), data_dict_list=buffer)
                 buffer = []
         if buffer:
