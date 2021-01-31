@@ -190,25 +190,16 @@ class FirstMaster(Master):
         buffer = []
         buffer_size = 1024
         with op.DBManger() as m:
-            m.create_db_collection(db_collection=("jingdong", "jdskuid{0}_sep".format(current_date)))
-            last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdbrand20\d\d\d\d\d\d_sep$"}})
+            m.create_db_collection(db_collection=("jingdong", "jdsearchbyseed{0}_sep".format(current_date)))
             seed_set = set()
-            for table in  m.list_tables("jingdong", filter={"name": {"$regex": r"^jdsearchseed$"}}):
-                if not last_sep or table > last_sep:
-                    self.logger.info("valid table : {}".format(table))
-                    pipeline = [
-                        {"$match": {
-                            "$and": [{"_status": 0}, {"$or": [{"status": 0}, {"status": -1}]}]
-                            }
-                        },
-                        {
-                            "$limit":1
-                        }
-                    ]
-                    for seed in m.read_from(db_collect=("jingdong", table), out_field=("cate_id", "brand_id","name"), pipeline=pipeline):
-                        seed_set.add(seed)
-            seed_set = set()
-            seed_set.add(("0","125855","泡泡玛特（POP MART）"))
+            pipeline = [
+                {"$match": {
+                    "$and": [{"_status": 0}, {"$or": [{"status": 0}, {"status": -1}]}]
+                    }
+                },
+            ]
+            for seed in m.read_from(db_collect=("jingdong", "jdsearchseed"), out_field=("cate_id", "brand_id","name"), pipeline=pipeline):
+                seed_set.add(seed)
             for i, seed in enumerate(seed_set):
                 seed = Seed(value=seed, type=0)
                 buffer.append(str(seed))
@@ -221,7 +212,7 @@ class FirstMaster(Master):
     def get_thread_writer(self):
         thread_writer = ThreadMongoWriter(redis_key=self.items_redis_key, stop_epoch=12*3000,buffer_size=2048,
                                           out_mongo_url="mongodb://192.168.0.13:27017",
-                                          db_collection=("jingdong","jdsearch{0}retry0".format(current_date)), bar_name=self.items_redis_key, distinct_field="skuid")
+                                          db_collection=("jingdong","jdsearchbyseed{0}retry0".format(current_date)), bar_name=self.items_redis_key, distinct_field="skuid")
         # thread_writer = ThreadFileWriter(redis_key=self.items_redis_key, stop_epoch=12*3000, bar_name=self.items_redis_key,
         #                                  out_file="jingdong/result/jdskuid{0}".format(current_date),
         #                                table_header=["_seed","_status","skuid", "cate_id", "brand_id", "shopid","venderid","shop_name","ziying"])
@@ -248,7 +239,7 @@ class RetryMaster(FirstMaster):
     def __init__(self, *args, **kwargs):
         super(RetryMaster, self).__init__(*args, **kwargs)
         with op.DBManger() as m:
-            self.last_retry_collect = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdsearch20\d\d\d\d\d\dretry\d+$"}})
+            self.last_retry_collect = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdsearchbyseed20\d\d\d\d\d\dretry\d+$"}})
             self.new_retry_collect = self.last_retry_collect[:self.last_retry_collect.find("retry") + 5] + str(int(self.last_retry_collect[self.last_retry_collect.find("retry") + 5:]) + 1) if self.last_retry_collect.find("retry") != -1 else self.last_retry_collect+"retry1"
             self.logger.info((self.last_retry_collect, self.new_retry_collect))
 
