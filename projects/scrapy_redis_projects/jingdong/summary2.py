@@ -37,16 +37,16 @@ def run_result():
             if not last_sep or table > last_sep:
                 print("step 1: processing {}".format(table), flush=True)
                 for item in m.read_from(db_collect=("jingdong", table), pipeline=pipeline):
-                    if int(item["id"]) in price_dic:
+                    if item["id"] in price_dic:
                         tmp = price_dic[int(item["id"])]
                         tmp["prices"] = (tmp["prices"][0]+1, tmp["prices"][1]+clean_price(item))
                     else:
                         price_dic[int(item["id"])] = {"prices": (1, clean_price(item))}
         for skuid in price_dic:
-            tmp = price_dic[int(skuid)]
+            tmp = price_dic[skuid]
             tmp["clean_price"] = round(tmp["prices"][1]/tmp["prices"][0], 2)
             tmp.pop("prices")
-        result_dic = price_dic
+        result_dic = price_dic.copy()
 
         #skuids in last result
         last_month_skuids = {}
@@ -85,8 +85,7 @@ def run_result():
                 pipeline = [
                     {
                         "$match": {
-                            #"$and": [{"_status": 0}, {"comment": {"$gt": 0}}]
-                            "$and": [{"_status": 0}, {"comment": {"$gt": "0"}}]
+                            "$and": [{"_status": 0}, {"comment": {"$gt": 0}}]
                         }
                     },
                     {

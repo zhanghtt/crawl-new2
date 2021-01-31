@@ -66,12 +66,12 @@ class DBManger(object):
                 result = self.collection.aggregate(pipeline, allowDiskUse=True)
         return result
 
-    def read_from_yield(self, db_collect, out_field=None, pipeline=None, is_id_out=False):
+    def read_from_yield(self, db_collect, out_field=None, pipeline=None, is_id_out=False, batch_size=10):
         #is_id_out must be avalid since pipeline is none
         self.switch_db_collection(db_collect)
         if pipeline is None:
             if out_field is None:
-                for item in self.collection.find({}):
+                for item in self.collection.find({}, batch_size=batch_size):
                     yield item
             else:
                 tmp = []
@@ -82,14 +82,14 @@ class DBManger(object):
                     filter.update({"_id": 1})
                 else:
                     filter.update({"_id": 0})
-                for x in self.collection.find({}, filter):
+                for x in self.collection.find({}, filter, batch_size=batch_size):
                     yield tuple([x.get(field) for field in out_field])
         else:
             if out_field:
-                for x in self.collection.aggregate(pipeline, allowDiskUse=True):
+                for x in self.collection.aggregate(pipeline, allowDiskUse=True, batchSize=batch_size):
                     yield tuple([x.get(field) for field in out_field])
             else:
-                for x in self.collection.aggregate(pipeline, allowDiskUse=True):
+                for x in self.collection.aggregate(pipeline, allowDiskUse=True, batchSize=batch_size):
                     yield x
 
     def aggregate(self, db_collect, pipeline):
