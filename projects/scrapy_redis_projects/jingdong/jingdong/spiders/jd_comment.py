@@ -73,7 +73,7 @@ class FirstMaster(Master):
                         "skuid": "$skuid",
                     }
                 },
-                #{"$limit": 40}
+                {"$limit": 40}
             ]
             # last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep$"}})
             # for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}}):
@@ -86,8 +86,11 @@ class FirstMaster(Master):
                     for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
                         skuid_set.add(int(item[0]))
             #skuids in last result
+            pipeline = [
+                {"$limit": 40}
+            ]
             last_result = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^month20\d\d\d\d$"}})
-            for item in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid",)):
+            for item in m.read_from(db_collect=("jingdong", last_result), out_field=("skuid",),pipeline=pipeline):
                 skuid_set.add(int(item[0]))
             buffer = []
             buffer_size = 10000

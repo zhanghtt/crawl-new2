@@ -43,6 +43,9 @@ class Spider(JiChengSpider):
         elif seed.type == 3:
             str_seed = seed.value
             request = Request.deserialize(str_seed, self)
+            if request.headers.has_key("Cookie"):
+                request.headers.pop("Cookie")
+            print(request.headers)
             return request
 
     def clean_price(self, item):

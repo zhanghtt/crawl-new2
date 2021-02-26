@@ -94,9 +94,10 @@ request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=f
                "Referer": "https://item.m.jd.com/100000006005.html",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
-request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku=65959006654&sorttype=6&page=0",
+request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku=10020785876486&sorttype=6&page=0",
            "headers": {
                'Connection': 'keep-alive',
+               'Host':'wq.jd.com',
                #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
                "Referer": "https://item.m.jd.com/72321801855.html",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
@@ -114,13 +115,23 @@ import json
 from fake_useragent import UserAgent
 ua = UserAgent()
 #,proxies={"https": "https://u0:crawl@192.168.0.71:3128","http": "http://u0:crawl@192.168.0.71:3128"}
+count = 0
+begincout = 0
+isbegin = False
+import random
 for i in range(10000):
-    print(i)
-    time.sleep(1)
-    proxies = {"https": "https://u0:crawl@192.168.0.71:3128", "http": "http://u0:crawl@192.168.0.71:3128"}
-    src = requests.get(**request, proxies=proxies)
-    print(src.headers)
-    print(allcnt_pattern.findall(src.text))
+    delay = random.random() + 0.5
+    print(i, begincout, count, delay)
+    time.sleep(delay)
+    src = requests.get(**request,proxies={"http": "http://u0:crawl@192.168.0.71:3128"})
+    #src = requests.get(**request)
+    rsl = allcnt_pattern.findall(src.text)
+    if rsl:
+        count += 1
+    else:
+        if not isbegin:
+            begincout += 1
+            isbegin = True
 # first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
 # shopid_pettern = re.compile(r'shopId:\'(\d*)\',')
 # venderid_pettern = re.compile(r'venderId:(\d*),')
