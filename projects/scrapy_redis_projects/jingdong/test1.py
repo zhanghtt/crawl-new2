@@ -4,56 +4,6 @@ import pycurl
 import chardet
 from  io import BytesIO
 import re
-def download(request):
-    request_url = request.get("url")
-    headers = request.get("headers")
-    if isinstance(headers, dict):
-        headers = [k + ":" + v for k, v in headers.items()]
-    proxies = request.get("proxies")
-    mothed = request.get("mothed")
-
-    c = pycurl.Curl()
-    body = BytesIO()
-    c.setopt(pycurl.VERBOSE, True)
-    c.setopt(pycurl.HEADER, False)
-    c.setopt(pycurl.TIMEOUT, 3)
-    c.setopt(pycurl.CONNECTTIMEOUT, 1)
-    c.setopt(pycurl.URL, request_url)
-    if headers:
-        print(headers)
-        c.setopt(pycurl.HTTPHEADER, headers)
-    c.setopt(pycurl.ENCODING, 'gzip,deflate')
-    c.setopt(pycurl.SSL_VERIFYPEER, False)
-    c.setopt(pycurl.SSL_VERIFYHOST, False)
-    if mothed is None:
-        mothed = "get"
-    if mothed.lower() == "post":
-        c.setopt(pycurl.POST, 1)
-        data = request.get("data")
-        if data:
-            c.setopt(pycurl.POSTFIELDS, data)
-    c.setopt(pycurl.WRITEFUNCTION, body.write)
-    if proxies:
-        proxy, password = convert_proxy_format(proxies)
-        c.setopt(pycurl.PROXY, proxy)
-        c.setopt(pycurl.PROXYUSERPWD, password)
-    try:
-        c.perform()
-        code = c.getinfo(pycurl.RESPONSE_CODE)
-        content = c.getinfo(pycurl.CONTENT_TYPE)
-        if code != 200:
-            raise pycurl.error(code, "")
-    except pycurl.error as err:
-        print(repr(err))
-        raise err
-    finally:
-        c.close()
-    return body.getvalue().decode("gbk")
-
-def convert_proxy_format(proxy="http://u0:crawl@192.168.0.71:3128"):
-    password = proxy[proxy.find("//") + 2: proxy.find("@")]
-    proxy = proxy.replace(password + "@", "")
-    return proxy, password
 import requests
 from multiprocess.core.HttpProxy import getHttpProxy
 # for proxy in getHttpProxy():
@@ -87,7 +37,7 @@ request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=f
                "Referer": "https://item.m.jd.com/100000006005.html",
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36',
            }}
-request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku=57160888695&sorttype=6&page=90",
+request = {"url": "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku=57160888695&sorttype=6&page=0",
            "headers": {
                'Connection': 'keep-alive',
                #"Referer":"https://list.jd.com/list.html?cat=4938%2C11760%2C12282&ev=exbrand_7575&page=1&s=1&psort=4&click=1",
@@ -121,23 +71,11 @@ for proxy in proxies:
     countlisttimeout[proxy] = 0
 ua = UserAgent()
 #,proxies={"https": "https://u0:crawl@192.168.0.71:3128","http": "http://u0:crawl@192.168.0.71:3128"}
-from mongo import op
-with op.DBManger() as m:
-    print(m.get_lasted_collection("jingdong",
-                                                      filter={"name": {"$regex": r"^jdcomment20\d\d\d\d\d\dretry\d\d$"}}))
-
-for i in range(10):
+for i in range(100000):
     time.sleep(0.5)
-    for i, proxy in enumerate(proxies):
-        try:
-            src = requests.get(**request, proxies={"https": proxy})
-            print(allcnt_pattern.findall(src.text))
-            if not allcnt_pattern.findall(src.text):
-                countlist[proxy] += 1
-        except:
-            countlisttimeout[proxy] += 1
-print(countlist)
-print(countlisttimeout)
+    src = requests.get(**request)
+    print(src.headers)
+    print(allcnt_pattern.findall(src.text))
 # first_pettern = re.compile(r"search000014_log:{wids:'([,\d]*?)',")
 # shopid_pettern = re.compile(r'shopId:\'(\d*)\',')
 # venderid_pettern = re.compile(r'venderId:(\d*),')
