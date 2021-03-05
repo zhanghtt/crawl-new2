@@ -26,9 +26,24 @@ class Spider(JiChengSpider):
         seed = Seed.parse_seed(str_seed)
         if seed.type == 0:
             skuid = seed.value
-            url = "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku={0}&sorttype=6&page=0".format(skuid)
-            return Request(url=url, meta={"_seed": str_seed,"dydmc_delay": 0.15,
-                                          "headers": {"Connection": "close", "Referer": "https://item.m.jd.com/{0}.html".format(skuid)}},
+            #url = "https://wq.jd.com/commodity/comment/getcommentlist?callback=fetchJSON_comment98&pagesize=10&sceneval=2&skucomment=1&score=0&sku={0}&sorttype=6&page=0".format(skuid)
+            url = "https://wq.jd.com/commodity/comment/getcommentlist?callback=skuJDEvalB&version=v2&pagesize=10&sceneval=2&skucomment=1&score=0&sku={}&sorttype=6&page=1&t=0.5156075450518778".format(
+                skuid)
+            headers = {
+               'Connection': 'close',
+               'Host':'wq.jd.com',
+               'accept':'*/*',
+               'sec-fetch-site':'same-site',
+               'sec-fetch-mode':'no-cors',
+               'sec-fetch-dest':'script',
+               "Referer": "https://item.m.jd.com/ware/view.action?wareId={}&sid=null".format(skuid),
+               'accept-encoding':'gzip, deflate, br',
+               'accept-language':'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7',
+               'User-Agent': 'Mozilla/5.0 (Linux; Android 10; HRY-AL00a; HMSCore 5.1.1.303) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.106 HuaweiBrowser/11.0.7.303 Mobile Safari/537.36',
+               "cookie":"__jdc=122270672; mba_muid=16087105855231456793479; shshshfpa=b86c237d-b506-9cc9-730d-39db2f5ea48c-1608710586; shshshfpb=aW2xjA0PZevBiTvJrQ6rk4A%3D%3D; retina=1; webp=1; visitkey=31140776387466944; sbx_hot_h=null; deviceVersion=83.0.4103.106; deviceOS=android; deviceOSVersion=10; deviceName=Chrome; rurl=https%3A%2F%2Fwqs.jd.com%2Ffaqs%2Findex.html%3Fsceneval%3D2%26ptag%3D7001.1.124%26productId%3D12991458%26ispg%3D%26_fd%3Djdm%26jxsid%3D16109541564584400343; equipmentId=A75Q6PQS36IHI62HBEUGC44IVLERE7257UWVYTGEXPMR6NOKARSVVF2Q6EBPSVGNR537LK6GQN3ENW47JREOEXNAVI; __jdv=122270672%7Cdirect%7C-%7Cnone%7C-%7C1614224630058; sc_width=360; shshshfp=c6774e911e47825ddd51cefc23f9b157; wxa_level=1; cid=9; jxsid=16145705280303310338; __jda=122270672.16087105855231456793479.1608710585.1614224630.1614570529.10; wq_ug=14; fingerprint=794164a430090764096f40466260c718; mt_xid=V2_52007VwMVU1ReUlsbQB1YBmUDF1ZaXlpYGk8RbFVuBEBVWV9RRkhIGw4ZYlcRWkFQWwlIVR5aAjAAR1BZX1tZHnkaXQZnHxNQQVlSSx9JElgFbAEbYl9oUmoXSB5dDWYKE1BZXlNeF08cVQNvMxJbWV8%3D; wq_logid=1614571192.282863947; wqmnx1=MDEyNjM5M3AuL3d3MiY2NjQ1eGQtTTFBaSBsby8zd3IzZTUyNy00UkghKQ%3D%3D; __jdb=122270672.9.16087105855231456793479|10.1614570529; mba_sid=16145705290954323095988279117.9; __wga=1614571199267.1614570547761.1614225998734.1610954174749.5.6; PPRD_P=UUID.16087105855231456793479-LOGID.1614571199300.300139660; jxsid_s_t=1614571199496; jxsid_s_u=https%3A//item.m.jd.com/ware/view.action; sk_history=70241615154%2C101609%2C615036%2C54761686610%2C1399903%2C10024515889185%2C10381689654%2C12991458%2C100010062010%2C58070892025%2C100007627009%2C; shshshsID=e45b3b58ca53b7ab42489de6ebc02d6b_5_1614571200418"
+           }
+            return Request(url=url, meta={"_seed": str_seed,"dydmc_delay": 0.15 + random.random() * 0.1,
+                                          "headers": headers},
                            priority=0, callback=self.parse)
         elif seed.type == 3:
             str_seed = seed.value
@@ -73,7 +88,7 @@ class FirstMaster(Master):
                         "skuid": "$skuid",
                     }
                 },
-                {"$limit": 40}
+                {"$limit": 400}
             ]
             # last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep$"}})
             # for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}}):

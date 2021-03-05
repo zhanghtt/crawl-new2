@@ -2,8 +2,8 @@
 The dns proxy server
 """
 import socket
-from .config import *
-from .dnstypes import *
+from config import *
+from dnstypes import *
 
 def str2hex(stris):
 	return ''.join([hex(c) for c in stris])
