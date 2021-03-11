@@ -1,0 +1,1 @@
+aapt d badging C:\Users\admin\Downloads\123_ac07496b4d6d5d21f188bf2fb77bd6fc.apk|findstr "package activity"

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os, time, unittest
-from appium  import webdriver
+from appium import webdriver
 import socket
 import uuid
 
@@ -45,24 +45,25 @@ class App:
         pass
 
     def change_action(self, atcion):
-        self.dns_proxy_socket.sendto(atcion.encode('ascii'), ('localhost',10053))
+        #self.dns_proxy_socket.sendto(atcion.encode('ascii'), ('localhost',10053))
+        self.dns_proxy_socket.sendto(atcion.encode('utf8'), ('localhost', 10053))
 
     def start_app(self):
-        self.change_action("app_{}_action_-1_{}".format(self.app_info['app_id'], str(uuid.uuid1())))#open app id is 0
+        print("start app: id {}, name {}".format(self.app_info['app_id'],self.app_info['app_name']))
+        self.change_action("app_{}_action_-1_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName']))#open app id is 0
         self.driver = webdriver.Remote(self.appium_server_url, self.desired_caps)
-        time.sleep(20)
+        time.sleep(30)
         self.change_action("None")
 
     def close_app(self):
-        self.change_action("app_{}_action_-2_{}".format(self.app_info['app_id'], str(uuid.uuid1())))#close app id is -2
+        self.change_action("app_{}_action_-2_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName']))#close app id is -2
         webdriver.quit()
-        time.sleep(20)
+        time.sleep(30)
         self.change_action("None")
 
     def go_action(self, action):
         if action['function'].__name__ != "weichat_xiaochengxu":
-            self.change_action("app_{}_action_{}_{}".format(self.app_info['app_id'], str(action['id']), str(uuid.uuid1())))  # open app id is -1
-            print(action)
+            self.change_action("app_{}_action_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(action['id']), str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName']))  # open app id is -1
             action['function'](self.driver)
             time.sleep(action['delay'])
             self.change_action("None")
@@ -70,9 +71,6 @@ class App:
             action['function'](self.driver, self, action)
             time.sleep(action['delay'])
             self.change_action("None")
-
-
-
 
     def run(self):
         self.start_app()
