@@ -9,8 +9,6 @@ import threading
 from mongo import op
 import traceback
 
-def str2hex(stris):
-	return ''.join([hex(c) for c in stris])
 DNS_PORT = 53
 DEFAULT_BUFFER_SIZE = 102400
 SEND_BUF_SIZE=4096
@@ -173,7 +171,7 @@ class DnsServer(object):
 															   'host': self.parse_query(data),
 															   'time': datetime.datetime.now().strftime(
 																   '%Y-%m-%d %H:%M:%S.%f')
-														, 'app_name': action_info[5], 'platform': action_info[6],'devicename':action_info[7]})
+														, 'app_name': action_info[5], 'platform': action_info[6],'devicename':action_info[7],'udid':action_info[8]})
 
 		except KeyboardInterrupt:
 			if self.verbose:

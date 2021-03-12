@@ -326,6 +326,7 @@ def test():
          'desired_capabilities': {
              "platformName": "Android",
              "platformVersion": "10.0",
+             'udid':'R8PFLJHUZH5P7LNF',
              "deviceName": "Q7PRX18B21019283",
              "appPackage": "com.sdu.didi.psnger",
              "appActivity": "com.didi.sdk.app.launch.splash.SplashActivity",
@@ -344,14 +345,260 @@ def test():
              "unicodeKeyboard": True,
              "resetKeyboard": True
          }, 'actions': []},
+        {'app_id': 22, 'app_name': '汽车之家', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.cubic.autohome",
+             "appActivity": "com.cubic.autohome.MainActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 23, 'app_name': '懂车帝', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.ss.android.auto",
+             "appActivity": "com.ss.android.auto.policy.AutoPrivacyActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 24, 'app_name': '花小猪打车', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.huaxiaozhu.rider",
+             "appActivity": "com.huaxiaozhu.sdk.app.launch.LauncherActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 25, 'app_name': '滴答出行', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.didapinche.booking",
+             "appActivity": "com.didapinche.booking.home.activity.StartActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 26, 'app_name': '贝壳找房', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.lianjia.beike",
+             "appActivity": "com.lianjia.activity.MainActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 27, 'app_name': '安居客', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.anjuke.android.app",
+             "appActivity": "com.anjuke.android.app.mainmodule.WelcomeActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 28, 'app_name': '叮咚买菜', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.yaya.zone",
+             "appActivity": "com.yaya.zone.activity.SplashActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 29, 'app_name': '每日优鲜', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "cn.missfresh.application",
+             "appActivity": "cn.missfresh.module.main.view.SplashActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 30, 'app_name': '盒马', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.wudaokou.hippo",
+             "appActivity": "com.wudaokou.hippo.launcher.splash.SplashActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 31, 'app_name': '美团外卖', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.sankuai.meituan.takeoutnew",
+             "appActivity": "com.sankuai.meituan.takeoutnew.ui.page.boot.WelcomeActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 32, 'app_name': '大众点评', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.dianping.v1",
+             "appActivity": "com.dianping.v1.NovaMainActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 33, 'app_name': '饿了么', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "me.ele",
+             "appActivity": "me.ele.Launcher",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 34, 'app_name': '京喜', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.jd.pingou",
+             "appActivity": "com.jd.pingou.MainActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 35, 'app_name': '唯品会', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.achievo.vipshop",
+             "appActivity": "com.achievo.vipshop.activity.LodingActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 36, 'app_name': '淘宝特价版', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.taobao.litetao",
+             "appActivity": "com.taobao.ltao.maintab.MainFrameActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 37, 'app_name': '天猫', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.tmall.wireless",
+             "appActivity": "com.tmall.wireless.splash.TMSplashActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 38, 'app_name': '拼多多商家版', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.xunmeng.merchant",
+             "appActivity": "com.xunmeng.merchant.ui.SplashActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 39, 'app_name': '爱彼迎', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.airbnb.android",
+             "appActivity": "com.airbnb.android.feat.homescreen.HomeActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 40, 'app_name': '携程', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "ctrip.business.splash.CtripSplashActivity",
+             "appActivity": "com.squareup.leakcanary.internal.DisplayLeakActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 41, 'app_name': '飞猪', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.taobao.trip",
+             "appActivity": "com.alipay.mobile.quinox.LauncherActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 42, 'app_name': '新氧', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.youxiang.soyoungapp",
+             "appActivity": "com.soyoung.module_main.ui.SplashActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
+        {'app_id': 43, 'app_name': '京东健康', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "Android",
+             "platformVersion": "10.0",
+             "deviceName": "Q7PRX18B21019283",
+             "appPackage": "com.jd.jdhealth",
+             "appActivity": "com.squareup.leakcanary.internal.DisplayLeakActivity",
+             "noReset": True,
+             "unicodeKeyboard": True,
+             "resetKeyboard": True
+         }, 'actions': []},
     ]
-    try:
-        for app_info in apps:
-            app = App(app_info)
-            app.run()
-    except:
-        import traceback
-        traceback.print_exc()
-        pass
+    #app = App(apps[-2], devic_info={'udid': 'Q7PRX18B21019283', 'deviceName': '华为荣耀', "server_port": "4723"})  # oppo
+    app = App(apps[32], devic_info={'udid':'R8PFLJHUZH5P7LNF','deviceName':'oppo reno4 se',"server_port":"4723"})  # oppo
+    app.run()
+    # try:
+    #     for app_info in apps:
+    #         #app = App(app_info, devicename='Q7PRX18B21019283')  # rongyao
+    #         app = App(app_info, devicename='R8PFLJHUZH5P7LNF')#oppo
+    #         app.run()
+    # except:
+    #     import traceback
+    #     traceback.print_exc()
+    #     pass
 
 test()

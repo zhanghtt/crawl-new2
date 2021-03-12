@@ -4,7 +4,7 @@ import os, time, unittest
 from appium import webdriver
 import socket
 import uuid
-
+from urllib3.util.retry import MaxRetryError
 
 def swipe_down(driver, t=500, n=1):
     '''向下滑动屏幕'''
@@ -28,12 +28,15 @@ def weichat_xiaochengxu(applabel):
 
 
 class App:
-    def __init__(self, app_info, appium_server_url="http://localhost:4723/wd/hub"):
+    def __init__(self, app_info, devic_info):
         self.delay_time = 3
         self.app_info = app_info
+        self.devic_info = devic_info
         self.desired_caps = app_info['desired_capabilities']
+        self.desired_caps['devicename'] = devic_info['deviceName']
+        self.desired_caps['udid'] = devic_info['udid']
         self.actions = app_info['actions']
-        self.appium_server_url = appium_server_url
+        self.appium_server_url = "http://localhost:{}/wd/hub".format(devic_info['server_port'])
         self.driver = None
         self.dns_proxy_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.dns_proxy_socket.settimeout(100000)
@@ -50,20 +53,20 @@ class App:
 
     def start_app(self):
         print("start app: id {}, name {}".format(self.app_info['app_id'],self.app_info['app_name']))
-        self.change_action("app_{}_action_-1_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName']))#open app id is 0
+        self.change_action("app_{}_action_-1_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName'],self.desired_caps['udid']))#open app id is 0
         self.driver = webdriver.Remote(self.appium_server_url, self.desired_caps)
         time.sleep(30)
         self.change_action("None")
 
     def close_app(self):
-        self.change_action("app_{}_action_-2_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName']))#close app id is -2
+        self.change_action("app_{}_action_-2_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName'],self.desired_caps['udid']))#close app id is -2
         webdriver.quit()
         time.sleep(30)
         self.change_action("None")
 
     def go_action(self, action):
         if action['function'].__name__ != "weichat_xiaochengxu":
-            self.change_action("app_{}_action_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(action['id']), str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName']))  # open app id is -1
+            self.change_action("app_{}_action_{}_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(action['id']), str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName'],self.desired_caps['udid']))  # open app id is -1
             action['function'](self.driver)
             time.sleep(action['delay'])
             self.change_action("None")
