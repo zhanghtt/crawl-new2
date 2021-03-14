@@ -1,0 +1,62 @@
+2020-10-26 01:27:03 - spiders.py -[process:MainProcess,threadid:25128]- [line:405] - INFO: Redis<ConnectionPool<Connection<host=192.168.0.117,port=6379,db=0>>>
+2020-10-26 01:27:03 - spiders.py -[process:MainProcess,threadid:25128]- [line:501] - INFO: start monitor success !
+2020-10-26 01:27:03 - spiders.py -[process:MainProcess,threadid:25128]- [line:511] - INFO: start writer success !
+2020-10-26 01:27:03 - log.py -[process:MainProcess,threadid:25128]- [line:144] - INFO: Scrapy 2.3.0 started (bot: scrapybot)
+2020-10-26 01:27:03 - log.py -[process:MainProcess,threadid:25128]- [line:150] - INFO: Versions: lxml 4.5.2.0, libxml2 2.9.5, cssselect 1.1.0, parsel 1.6.0, w3lib 1.22.0, Twisted 20.3.0, Python 3.6.6 (v3.6.6:4cf1f54eb7, Jun 27 2018, 03:37:03) [MSC v.1900 64 bit (AMD64)], pyOpenSSL 19.1.0 (OpenSSL 1.1.1g  21 Apr 2020), cryptography 3.0, Platform Windows-10-10.0.18362-SP0
+2020-10-26 01:27:03 - crawler.py -[process:MainProcess,threadid:25128]- [line:60] - INFO: Overridden settings:
+{'AUTOTHROTTLE_DEBUG': True,
+ 'AUTOTHROTTLE_ENABLED': True,
+ 'AUTOTHROTTLE_TARGET_CONCURRENCY': 100,
+ 'COOKIES_ENABLED': False,
+ 'DOWNLOAD_DELAY': 2.5,
+ 'DOWNLOAD_TIMEOUT': 50,
+ 'DUPEFILTER_CLASS': 'scrapy_redis.dupefilter.RFPDupeFilter',
+ 'LOG_DATEFORMAT': '%y%y-%m-%d %H:%M:%S',
+ 'LOG_ENCODING': 'UTF-8',
+ 'LOG_FILE': 'log.txt',
+ 'LOG_FORMAT': '%(asctime)s - %(filename)s '
+               '-[process:%(processName)s,threadid:%(thread)d]- '
+               '[line:%(lineno)d] - %(levelname)s: %(message)s',
+ 'LOG_LEVEL': 'INFO',
+ 'NEWSPIDER_MODULE': 'jingdong.spiders',
+ 'REDIRECT_ENABLED': False,
+ 'RETRY_HTTP_CODES': [500, 502, 503, 504, 522, 524, 408],
+ 'RETRY_TIMES': 5,
+ 'SCHEDULER': 'scrapy_redis.scheduler.Scheduler',
+ 'SPIDER_MODULES': ['jingdong.spiders'],
+ 'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+               '(KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36'}
+2020-10-26 01:27:03 - warnings.py -[process:MainProcess,threadid:25128]- [line:99] - WARNING: F:\virten\crawl\lib\site-packages\scrapy\utils\deprecate.py:141: ScrapyDeprecationWarning: `scrapy.telnet.TelnetConsole` class is deprecated, use `scrapy.extensions.telnet.TelnetConsole` instead
+  ScrapyDeprecationWarning)
+
+2020-10-26 01:27:04 - middleware.py -[process:MainProcess,threadid:25128]- [line:48] - INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.logstats.LogStats',
+ 'scrapy.extensions.throttle.AutoThrottle',
+ 'jingdong.extensions.RedisSpiderClosedExensions']
+2020-10-26 01:27:04 - spiders.py -[process:MainProcess,threadid:25128]- [line:68] - INFO: Reading start URLs from redis key 'jd_skuid:start_urls' (batch size: 16, encoding: utf-8
+2020-10-26 01:27:04 - downloader_middlewares.py -[process:MainProcess,threadid:25128]- [line:23] - INFO: jd_skuid:http_proxies_queue
+2020-10-26 01:27:04 - middleware.py -[process:MainProcess,threadid:25128]- [line:48] - INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'jingdong.downloader_middlewares.CustomHeadersDownLoadMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'jingdong.downloader_middlewares.ProcessAllExceptionMiddleware',
+ 'jingdong.downloader_middlewares.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware']
+2020-10-26 01:27:05 - middleware.py -[process:MainProcess,threadid:25128]- [line:48] - INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'jingdong.spider_middlewares.ExceptionCheckSpider',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2020-10-26 01:27:05 - middleware.py -[process:MainProcess,threadid:25128]- [line:48] - INFO: Enabled item pipelines:
+['scrapy_redis.pipelines.RedisPipeline']
+2020-10-26 01:27:05 - engine.py -[process:MainProcess,threadid:25128]- [line:267] - INFO: Spider opened
+2020-10-26 01:27:05 - logstats.py -[process:MainProcess,threadid:25128]- [line:48] - INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2020-10-26 01:27:05 - extensions.py -[process:MainProcess,threadid:25128]- [line:35] - INFO: opened spider jd_skuid redis spider Idle, Continuous idle limit： 360
+2020-10-26 01:28:05 - logstats.py -[process:MainProcess,threadid:25128]- [line:48] - INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
