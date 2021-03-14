@@ -548,8 +548,8 @@ def test():
              "platformName": "Android",
              "platformVersion": "10.0",
              "deviceName": "Q7PRX18B21019283",
-             "appPackage": "ctrip.business.splash.CtripSplashActivity",
-             "appActivity": "com.squareup.leakcanary.internal.DisplayLeakActivity",
+             "appPackage": "ctrip.android.view",
+             "appActivity": "ctrip.business.splash.CtripSplashActivity",
              "noReset": True,
              "unicodeKeyboard": True,
              "resetKeyboard": True
@@ -589,16 +589,17 @@ def test():
          }, 'actions': []},
     ]
     #app = App(apps[-2], devic_info={'udid': 'Q7PRX18B21019283', 'deviceName': '华为荣耀', "server_port": "4723"})  # oppo
-    app = App(apps[32], devic_info={'udid':'R8PFLJHUZH5P7LNF','deviceName':'oppo reno4 se',"server_port":"4723"})  # oppo
-    app.run()
-    # try:
-    #     for app_info in apps:
-    #         #app = App(app_info, devicename='Q7PRX18B21019283')  # rongyao
-    #         app = App(app_info, devicename='R8PFLJHUZH5P7LNF')#oppo
-    #         app.run()
-    # except:
-    #     import traceback
-    #     traceback.print_exc()
-    #     pass
+    # app = App(apps[32], devic_info={'udid':'R8PFLJHUZH5P7LNF','deviceName':'oppo reno4 se',"server_port":"4723"})  # oppo
+    # app.run()
+    try:
+        for app_info in apps[:-1]:
+            app = App(app_info, devic_info={'udid': 'R8PFLJHUZH5P7LNF', 'deviceName': 'oppo reno4 se',
+                                            "server_port": "4723"})  # oppo
+            app.run()
+    except:
+        import traceback
+        traceback.print_exc()
+        pass
 
-test()
+for i in range(10000):
+    test()
