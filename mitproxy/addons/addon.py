@@ -35,8 +35,13 @@ class Counter:
     def request(self, flow: mitmproxy.http.HTTPFlow):
         ctx.log.info("=============================")
         try:
-            print('action {} Query for {} at {}'.format(self.state, str(flow.request.data.host),datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))
-            self.writer.insert_one_dict(db_collect=("jicheng", "autopkgcatpure"), data_dict={'action':self.state,'host': str(flow.request.data.host),'time':datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')})
+            print('action {} Query for {} at {}'.format(self.state, flow.request.data.host.decode(),datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')))
+            if self.state and self.state != 'None' and self.state != 'none':
+                action_info = self.state.decode('utf8').split("_")
+                self.writer.insert_one_dict(db_collect=("jicheng", "autopkgcatpure"),
+                                            data_dict={"app_id":action_info[1],'action_id':action_info[3],'session_id':action_info[4],
+                                            'host': flow.request.data.host.decode(),'time':datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+                                                , 'app_name': action_info[4],'platform':action_info[5]})
         except Exception as e:
             print(flow.request.data.host)
             ctx.log.info("Error: %s" % flow.request)
