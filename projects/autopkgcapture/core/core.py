@@ -5,16 +5,12 @@ from appium  import webdriver
 import socket
 
 
-class ActionStrategy:
-    def __init__(self):
-        pass
-
-
 class App:
-    def __init__(self, desired_caps, strategy_list=None, appium_server_url="http://localhost:4723/wd/hub"):
-        self.delay_time=3
-        self.desired_caps = desired_caps
-        self.strategy_list = strategy_list
+    def __init__(self, app_info, appium_server_url="http://localhost:4723/wd/hub"):
+        self.delay_time = 3
+        self.app_info = app_info
+        self.desired_caps = app_info['desired_capabilities']
+        self.actions = app_info['actions']
         self.appium_server_url = appium_server_url
         self.driver = None
         self.dns_proxy_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -30,33 +26,31 @@ class App:
         self.dns_proxy_socket.sendto(atcion.encode('ascii'), ('localhost',10053))
 
     def start_app(self):
-        self.setup()
-        self.change_action("start_app")
+        self.change_action("app_{}_action_-1".format(self.app_info['app_id']))#open app id is 0
         self.driver = webdriver.Remote(self.appium_server_url, self.desired_caps)
-        time.sleep(3)
+        self.driver.find
+        time.sleep(20)
         self.change_action("None")
-        self.cleanup()
+
+    def close_app(self):
+        self.change_action("app_{}_action_-2".format(self.app_info['app_id']))#close app id is -2
+        webdriver.quit()
+        time.sleep(20)
+        self.change_action("None")
+
+    def go_action(self, action):
+        self.change_action("app_{}_action_{}".format(self.app_info['app_id'], str(action['id'])))  # open app id is -1
+        print(action)
+        action['function'](self.driver)
+        time.sleep(action['delay'])
+        self.change_action("None")
+
+    def run(self):
+        self.start_app()
+        for action in self.actions:
+            self.go_action(action)
+        self.close_app()
 
     def close_app(self):
         self.driver.quit()
 
-    def run(self):
-        pass
-
-
-def test():
-    desired_caps = {}
-    desired_caps['platformName'] = 'Android'  # 设备系统
-    desired_caps['platformVersion'] = '10.0'  # 设备系统版本
-    desired_caps['deviceName'] = 'Q7PRX18B21019283'  # 设备名称
-    # desired_caps['app'] = PATH(r"E:\tests\GuoYuB2B_2.1.apk")
-    desired_caps['appPackage'] = 'com.taobao.taobao'
-    desired_caps['appActivity'] = 'com.taobao.tao.welcome.Welcome'
-    # desired_caps['app']='C:\\Users\\admin\\Downloads\\com.taobao.taobao_V9.21.1.apk'
-    desired_caps['noReset'] = 'True'
-    desired_caps['unicodeKeyboard'] = 'True'
-    desired_caps['resetKeyboard'] = 'True'
-    app = App(desired_caps)
-    app.start_app()
-
-test()
