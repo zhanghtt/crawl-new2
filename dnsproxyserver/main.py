@@ -2,7 +2,7 @@
 This script is the server itself. In order to run the server you must run this
 script
 """
-from dnsproxyserver.server import *
+from dnsproxyserver.server1 import *
 
 
 def main():

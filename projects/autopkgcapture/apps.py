@@ -1,84 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from projects.autopkgcapture.core.core import App,weichat_xiaochengxu
+from projects.autopkgcapture.core.core import AppWraper, weichat_xiaochengxu
 import time
-apps = [{'app_id':1,
-        'desired_capabilities':{
-        "platformName": "Android",
-        "platformVersion": "10.0",
-        "deviceName": "Q7PRX18B21019283",
-        "appPackage": "com.taobao.taobao",
-        "appActivity": "com.taobao.tao.welcome.Welcome",
-        "noReset": True,
-        "unicodeKeyboard": True,
-        "resetKeyboard": True
-    },'actions':[]},
-        {'app_id': 2,
-         'desired_capabilities': {
-             "platformName": "Android",
-             "platformVersion": "10.0",
-             "deviceName": "Q7PRX18B21019283",
-             "appPackage": "com.jingdong.app.mall",
-             "appActivity": "com.jingdong.app.mall.main.MainActivity",
-             "noReset": True,
-             "unicodeKeyboard": True,
-             "resetKeyboard": True
-         }, 'actions': []},
-{'app_id':1,
-        'desired_capabilities':{
-        "platformName": "Android",
-        "platformVersion": "10.0",
-        "deviceName": "Q7PRX18B21019283",
-        "appPackage": "com.tencent.mm",
-        "appActivity": "com.tencent.mm.ui.LauncherUI",
-        "noReset": True,
-        "unicodeKeyboard": True,
-        "resetKeyboard": True
-    },'actions':[{'function':lambda driver : driver.find_element_by_id('com.tencent.mm:id/he6').click(), 'id':1, 'delay':10, 'desc':'点击搜索'},
-                 {'function':lambda driver : driver.find_element_by_id('com.tencent.mm:id/bxz').send_keys('文件传输助手'), 'id':2, 'delay':10, 'desc':'输入搜索内容'},
-                 {'function':lambda driver : driver.find_element_by_id('com.tencent.mm:id/ir3').click(), 'id':3, 'delay':10, 'desc':'点击搜索到的内容'},
-                 {'function': lambda driver: driver.find_element_by_id('com.tencent.mm:id/auj').send_keys('hello'), 'id': 4,'delay': 10, 'desc': '输入文字'},
-                 {'function': lambda driver: driver.find_element_by_id('com.tencent.mm:id/ay9').click(),'id': 5, 'delay': 10, 'desc': '打开表情'},
-                 {'function': lambda driver: driver.find_element_by_id('com.tencent.mm:id/ur').click(),'id': 6, 'delay': 10, 'desc': '选择表情'},
-                 {'function': lambda driver: driver.find_element_by_id('com.tencent.mm:id/ay5').click(),'id': 7, 'delay': 10, 'desc': '发送信息'},
-                 ]},
-{'app_id':3,
-        'desired_capabilities':{
-        'automationName': 'uiautomator2',
-        "platformName": "Android",
-        "platformVersion": "10.0",
-        "deviceName": "Q7PRX18B21019283",
-        "appPackage": "com.tencent.mm",
-        "appActivity": "com.tencent.mm.ui.LauncherUI",
-        "noReset": True,
-        "unicodeKeyboard": True,
-        "resetKeyboard": True,
-        'chromeOptions': {'androidProcess':'com.tencent.mm:appbrand0'}
-    },'actions':[{'function':weichat_xiaochengxu("京东购物"), 'id':1, 'delay':5, 'desc':'点击搜索'}]}
-        ]
+
+
 def test():
-    taobao_andriod = {'app_id':1,'app_name':'淘宝','platform':"Android",
-        'desired_capabilities':{
-        "platformName": "Android",
-        "platformVersion": "10.0",
-        "deviceName": "Q7PRX18B21019283",
-        "appPackage": "com.taobao.taobao",
-        "appActivity": "com.taobao.tao.welcome.Welcome",
-        "noReset": True,
-        "unicodeKeyboard": True,
-        "resetKeyboard": True
-    },'actions':[]}
-    jd_andriod = {'app_id':2,'app_name':'京东','platform':"Android",
-        'desired_capabilities':{
-        "platformName": "Android",
-        "platformVersion": "10.0",
-        "deviceName": "Q7PRX18B21019283",
-        "appPackage": "com.jingdong.app.mall",
-        "appActivity": "com.jingdong.app.mall.main.MainActivity",
-        "noReset": True,
-        "unicodeKeyboard": True,
-        "resetKeyboard": True
-    },'actions':[]}
     wechat_andriod = {'app_id':1,
         'desired_capabilities':{
         "platformName": "Android",
@@ -112,7 +38,7 @@ def test():
         'chromeOptions': {'androidProcess':'com.tencent.mm:appbrand0'}
     },'actions':[{'function':weichat_xiaochengxu("京东购物"), 'id':1, 'delay':10, 'desc':'打开小程序京东购物'}]}
 
-    apps = [
+    app_infos = [
         {'app_id': 1, 'app_name': '淘宝', 'platform': "Android",
          'desired_capabilities': {
              "platformName": "Android",
@@ -122,7 +48,8 @@ def test():
              "appActivity": "com.taobao.tao.welcome.Welcome",
              "noReset": True,
              "unicodeKeyboard": True,
-             "resetKeyboard": True
+             "resetKeyboard": True,
+             #'adbExecTimeout':200000
          }, 'actions': []},
         {'app_id': 2, 'app_name': '京东', 'platform': "Android",
          'desired_capabilities': {
@@ -474,6 +401,7 @@ def test():
              "appPackage": "me.ele",
              "appActivity": "me.ele.Launcher",
              "noReset": True,
+             "automationName":"uiautomator2",
              "unicodeKeyboard": True,
              "resetKeyboard": True
          }, 'actions': []},
@@ -582,24 +510,30 @@ def test():
              "platformVersion": "10.0",
              "deviceName": "Q7PRX18B21019283",
              "appPackage": "com.jd.jdhealth",
-             "appActivity": "com.squareup.leakcanary.internal.DisplayLeakActivity",
+             "appActivity": "com.jd.jdhealth.ui.activity.SplashActivity",
              "noReset": True,
              "unicodeKeyboard": True,
-             "resetKeyboard": True
+             "resetKeyboard": False
          }, 'actions': []},
     ]
-    #app = App(apps[-2], devic_info={'udid': 'Q7PRX18B21019283', 'deviceName': '华为荣耀', "server_port": "4723"})  # oppo
-    # app = App(apps[32], devic_info={'udid':'R8PFLJHUZH5P7LNF','deviceName':'oppo reno4 se',"server_port":"4723"})  # oppo
-    # app.run()
-    try:
-        for app_info in apps[:-1]:
-            app = App(app_info, devic_info={'udid': 'R8PFLJHUZH5P7LNF', 'deviceName': 'oppo reno4 se',
-                                            "server_port": "4723"})  # oppo
-            app.run()
-    except:
-        import traceback
-        traceback.print_exc()
-        pass
+    devic_infos = [{'udid': 'R8PFLJHUZH5P7LNF', 'deviceName': 'oppo reno4 se',"server_port": "4723", 'restart_wifi':'false', 'mode':'usb','wifiudid':'192.168.50.111:5555','record_enable':True},
+                   {'udid': 'Q7PRX18B21019283', 'deviceName': 'rongyao', "server_port": "4724", 'mode':'usb','wifiudid':'192.168.50.160:5555','record_enable':True},
+                   {'udid': 'U4QSYDWC8X4LYDCM', 'deviceName': 'vivo icoo u3', "server_port": "4725", 'restart_wifi': 'false', 'mode':'usb','wifiudid':'192.168.50.120:5555','record_enable':True},]
+                   #{'udid': 'U4QSYDWC8X4LYDCM', 'deviceName': 'iphone x'}]
 
-for i in range(10000):
+    for devic_info in devic_infos[:]:
+        try:
+            for app_info in app_infos[:]:
+                app = AppWraper(app_info, devic_info=devic_info)
+                app.run()
+        except:
+            import traceback
+            traceback.print_exc()
+            pass
+
+
+for epoch in range(10000):
     test()
+
+
+
