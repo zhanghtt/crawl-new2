@@ -13,22 +13,16 @@ with op.DBManger() as m:
     skuid_set = set()
     pipeline = [
         {
-            "$match": {
-                "$and": [{"_status": 0}, {"skuid": {"$ne": None}}]
-            }
-        },
-        {
             "$project": {
-                "skuid": "$skuid",
+                "app_id": "$app_id",
             }
         },
     ]
-    # last_sep = m.get_lasted_collection("jingdong", filter={"name": {"$regex": r"^jdskuid20\d\d\d\d\d\d_sep$"}})
-    # for table in m.list_tables(dbname="jingdong",filter={"name": {"$regex": r"^jdskuid(20\d\d\d\d\d\d)retry\d*$"}}):
-    last_sep = m.get_lasted_collection("jingdong",
-                                       filter={"name": {"$regex": r"^jdsearchbyseed20210118_sep"}})
-    for table in m.list_tables(dbname="jingdong",
-                               filter={"name": {"$regex": r"^jdsearchbyseed20210118retry\d*$"}}):
-        if not last_sep or table > last_sep:
-            for item in m.read_from(db_collect=("jingdong", table), out_field=("skuid",), pipeline=pipeline):
-                skuid_set.add(int(item[0]))
+    for item in m.read_from_yield(db_collect=("jicheng", "autopkgcatpure"), out_field=("app_id",), pipeline=pipeline):
+        pass
+
+
+import wda
+w = wda.Client("")
+s = w.session()
+s.close()

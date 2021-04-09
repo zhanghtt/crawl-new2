@@ -171,6 +171,16 @@ def run_result():
                 price_item["brand_id"] = "0"
                 price_item["ziying"] = "-1"
                 price_item["type"] = 7
+            else:
+                price_item = result_dic[int(skuid)]
+                if 'type' not in price_item:
+                    price_item["clean_price"] = last_month_skuids[skuid]["clean_price"]
+                    price_item["comments"] = last_month_skuids[skuid]["comments"]
+                    price_item["cate_id"] = last_month_skuids[skuid]["cate_id"]
+                    price_item["brand_id"] = last_month_skuids[skuid]["brand_id"]
+                    price_item["ziying"] = last_month_skuids[skuid]["ziying"]
+                    price_item["type"] = 8
+
         this_month = timeUtil.get_month(deltamonth=1,current_month=last_month)
         out_table = "month" + this_month
         print("step 6: processing writing result to {}".format(out_table), flush=True)
@@ -184,6 +194,8 @@ def run_result():
             result_dic[k]["month"] = this_month
             if "cate_id" in result_dic[k]:
                 buffer.append(result_dic[k])
+            else:
+                print(result_dic[k])
             if i % buffer_size == 0 and buffer:
                 m.insert_many_dict(db_collect=("jingdong",out_table), data_dict_list=buffer)
                 buffer = []

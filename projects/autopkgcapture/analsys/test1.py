@@ -7,7 +7,7 @@ with op.DBManger() as m:
     # 创建临时表本月任务的分界线
     skuid = {}
     hosts = {}
-    for item in m.read_from(db_collect=("jicheng", "autopkgcatpure"), out_field=("app_id","session_id","host","time")):
+    for item in m.read_from(db_collect=("jicheng", "autopkgcatpure20210329"), out_field=("app_id","session_id","host","time"),pipeline=[{"$match":{"devicename":"rongyao"}}]):
         app_id, session_id, host, date = item
         day = date[:10]
         if not fatt.findall(host):

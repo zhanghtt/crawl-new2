@@ -1,1 +1,2 @@
 aapt d badging C:\Users\admin\Downloads\123_ac07496b4d6d5d21f188bf2fb77bd6fc.apk|findstr "package activity"
+rongyao,opp,vivo adb tcpip 5555/adb connect 192.168.50.120:5555,adb tcpip 5555/adb connect 192.168.50.111:5555,adb tcpip 5555/adb connect 192.168.50.121:5555,

@@ -152,8 +152,8 @@ class DBManger(object):
     def date_tuple_to_db(self, date_tuple_list, db_collect, fields_tupe, buffer_size=64,
                          attach_dict=None, show_pbar=False, pbar_name=None):
         cache = []
+        safe_attach_dict = {}
         if attach_dict:
-            safe_attach_dict = {}
             for key in attach_dict.keys():
                 if key in fields_tupe:
                     safe_attach_dict["_" + key] = attach_dict[key]
