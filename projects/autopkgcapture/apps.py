@@ -513,14 +513,16 @@ def test():
              "appActivity": "com.jd.jdhealth.ui.activity.SplashActivity",
              "noReset": True,
              "unicodeKeyboard": True,
-             "resetKeyboard": False
+             "resetKeyboard": False,
+             'takesScreenshot':False,
          }, 'actions': []},
     ]
     devic_infos = [{'udid': 'R8PFLJHUZH5P7LNF', 'deviceName': 'oppo reno4 se',"server_port": "4723", 'restart_wifi':'false', 'mode':'usb','wifiudid':'192.168.50.111:5555','record_enable':True},
                    {'udid': 'Q7PRX18B21019283', 'deviceName': 'rongyao', "server_port": "4724", 'mode':'usb','wifiudid':'192.168.50.160:5555','record_enable':True},
                    {'udid': 'U4QSYDWC8X4LYDCM', 'deviceName': 'vivo icoo u3', "server_port": "4725", 'restart_wifi': 'false', 'mode':'usb','wifiudid':'192.168.50.120:5555','record_enable':True},]
                    #{'udid': 'U4QSYDWC8X4LYDCM', 'deviceName': 'iphone x'}]
-
+    import random
+    app_infos = random.choices(app_infos)[0:31]
     for devic_info in devic_infos[:]:
         try:
             for app_info in app_infos[:]:
@@ -530,6 +532,7 @@ def test():
             import traceback
             traceback.print_exc()
             pass
+
 
 
 for epoch in range(10000):
