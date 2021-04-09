@@ -587,13 +587,21 @@ def test():
              "unicodeKeyboard": True,
              "resetKeyboard": True
          }, 'actions': []},
+        {'app_id': 44, 'app_name': '京东健康', 'platform': "Android",
+         'desired_capabilities': {
+             "platformName": "ios",
+             "platformVersion": "14.3",
+             "deviceName": "iPhone10,3",
+             "bundleId": "com.tencent.xin",
+             "udid": "d80f6d476f0aace3d4ebc0a10ba6b056bd7e9d3f",
+         }, 'actions': []},
     ]
     #app = App(apps[-2], devic_info={'udid': 'Q7PRX18B21019283', 'deviceName': '华为荣耀', "server_port": "4723"})  # oppo
     # app = App(apps[32], devic_info={'udid':'R8PFLJHUZH5P7LNF','deviceName':'oppo reno4 se',"server_port":"4723"})  # oppo
     # app.run()
     try:
-        for app_info in apps[:-1]:
-            app = App(app_info, devic_info={'udid': 'R8PFLJHUZH5P7LNF', 'deviceName': 'oppo reno4 se',
+        for app_info in apps[-1:]:
+            app = App(app_info, devic_info={'udid': 'd80f6d476f0aace3d4ebc0a10ba6b056bd7e9d3f', 'deviceName': 'oppo reno4 se',
                                             "server_port": "4723"})  # oppo
             app.run()
     except:
@@ -601,5 +609,11 @@ def test():
         traceback.print_exc()
         pass
 
-for i in range(10000):
-    test()
+# for i in range(10000):
+#     test()
+import wda
+c = wda.Client("http://192.168.1.2:8100")
+s = c.session(bundle_id="com.tencent.xin")
+import time
+time.sleep(10)
+s.close()
