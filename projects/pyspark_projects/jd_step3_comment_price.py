@@ -53,6 +53,6 @@ if __name__=='__main__':
         df = df.groupBy(['skuid','month']).agg(F.avg('price').alias('price'))
         tmp = spark.read.format("mongo").option("uri", "mongodb://192.168.0.13:27017/jingdong.dyf_comment").option(
             "spark.mongodb.input.partitioner", "MongoSplitVectorPartitioner").schema(StructType(
-            [StructField("skuid", IntegerType(), True), StructField("comment", StringType(), True), StructField("month", StringType(), True)])).load().filter("month={}".format(month))
+            [StructField("skuid", IntegerType(), True), StructField("comment", IntegerType(), True), StructField("month", StringType(), True)])).load().filter("month={}".format(month))
         df = df.join(tmp, [df.month == tmp.month,df.skuid == tmp.skuid], 'right').select([tmp.month, tmp.skuid, tmp.comment, df.price])
         df.write.format('mongo').option("uri", "mongodb://192.168.0.13:27017/jingdong.dyf_comment_price").mode("append").save()#overwrite
