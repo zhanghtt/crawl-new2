@@ -31,7 +31,7 @@ if __name__=='__main__':
             tmp = spark.read.format("mongo").option("uri","mongodb://192.168.0.13:27017/jingdong.{}".format(table)).\
                 option("spark.mongodb.input.partitioner","MongoSplitVectorPartitioner").schema(StructType([StructField("skuid", IntegerType(), True),StructField("comment", StringType(), True)])).load().filter("comment > '0'").select(['skuid','comment']).withColumn('comment',F.col('comment').cast(IntegerType())).withColumn('month', F.lit('202102'))
             df = df.unionAll(tmp)
-        df = df.groupBy(['skuid','month']).agg(F.max('comment')).alias('comment')
+        df = df.groupBy(['skuid','month']).agg(F.max('comment').alias('comment'))
         dyf_skuid = spark.read.format("mongo").option("uri","mongodb://192.168.0.13:27017/jingdong.dyf_skuid").option("spark.mongodb.input.partitioner","MongoSplitVectorPartitioner").schema(StructType([StructField("skuid", IntegerType(), True)])).load().withColumn('month', F.lit('202102')).distinct()
         df = df.join(dyf_skuid,[df.month==dyf_skuid.month,df.skuid==dyf_skuid.skuid],'right').select([dyf_skuid.month,dyf_skuid.skuid,df.comment])
         df.write.format('mongo').option("uri", "mongodb://192.168.0.13:27017/jingdong.dyf_comment").mode("append").save()

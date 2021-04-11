@@ -49,7 +49,7 @@ if __name__=='__main__':
             tmp = spark.read.format("mongo").option("uri","mongodb://192.168.0.13:27017/jingdong.{}".format(table)).option("spark.mongodb.input.partitioner","MongoSplitVectorPartitioner").load().filter('_status=0').select(['id','p','op','cbf','l','m','op','p','tpp','up'])
             tmp = tmp.withColumn("price", clean_price(array('p','op','cbf','l','m','op','p','tpp','up'))).withColumn('skuid',F.col('id').cast(IntegerType())).select('skuid','price').withColumn('month', F.lit('202102'))
             df = df.unionAll(tmp)
-        df = df.groupBy(['skuid','month']).agg(F.avg('price')).alias('price')
+        df = df.groupBy(['skuid','month']).agg(F.avg('price').alias('price'))
         tmp = spark.read.format("mongo").option("uri", "mongodb://192.168.0.13:27017/jingdong.dyf_comment").option(
             "spark.mongodb.input.partitioner", "MongoSplitVectorPartitioner").schema(StructType(
             [StructField("skuid", IntegerType(), True), StructField("comment", StringType(), True), StructField("month", StringType(), True)])).load()
