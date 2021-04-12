@@ -1,0 +1,20 @@
+2020-11-13 19:09:05,306 - spider.py - MainProcess - [line:122] - INFO: output_db_collection: jingdong,jdcommentdetail20201113retry1
+2020-11-13 19:09:05,367 - spider.py - MainProcess - [line:349] - INFO: (0, 'http://u29:crawl@192.168.0.72:3128')
+2020-11-13 19:10:24,981 - spider.py - MainProcess - [line:122] - INFO: output_db_collection: jingdong,jdcommentdetail20201113retry1
+2020-11-13 19:10:25,056 - spider.py - MainProcess - [line:349] - INFO: (0, 'http://u5:crawl@192.168.0.74:3128')
+2020-11-13 19:11:18,541 - spider.py - MainProcess - [line:122] - INFO: output_db_collection: jingdong,jdcommentdetail20201113retry1
+2020-11-13 19:11:18,624 - spider.py - MainProcess - [line:350] - INFO: (0, 'http://u25:crawl@192.168.0.77:3128')
+2020-11-13 19:11:39,446 - spider.py - MainProcess - [line:122] - INFO: output_db_collection: jingdong,jdcommentdetail20201113retry1
+2020-11-13 19:11:39,519 - spider.py - MainProcess - [line:350] - INFO: (0, 'http://u26:crawl@192.168.0.73:3128')
+2020-11-13 19:11:44,843 - spider.py - MainProcess - [line:122] - INFO: output_db_collection: jingdong,jdcommentdetail20201113retry1
+2020-11-13 19:11:44,906 - spider.py - MainProcess - [line:350] - INFO: (0, 'http://u6:crawl@192.168.0.73:3128')
+2020-11-13 19:17:01,096 - spider.py - MainProcess - [line:358] - ERROR: 
+Traceback (most recent call last):
+  File "D:\Users\admin\PycharmProjects\crawl-new2\multiprocess\core\spider.py", line 356, in run
+    seed = self.fetch_task(self.complete_timeout)
+  File "D:\Users\admin\PycharmProjects\crawl-new2\multiprocess\core\spider.py", line 129, in fetch_task
+    seed = self.seeds_queue.get(timeout=timeout)
+  File "D:\Programs\Python\Python37\lib\multiprocessing\queues.py", line 105, in get
+    raise Empty
+_queue.Empty
+2020-11-13 19:17:01,097 - spider.py - MainProcess - [line:359] - INFO: fetch task over time {}, spider will shutdown normally!
