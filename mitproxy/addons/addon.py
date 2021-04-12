@@ -12,7 +12,6 @@ class Counter:
     def __init__(self):
         self.num = 0
         self.state = None
-        self.session_uid = None
         thread.start_new_thread(self.receive_ation,(None,))
         self.writer = op.DBManger()
 

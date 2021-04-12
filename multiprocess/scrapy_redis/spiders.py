@@ -136,6 +136,7 @@ class ThreadWriter(threading.Thread):
             while not self.stop:
                 current_element = self.redis.lpop(self.redis_key)
                 if current_element:
+                    self.logger.info(current_element)
                     self.write(current_element)
                     retries = self.stop_epoch
                 else:

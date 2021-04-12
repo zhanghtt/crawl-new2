@@ -1,29 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from pyspark.sql import SparkSession
 from pyspark import SparkConf
 from mongo import op
-from pyspark.sql.functions import udf, array
-from pyspark.sql.types import DoubleType,StructType,Row
-import re
-
-price_pattern = re.compile(r'^\d+\.\d\d$')
-
-
-@udf(returnType=DoubleType())
-def clean_price(item):
-    price_tmp = []
-    for key in item:
-        current_value = str(item[key])
-        str_price_list = price_pattern.findall(current_value)
-        if str_price_list and str_price_list[0] != "-1.00":
-            price_tmp.append(float(str_price_list[0]))
-    if price_tmp:
-        price = min(price_tmp)
-    else:
-        price = 79.90
-    return price
-
 
 if __name__=='__main__':
     myconf = SparkConf()
@@ -35,7 +14,7 @@ if __name__=='__main__':
     myconf.set('spark.task.cpus','4')
 
     # 指定连接器对应的spark-package
-    myconf.set("spark.jars.packages","org.mongodb.spark:mongo-spark-connector_2.11:3.0.0")
+    myconf.set("spark.jars.packages","org.mongodb.spark:mongo-spark-connector_2.11:2.4.1")
     # 指定mongo地址，需要每个工作节点都能访问到
     #myconf.set("spark.mongodb.input.uri","mongodb://192.168.0.13:27017/")
     # 设置要读取的dbs名和collection名
@@ -61,11 +40,8 @@ if __name__=='__main__':
 
         for table in tables:
             tmp = spark.read.format("mongo").option("uri","mongodb://192.168.0.13:27017/jingdong.{}".format(table)).\
-                option("spark.mongodb.input.partitioner","MongoSplitVectorPartitioner").schema(schema).load().filter("shop_name is not null and shop_name=='京东大药房'").select(['skuid','shop_name']).distinct().withColumn
+                option("spark.mongodb.input.partitioner","MongoSplitVectorPartitioner").schema(schema).load().filter("shop_name is not null and shop_name=='京东大药房'").select(['skuid','shop_name']).distinct()
             df = df.unionAll(tmp)
         df = df.distinct()
         df.write.format('mongo').option("uri", "mongodb://192.168.0.13:27017/jingdong.dyf_skuid").mode("overwrite").save()
-        df.registerTempTable("dyf_skuid")
-        dyf_df = spark.sql("select skuid from dyf_skuid where shopid=1000015441")
-        dyf_df.write.format('mongo').option("uri","mongodb://192.168.0.13:27017/jingdong.dyf").mode("append").save()
-        spark.stop()
+        spark.stop

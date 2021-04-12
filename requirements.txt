@@ -11,3 +11,4 @@ six
 tqdm
 psutil
 scrapy
+mitmproxy==5.0.0
