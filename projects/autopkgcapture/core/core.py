@@ -4,7 +4,6 @@ import os, time, unittest
 from appium import webdriver
 import socket
 import uuid
-from urllib3.util.retry import MaxRetryError
 import wda
 
 
@@ -34,10 +33,13 @@ class IOSApp:
         self.app_info = app_info
         self.devic_info = devic_info
         self.desired_caps = app_info['desired_capabilities']
+        self.desired_caps['platformName'] = devic_info['platformName']
+        self.desired_caps['platformVersion'] = devic_info['platformVersion']
         self.desired_caps['deviceName'] = devic_info['deviceName']
-        self.desired_caps['udid'] = devic_info['wifiudid']
+        self.desired_caps['udid'] = devic_info['udid']
         self.actions = app_info['actions']
-        self.driver = wda.Client("http://localhost:8100")
+        #self.driver = wda.Client("http://localhost:8100")
+        self.driver = wda.USBClient(udid=self.desired_caps['udid'])
         self.session = None
         self.dns_proxy_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.dns_proxy_socket.settimeout(100000)
@@ -53,21 +55,22 @@ class IOSApp:
             self.dns_proxy_socket.sendto(atcion.encode('utf8'), ('localhost', 10053))
 
     def start_app(self):
-        print("start app: id {}, name {}".format(self.app_info['app_id'],self.app_info['app_name']))
-        self.change_action("app_{}_action_-1_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName'],self.desired_caps['udid']))#open app id is 0
+        print("start app: id {}, name {}, deviceName {}".format(self.app_info['app_id'], self.app_info['app_name'],
+                                                                self.desired_caps['deviceName']))
+        self.change_action("app_{}_action_-1_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.desired_caps['platformName'],self.desired_caps['deviceName'],self.desired_caps['udid']))#open app id is 0
         self.session = self.driver.session(self.desired_caps['bundleId'])
         time.sleep(30)
         self.change_action("None")
 
     def close_app(self):
-        self.change_action("app_{}_action_-2_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName'],self.desired_caps['udid']))#close app id is -2
+        self.change_action("app_{}_action_-2_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.desired_caps['platformName'],self.desired_caps['deviceName'],self.desired_caps['udid']))#close app id is -2
         self.session.close()
-        time.sleep(30)
+        time.sleep(3)
         self.change_action("None")
 
     def go_action(self, action):
         if action['function'].__name__ != "weichat_xiaochengxu":
-            self.change_action("app_{}_action_{}_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(action['id']), str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName'],self.desired_caps['udid']))  # open app id is -1
+            self.change_action("app_{}_action_{}_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(action['id']), str(uuid.uuid1()),self.app_info['app_name'],self.desired_caps['platformName'],self.desired_caps['deviceName'],self.desired_caps['udid']))  # open app id is -1
             action['function'](self.driver)
             time.sleep(action['delay'])
             self.change_action("None")
@@ -90,6 +93,8 @@ class AndriodApp:
         self.app_info = app_info
         self.devic_info = devic_info
         self.desired_caps = app_info['desired_capabilities']
+        self.desired_caps['platformName'] = devic_info['platformName']
+        self.desired_caps['platformVersion'] = devic_info['platformVersion']
         self.desired_caps['deviceName'] = devic_info['deviceName']
         if 'mode' in devic_info and devic_info.get('mode') == 'wifi':
             self.desired_caps['udid'] = devic_info['wifiudid']
@@ -120,21 +125,21 @@ class AndriodApp:
             self.dns_proxy_socket.sendto(atcion.encode('utf8'), ('localhost', 10053))
 
     def start_app(self):
-        print("start app: id {}, name {}".format(self.app_info['app_id'],self.app_info['app_name']))
-        self.change_action("app_{}_action_-1_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName'],self.desired_caps['udid']))#open app id is 0
+        print("start app: id {}, name {}, deviceName {}".format(self.app_info['app_id'], self.app_info['app_name'],self.desired_caps['deviceName']))
+        self.change_action("app_{}_action_-1_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.desired_caps['platformName'],self.desired_caps['deviceName'],self.desired_caps['udid']))#open app id is 0
         self.driver = webdriver.Remote(self.appium_server_url, self.desired_caps)
         time.sleep(30)
         self.change_action("None")
 
     def close_app(self):
-        self.change_action("app_{}_action_-2_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName'],self.desired_caps['udid']))#close app id is -2
+        self.change_action("app_{}_action_-2_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(uuid.uuid1()),self.app_info['app_name'],self.desired_caps['platformName'],self.desired_caps['deviceName'],self.desired_caps['udid']))#close app id is -2
         webdriver.quit()
         time.sleep(30)
         self.change_action("None")
 
     def go_action(self, action):
         if action['function'].__name__ != "weichat_xiaochengxu":
-            self.change_action("app_{}_action_{}_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(action['id']), str(uuid.uuid1()),self.app_info['app_name'],self.app_info['platform'],self.desired_caps['deviceName'],self.desired_caps['udid']))  # open app id is -1
+            self.change_action("app_{}_action_{}_{}_{}_{}_{}_{}".format(self.app_info['app_id'], str(action['id']), str(uuid.uuid1()),self.app_info['app_name'],self.desired_caps['platformName'],self.desired_caps['deviceName'],self.desired_caps['udid']))  # open app id is -1
             action['function'](self.driver)
             time.sleep(action['delay'])
             self.change_action("None")
@@ -155,12 +160,10 @@ class AndriodApp:
 
 class AppWraper:
     def __init__(self, app_info, devic_info):
-        if app_info['desired_capabilities']["platformName"].lower() == "ios":
+        if devic_info["platformName"].lower() == "ios":
             self.app = IOSApp(app_info, devic_info)
-        elif app_info['desired_capabilities']["platformName"].lower() == "android":
+        elif devic_info["platformName"].lower() == "android":
             self.app = AndriodApp(app_info, devic_info)
 
     def run(self):
         self.app.run()
-
-print(weichat_xiaochengxu.__name__)
